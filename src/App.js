@@ -1,5 +1,6 @@
 import 'antd/dist/antd.css';
 import './App.css';
+import HeaderComp from './HeaderComp';
 
 import { Layout } from 'antd';
 const { Header, Content, Sider } = Layout;
@@ -8,10 +9,7 @@ const { Header, Content, Sider } = Layout;
 function App() {
   return (
     <Layout>
-
-      <Header className="header">
-        <h1 style={{ textAlign: 'center' }}>Header</h1>
-      </Header>
+      <HeaderComp/>
       <Layout>
 
         <Sider width={250} className="site-layout-background siderConteiner">
@@ -27,7 +25,7 @@ function App() {
 
         </Layout>
       </Layout>
-    </Layout>
+    </Layout>  
   );
 }
 
