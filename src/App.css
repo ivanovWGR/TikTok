@@ -1,5 +1,30 @@
-.center {
-  text-align: center;
-  color:red;
-  text-shadow: 1px 1px black;
- }
+/* Layout css */
+.site-layout-background {
+  background: #fff;
+}
+
+.ant-layout{
+ background-color: #fff;
+}
+
+.header {
+  background: #fff;
+  margin-bottom: 10px;
+}
+
+.contentContainer {
+  padding: 24;
+  margin: 0;
+  min-height: 280;
+}
+
+.siderConteiner {
+  margin-left: 100px;
+  padding-top: 26px;
+  margin-right: 20px;
+}
+
+.siderWrapper{
+  border-right: 0;
+  height: 100%;
+}

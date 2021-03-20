@@ -1,14 +1,33 @@
+import 'antd/dist/antd.css';
 import './App.css';
+
+import { Layout } from 'antd';
+const { Header, Content, Sider } = Layout;
+
 
 function App() {
   return (
-    <>
-      <h1 className='center'>Let's Start</h1>
-      <h3 className='center'>Tik-Tok implementation</h3>
-      <p className='center' style={{ color: 'grey' }}>First react App</p>
-      <br />
-      <hr />
-    </>
+    <Layout>
+
+      <Header className="header">
+        <h1 style={{ textAlign: 'center' }}>Header</h1>
+      </Header>
+      <Layout>
+
+        <Sider width={250} className="site-layout-background siderConteiner">
+          <div className='siderWrapper'>
+            <h1>Side bar</h1>
+          </div>
+        </Sider>
+        <Layout style={{ padding: '0 24px 24px' }}>
+
+          <Content className="site-layout-background contentContainer">
+            <h1 style={{ marginLeft: '230px' }}>Content</h1>
+          </Content>
+
+        </Layout>
+      </Layout>
+    </Layout>
   );
 }
 
