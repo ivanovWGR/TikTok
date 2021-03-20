@@ -22,7 +22,7 @@ function App() {
         <Layout style={{ padding: '0 24px 24px' }}>
 
           <Content className="site-layout-background contentContainer">
-            <h1 style={{ marginLeft: '230px' }}>Content</h1>
+            <h1 style={{ marginLeft: '235px' }}>Content</h1>
           </Content>
 
         </Layout>
