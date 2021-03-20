@@ -102,3 +102,6 @@
    cursor: pointer;
    text-decoration: underline;
  }
+ button:hover{
+   cursor: pointer;
+ }
