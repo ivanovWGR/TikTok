@@ -1,9 +1,10 @@
 import 'antd/dist/antd.css';
 import './App.css';
 import HeaderComp from './HeaderComp';
+import Card from './Components/Card';
 
 import { Layout } from 'antd';
-const { Header, Content, Sider } = Layout;
+const {Content, Sider } = Layout;
 
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
         <Layout style={{ padding: '0 24px 24px' }}>
 
           <Content className="site-layout-background contentContainer">
-            <h1 style={{ marginLeft: '235px' }}>Content</h1>
+            <Card/>
           </Content>
 
         </Layout>
