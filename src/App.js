@@ -22,6 +22,10 @@ function App() {
 
           <Content className="site-layout-background contentContainer">
             <Card/>
+            <Card/>
+            <Card/>
+            <Card/>
+            <Card/>
           </Content>
 
         </Layout>
