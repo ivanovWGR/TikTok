@@ -1,6 +1,6 @@
 import 'antd/dist/antd.css';
 import './App.css';
-import HeaderComp from './HeaderComp';
+import HeaderComp from './HeaderComponents/HeaderComp';
 import Card from './Components/Card';
 
 import { Layout } from 'antd';
@@ -8,6 +8,7 @@ const {Content, Sider } = Layout;
 
 
 function App() {
+  const USER_LOGGED_IN = false;//for test only, change the value will change the header header
 
   const videos = [
     "https://v77.tiktokcdn.com/97f4be8b12187c9ae61d76a37e0552a5/6057b3c1/video/tos/useast2a/tos-useast2a-ve-0068c003/7ec9d4d1216b475cb0b4d5bba5b4fc6e/?a=1233&br=4544&bt=2272&cd=0%7C0%7C1&ch=0&cr=0&cs=0&cv=1&dr=0&ds=3&er=&l=202103211459350101890711493DE84B45&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&qs=0&rc=ajo1O3I2cjRsNDMzMzczM0ApNDs4ZDo1N2RlN2k2NmhpPGdvMWhvZGU2LTVgLS0xMTZzczJjYi1gYV9eNWMxMGJfLy86Yw%3D%3D&vl=&vr=",
@@ -25,7 +26,7 @@ function App() {
     ]
   return (
     <Layout>
-      <HeaderComp/>
+      <HeaderComp isUserLoggedIn = {USER_LOGGED_IN}/>
       <Layout>
 
         <Sider width={250} className="site-layout-background siderConteiner">
