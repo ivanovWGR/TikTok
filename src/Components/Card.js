@@ -1,6 +1,7 @@
 import React from 'react';
+import { FaCommentDots, FaShare, FaHeart } from "react-icons/fa";
 
-const Card = ({videoUrl}) => {
+const Card = ({ videoUrl }) => {
 
 
     return (
@@ -24,20 +25,20 @@ const Card = ({videoUrl}) => {
                     <button className='follow-button'>Follow</button>
                 </div>
             </div>
-            <video className="video" controls src = {videoUrl}
-/>
-            
+            <video className="video" controls src={videoUrl}
+            />
+
             <div className="section socials icons-conteiner">
                 <div className='icon-wrapper'>
-                    <i className="fas fa-heart icons"></i>
+                    <FaHeart className="icons" />
                 </div>
                 <div className="social-tag">likes</div>
                 <div className='icon-wrapper'>
-                    <i className="fas fa-comment-dots icons"></i>
+                    <FaCommentDots className="icons" />
                 </div>
                 <div className="social-tag">comments</div>
                 <div className='icon-wrapper'>
-                    <i className="fas fa-share share"></i>
+                    <FaShare className="share" />
                 </div>
                 <div className="social-tag">shares</div>
             </div>
