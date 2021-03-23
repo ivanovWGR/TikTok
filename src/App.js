@@ -4,7 +4,8 @@ import HeaderComp from './HeaderComponents/HeaderComp';
 import Card from './Components/Card';
 
 import { Layout } from 'antd';
-const {Content, Sider } = Layout;
+import LoginPage from "./LoginPage/LoginPage"
+const { Content, Sider } = Layout;
 
 
 function App() {
@@ -22,11 +23,11 @@ function App() {
     "https://v77.tiktokcdn.com/b84d4874bbe1f01a885ab2608d5fab0f/6057b4c8/video/tos/alisg/tos-alisg-pve-0037c001/a19c9a2662604a5aba418bb1a0aa5802/?a=1233&br=3974&bt=1987&cd=0%7C0%7C1&ch=0&cr=0&cs=0&cv=1&dr=0&ds=3&er=&l=202103211503360101902190713AE8AFCC&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&qs=0&rc=M2s2azZleHNrMzMzOzczM0ApNmU2MzQzZGU5NzloNWk8ZmdsXl4yLW01MjFgLS1iMTRzczJeNjYxMDM2X2E1LmNfYzA6Yw%3D%3D&vl=&vr=",
     "https://v77.tiktokcdn.com/01bd75a6e8aae72f0bd4685e0e5d4bef/6057b4b9/video/tos/useast2a/tos-useast2a-ve-0068c002/a781531554b247948fd6bea0285ef227/?a=1233&br=2482&bt=1241&cd=0%7C0%7C1&ch=0&cr=0&cs=0&cv=1&dr=0&ds=3&er=&l=202103211503360101902190713AE8AFCC&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&qs=0&rc=amdvbDlwbDY8NDMzZzczM0ApNjs8PDc2NmRnNzk6Ojk0aWdtYV8tNXI2NjVgLS01MTZzczIzLjA2Y2NhMzYvYzFhYjY6Yw%3D%3D&vl=&vr=",
     "https://v77.tiktokcdn.com/20bdce935777b845d2a94420a58136dc/6057b4b3/video/tos/useast2a/tos-useast2a-ve-0068c004/23739f29384248a9ba3177bec146cf7f/?a=1233&br=1122&bt=561&cd=0%7C0%7C1&ch=0&cr=0&cs=0&cv=1&dr=0&ds=3&er=&l=202103211503360101902190713AE8AFCC&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&qs=0&rc=anZ5N2d0ZDhxNDMzOTczM0ApN2c8Zmc2NWU5N2ZoZTtoZ2dkMGpyXnEyMDZgLS0zMTZzczRjNTYwLjMzXzNjMWI1LTY6Yw%3D%3D&vl=&vr="
-    
-    ]
+
+  ]
   return (
     <Layout>
-      <HeaderComp isUserLoggedIn = {USER_LOGGED_IN}/>
+      <HeaderComp isUserLoggedIn={USER_LOGGED_IN} />
       <Layout>
 
         <Sider width={250} className="site-layout-background siderConteiner">
@@ -35,15 +36,15 @@ function App() {
           </div>
         </Sider>
         <Layout style={{ padding: '0 24px 24px' }}>
-
+          <LoginPage />
           <Content className="site-layout-background contentContainer">
             {videos.map((url, index) => {
-              return <Card key= {index} videoUrl ={url}/>
-            })}            
+              return <Card key={index} videoUrl={url} />
+            })}
           </Content>
         </Layout>
       </Layout>
-    </Layout>  
+    </Layout>
   );
 }
 
