@@ -14,7 +14,7 @@ function HeaderRightDivUserNot() {
     function closeModal() {
         showModal(false)
     }
-
+console.log(LoginPage)
     return (
         <div id="headerRightWrapper">
             <button id="upload" >
@@ -30,13 +30,15 @@ function HeaderRightDivUserNot() {
                 footer ={null}
                 // className = {styles.loginPageRooter}
                 mask={true}
-                // width= "500px"
+                width= "600px"
+                bodyStyle ={{
+                    height: "700px",
+                    resize: "none"
+                }}
                 
-            >
-                
-                <LoginPage />
-                
-                
+            >                
+                <LoginPage />              
+               
                 
             </Modal>
 
@@ -46,43 +48,4 @@ function HeaderRightDivUserNot() {
         </div>
     )
 }
-
-
-// class App extends React.Component {
-// state = { visible: false };
-
-// showModal = () => {
-//     this.setState({
-//         visible: true,
-//     });
-// };
-
-// handleOk = e => {
-//     console.log(e);
-//     this.setState({
-//         visible: false,
-//     });
-
-
-// handleCancel = e => {
-//     console.log(e);
-//     this.setState({
-//         visible: false,
-//     });
-// };
-
-//     render() {
-//         return (
-//             <>
-//                 <Button type="primary" onClick={this.showModal}>
-//                     Open Modal with customized button props
-//         </Button>
-
-//             </>
-//         );
-//     }
-// }
-
-
-
 export default HeaderRightDivUserNot
