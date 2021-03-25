@@ -36,11 +36,9 @@ console.log(LoginPage)
                     resize: "none"
                 }}
                 
-            >
-                
-                <LoginPage />
-                
-                
+            >                
+                <LoginPage />              
+               
                 
             </Modal>
 
@@ -50,43 +48,4 @@ console.log(LoginPage)
         </div>
     )
 }
-
-
-// class App extends React.Component {
-// state = { visible: false };
-
-// showModal = () => {
-//     this.setState({
-//         visible: true,
-//     });
-// };
-
-// handleOk = e => {
-//     console.log(e);
-//     this.setState({
-//         visible: false,
-//     });
-
-
-// handleCancel = e => {
-//     console.log(e);
-//     this.setState({
-//         visible: false,
-//     });
-// };
-
-//     render() {
-//         return (
-//             <>
-//                 <Button type="primary" onClick={this.showModal}>
-//                     Open Modal with customized button props
-//         </Button>
-
-//             </>
-//         );
-//     }
-// }
-
-
-
 export default HeaderRightDivUserNot

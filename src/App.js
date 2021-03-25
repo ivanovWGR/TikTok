@@ -2,7 +2,7 @@
 import HeaderComp from './HeaderComponents/HeaderComp';
 import "antd/dist/antd.css";
 import "./App.css";
-import HeaderComp from "./HeaderComp";
+
 import Card from "./Components/Card";
 
 import UserItem from './Sidebar/UserItem/UserItem'
