@@ -265,3 +265,72 @@ margin-right: 50px;
   padding-top: 7px;
 }
 
+/* HEADER SIDE MENU WHEN USER IS LOGGED IN */
+#headerRightWrapperUserOnline{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 130px;
+}
+.userLoggedInSideMenu{
+  font-size: 24px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+.profileIconSpan{
+  font-size: 34px;
+  opacity: 0.4;   
+}
+#tooltip{  
+  align-items: center;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;   
+  border-radius: 5px;  
+  border: 1px solid black;  
+  opacity: 0.9;
+}
+.navHoverMenu{
+  
+  position: absolute;
+  padding: 10px;
+  top: 56px;
+  right: 95px;
+  width: 223px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* border: 1px solid; */
+  background-color: white;
+  color: black;
+  z-index: 1;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+} 
+.navHoverMenu a{
+  color: black;
+  font-size: 16px;
+  text-align: center;
+  font-weight: bold;
+  opacity: 0.8;  
+}
+.navHoverMenu span{
+  margin-right: 15px;
+  text-align: center;
+}
+.navHoverMenu span>svg{
+position: relative;
+top: 3px;
+width: 18px;
+height: 18px;
+}
+#profileIconSpan:hover{
+  cursor: pointer;
+}
+#logOutDiv{
+  border-top: 1px solid lightgrey;
+  padding-top: 5px;  
+}
+
+
