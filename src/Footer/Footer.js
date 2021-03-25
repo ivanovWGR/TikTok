@@ -20,36 +20,37 @@ export default function FooterUploadPage() {
 
         <div className={styles.container}>
           <span className={styles.firstSpan}>Company</span>
-          <span className={styles.span}>About</span>
-          <span className={styles.span}>Newsroom</span>
-          <span className={styles.span}>Contact</span>
-          <span className={styles.span}>Careers</span>
-          <span className={styles.span}>ByteDance</span>
+          <a href="https://www.tiktok.com/about?lang=en" className={styles.span}>About</a>
+          <a href="https://newsroom.tiktok.com/" className={styles.span}>Newsroom</a>
+          <a href="https://www.tiktok.com/about/contact?lang=en" className={styles.span}>Contact</a>
+          <a href="https://careers.tiktok.com" className={styles.span}>Careers</a>
+          <a href="https://www.bytedance.com/" className={styles.span}>ByteDance</a>
         </div>
 
         <div className={styles.container}>
           <span className={styles.firstSpan}>Programs</span>
-          <span className={styles.span}>TikTok for Good</span>
-          <span className={styles.span}>Advertise</span>
-          <span className={styles.span}>Developers</span>
+          <a href="https://www.tiktok.com/forgood" className={styles.span}>TikTok for Good</a>
+          <a href="https://ads.tiktok.com/?refer=tiktok_web" className={styles.span}>Advertise</a>
+          <a href="https://developers.tiktok.com/?refer=tiktok_web" className={styles.span}>Developers</a>
         </div>
 
         <div className={styles.container}>
           <span className={styles.firstSpan}>Support</span>
-          <span className={styles.span}>Help Center</span>
-          <span className={styles.span}>safety Center</span>
-          <span className={styles.span}>Creator Portal</span>
-          <span className={styles.span}>Community Guidelines</span>
-          <span className={styles.span}>Transparency</span>
+          <a href="https://support.tiktok.com/en" className={styles.span}>Help Center</a>
+          <a href="https://www.tiktok.com/safety?lang=en" className={styles.span}>safety Center</a>
+          <a href="https://www.tiktok.com/creators/creator-portal/en-us/" className={styles.span}>Creator Portal</a>
+          <a href="https://www.tiktok.com/community-guidelines?lang=en" className={styles.span}>Community Guidelines</a>
+          <a href="https://www.tiktok.com/transparency?lang=en" className={styles.span}>Transparency</a>
         </div>
 
         <div className={styles.container}>
           <span className={styles.firstSpan}>Legal</span>
-          <span className={styles.span}>TikTok.com Cookies Policy</span>
-          <span className={styles.span}>Intellectual Property Policy</span>
-          <span className={styles.span}>Law Enforcement</span>
-          <span className={styles.span}>Privacy Policy</span>
-          <span className={styles.span}>Terms of Service</span>
+          <a href="https://www.tiktok.com/legal/impressum?lang=en" className={styles.span}>Impressum</a>
+          <a href="https://www.tiktok.com/legal/tiktok-website-cookies-policy?lang=en" className={styles.span}>TikTok.com Cookies Policy</a>
+          <a href="https://www.tiktok.com/legal/copyright-policy?lang=en"  className={styles.span}>Intellectual Property Policy</a>
+          <a href="https://www.tiktok.com/legal/law-enforcement?lang=en" className={styles.span}>Law Enforcement</a>
+          <a href="https://www.tiktok.com/legal/privacy-policy?lang=en" className={styles.span}>Privacy Policy</a>
+          <a href="https://www.tiktok.com/legal/terms-of-use?lang=en" className={styles.span}>Terms of Service</a>
         </div>
       </div>
 
