@@ -9,14 +9,15 @@ import LoginPageTwo from "./LoginPageTwo"
 
 
 export default function LoginPage() {
-    const [showNextPage, callNextPage] = useState(false);
+    const [showNextPage, callNextPage] = useState(true);    
 
     function bringNextPage() {
         console.log("click");
         callNextPage(!showNextPage)
     }
     return (
-        showNextPage ? <LoginPagePartOne onClick={bringNextPage} /> : <LoginPageTwo onClick={bringNextPage} />
+        
+        showNextPage ? <LoginPagePartOne  onClick={bringNextPage} /> : <LoginPageTwo onClick={bringNextPage} />
     )
 
 }

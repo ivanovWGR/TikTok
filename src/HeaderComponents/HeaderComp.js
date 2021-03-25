@@ -16,7 +16,7 @@ export default function HeaderComp({ isUserLoggedIn }) {
                 <input type="text" placeholder="Search accounts"></input><span>|</span>
                 <button type="submit"><FaSearch /></button>
             </form>
-            {isUserLoggedIn ? <HeaderRightDivUserNot /> : <HeaderRightDivUserYes />}
+            {isUserLoggedIn ?  <HeaderRightDivUserYes />: <HeaderRightDivUserNot /> }
         </div>
 
 

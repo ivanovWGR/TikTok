@@ -23,6 +23,9 @@
     width: 24px;
     height: 24px;
 }
+.loginModalHeader>svg:hover{
+    cursor: pointer;
+}
 .signUp{
     margin-top: 50px;
 }
@@ -30,12 +33,13 @@
     color: red;
 }
 .loginPageRooter{
-    position: absolute;    
-    right: 0; 
+    /* display: none; */
+    /* position: absolute;     */
+    /* right: 0; 
     left: 0;
-    margin: auto;    
+    margin: auto;     */
     background-color: white;
-    z-index: 2;
+    /* z-index: 2; */
     width: 500px;
     height: 600px;
     border: 1px solid grey;
@@ -96,4 +100,46 @@
     width: 315px;
     overflow-y: auto;
     height: auto;
+}
+
+/* LOGIN FORM */
+.loginFormContainer{
+    margin: 0 auto;
+    width: 450px;
+    height: 300px;
+}
+.loginFormBtn{
+    width: 450px;
+    background: #fe2c55;
+    border: none;
+    height: 40px;
+}
+.loginFormContainer > form input{
+    height: 35px;
+}
+.loginFormContainer > div{
+    width: 100%;
+    text-align: left;
+}
+.loginFormBtn>span{
+    font-weight: bolder;
+    
+}
+.loginFormBtn:hover{
+    background: #fe2c55;
+}
+.forgotPass{
+    font-size: 12px;
+    color: grey;
+    float: left;
+}
+.backArrow{
+    float: left;
+    margin-left: 10px;
+}
+
+
+/* REG FORM */
+.RegForm{
+    margin-top: 200px;
 }

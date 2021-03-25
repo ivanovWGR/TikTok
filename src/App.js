@@ -36,7 +36,7 @@ function App() {
           </div>
         </Sider>
         <Layout style={{ padding: '0 24px 24px' }}>
-          <LoginPage />
+          {/* <LoginPage /> */}
           <Content className="site-layout-background contentContainer">
             {videos.map((url, index) => {
               return <Card key={index} videoUrl={url} />
