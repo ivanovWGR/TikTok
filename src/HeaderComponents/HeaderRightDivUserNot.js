@@ -14,7 +14,7 @@ function HeaderRightDivUserNot() {
     function closeModal() {
         showModal(false)
     }
-
+console.log(LoginPage)
     return (
         <div id="headerRightWrapper">
             <button id="upload" >
@@ -30,7 +30,11 @@ function HeaderRightDivUserNot() {
                 footer ={null}
                 // className = {styles.loginPageRooter}
                 mask={true}
-                // width= "500px"
+                width= "600px"
+                bodyStyle ={{
+                    height: "700px",
+                    resize: "none"
+                }}
                 
             >
                 
