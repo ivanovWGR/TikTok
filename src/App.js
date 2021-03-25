@@ -1,3 +1,4 @@
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import HeaderComp from './HeaderComponents/HeaderComp';
 import "antd/dist/antd.css";
@@ -12,11 +13,13 @@ import SidebarLoginBtutton from './Sidebar/SidebarLogin/SidebarLoginBtn'
 import SidebarFooter from './Sidebar/SidebarFooter/sidebarFooter'
 import SeeAllButton from './Sidebar/seeAllButton/SeeAllButton'
 import { Layout } from "antd";
+import Upload from './UploadPage/Upload';
 const { Content, Sider } = Layout;
+
 
 function App() {
 
-  const USER_LOGGED_IN = false;//for test only, change the value will change the header header
+  const USER_LOGGED_IN = true;//for test only, change the value will change the header header
 
 
   const videos = [
@@ -35,51 +38,61 @@ function App() {
 
   ]
   return (
-    <Layout>
-      <HeaderComp isUserLoggedIn={USER_LOGGED_IN} />
+    <Router>
+      <Switch>
+
+        <Route path="/upload">
+        <Upload />
+        </Route>
+
+      </Switch>
 
       <Layout>
-        <Sider width={250} className="site-layout-background siderConteiner">
-          <div className="siderWrapper">
-            <ForYouButton />
-            <FollowingBtn />
-            <SidebarLoginBtutton />
-            <UserItem />
-            <UserItem />
-            <UserItem />
-            <UserItem />  
-            <UserItem />
-            <UserItem />
-            <UserItem />  
-            <UserItem />
-            <UserItem />
-            <UserItem />  
-            <UserItem />
-            <UserItem />
-            <UserItem />    
-            <UserItem />
-            <UserItem />  
-            <UserItem />
-            <UserItem />
-            <UserItem />  
-            <UserItem />
-            <UserItem />
-            <UserItem />
-            <SeeAllButton />
-            <SidebarFooter />
-          </div>
-        </Sider>
+        <HeaderComp isUserLoggedIn={USER_LOGGED_IN} />
 
-        <Layout style={{ padding: "0 24px 24px" }}>
-          <Content className="site-layout-background contentContainer">
-            {videos.map((url, index) => {
-              return <Card key={index} videoUrl={url} />;
+        <Layout>
+          <Sider width={250} className="site-layout-background siderConteiner">
+            <div className="siderWrapper">
+              <ForYouButton />
+              <FollowingBtn />
+              <SidebarLoginBtutton />
+              <UserItem />
+              <UserItem />
+              <UserItem />
+              <UserItem />
+              <UserItem />
+              <UserItem />
+              <UserItem />
+              <UserItem />
+              <UserItem />
+              <UserItem />
+              <UserItem />
+              <UserItem />
+              <UserItem />
+              <UserItem />
+              <UserItem />
+              <UserItem />
+              <UserItem />
+              <UserItem />
+              <UserItem />
+              <UserItem />
+              <UserItem />
+              <SeeAllButton />
+              <SidebarFooter />
+            </div>
+          </Sider>
 
-            })}
-          </Content>
+          <Layout style={{ padding: "0 24px 24px" }}>
+            <Content className="site-layout-background contentContainer">
+              {videos.map((url, index) => {
+                return <Card key={index} videoUrl={url} />;
+
+              })}
+            </Content>
+          </Layout>
         </Layout>
       </Layout>
-    </Layout>
+    </Router>
   );
 }
 

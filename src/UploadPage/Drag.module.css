@@ -1,0 +1,38 @@
+.headerDrag { 
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    color: rgba(22, 24, 35, 0.34);
+    margin-top: 29px;
+}
+
+.imageDrag {
+    cursor: pointer;
+    display:inline-block;
+    margin-left: 90px;
+    border:none;
+}
+
+.descriptDrag {
+    margin-top:300px;
+}
+
+.smallTxt {
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    color: rgba(22, 24, 35, 0.34);
+    text-align: left;
+    margin: 0px;
+    margin-top: 15px;
+    padding-left: 40px;
+    margin-bottom: 25px;
+}
+
+.dragLi{
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    color: rgba(22, 24, 35, 0.34);
+}

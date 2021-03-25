@@ -6,7 +6,9 @@ import { CgProfile } from "react-icons/cg"
 import {FiLogIn} from "react-icons/fi"
 import {GrLanguage} from "react-icons/gr"
 import { Tooltip} from "antd"
-import { formatCountdown } from 'antd/lib/statistic/utils'
+import { formatCountdown } from 'antd/lib/statistic/utils';
+import {Link} from 'react-router-dom';
+
 
 
 
@@ -16,6 +18,7 @@ function HeaderRightDivUserYes() {
     return (
         <div id="headerRightWrapperUserOnline">
 
+            <Link to='/upload'>
             <button className="userLoggedInSideMenu" >
                 <Tooltip title="Upload video"
                     placement="bottom"
@@ -23,6 +26,8 @@ function HeaderRightDivUserYes() {
                     <RiUploadCloudLine />
                 </Tooltip>
             </button>
+            </Link>
+            
 
 
             <button className="userLoggedInSideMenu" >
