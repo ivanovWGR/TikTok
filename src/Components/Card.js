@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaCommentDots, FaShare, FaHeart } from "react-icons/fa";
 
-const Card = ({ videoUrl }) => {
+const Card = ({ videoUrl, likes, comments, nickname, fullName }) => {
 
 
     return (
@@ -13,8 +13,8 @@ const Card = ({ videoUrl }) => {
 
                     <div>
                         <div className="section">
-                            <h3 className="bold">Username</h3>
-                            <p className="username">Full name</p>
+                            <h3 className="bold">{nickname}</h3>
+                            <p className="username">{fullName}</p>
                             <p>Date</p>
                         </div>
                         <p>Description will be here</p>
@@ -31,16 +31,19 @@ const Card = ({ videoUrl }) => {
             <div className="section socials icons-conteiner">
                 <div className='icon-wrapper'>
                     <FaHeart className="icons" />
-                </div>
-                <div className="social-tag">likes</div>
+                   
+                </div>                
+                <div className="social-tag"><span>{likes}</span></div>
+
                 <div className='icon-wrapper'>
-                    <FaCommentDots className="icons" />
-                </div>
-                <div className="social-tag">comments</div>
+                    <FaCommentDots className="icons" />                    
+                </div>                
+                <div className="social-tag"><span>{comments}</span></div>
                 <div className='icon-wrapper'>
-                    <FaShare className="share" />
-                </div>
-                <div className="social-tag">shares</div>
+
+                    <FaShare className="share" />                    
+                </div>                
+                <div className="social-tag"><span>Share</span></div>
             </div>
         </div>
     )
