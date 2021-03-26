@@ -23,7 +23,6 @@ console.log(LoginPage)
             <Modal
                 // title="Basic Modal"
                 visible={isModalShown}
-
                 onCancel={closeModal}
                 okButtonProps={{ disabled: false }}
                 cancelButtonProps={{ disabled: false }}
@@ -34,14 +33,10 @@ console.log(LoginPage)
                 bodyStyle ={{
                     height: "700px",
                     resize: "none"
-                }}
-                
-            >                
-                <LoginPage />              
-               
-                
-            </Modal>
+                }}>
 
+                <LoginPage />            
+               </Modal>
             {/* <button id="dotsMenu">
                 <HiOutlineDotsVertical />
             </button> */}
