@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Modal } from 'antd'
 import LoginPage from "../LoginPage/LoginPage"
-import styles from '../LoginPage/Login.module.css'
+import styles from './Header.module.scss'
 import { HiOutlineDotsVertical } from "react-icons/hi";
 
 
@@ -16,10 +16,10 @@ function HeaderRightDivUserNot() {
     }
 console.log(LoginPage)
     return (
-        <div id="headerRightWrapper">
-            <button id="upload" >
+        <div id={styles.headerRightWrapper}>
+            <button id={styles.upload} >
                 <span>Upload</span></button>
-            <button id="loginBtn" onClick={bringModal}>Log in</button>
+            <button id={styles.loginBtn} onClick={bringModal}>Log in</button>
             <Modal
                 // title="Basic Modal"
                 visible={isModalShown}

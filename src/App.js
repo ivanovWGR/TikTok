@@ -39,17 +39,14 @@ function App() {
   ]
   return (
     <Router>
+      <HeaderComp isUserLoggedIn={USER_LOGGED_IN} />
       <Switch>
 
         <Route path="/upload">
-        <Upload />
+          <Upload />
         </Route>
-
-      </Switch>
-
-      <Layout>
-        <HeaderComp isUserLoggedIn={USER_LOGGED_IN} />
-
+        <Route exact path="/">
+        <Layout>
         <Layout>
           <Sider width={250} className="site-layout-background siderConteiner">
             <div className="siderWrapper">
@@ -81,7 +78,6 @@ function App() {
               <SidebarFooter />
             </div>
           </Sider>
-
           <Layout style={{ padding: "0 24px 24px" }}>
             <Content className="site-layout-background contentContainer">
               {videos.map((url, index) => {
@@ -92,6 +88,11 @@ function App() {
           </Layout>
         </Layout>
       </Layout>
+        </Route>
+
+      </Switch>
+
+      
     </Router>
   );
 }

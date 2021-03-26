@@ -9,6 +9,7 @@ import { Tooltip} from "antd"
 import { formatCountdown } from 'antd/lib/statistic/utils';
 import {Link} from 'react-router-dom';
 
+import styles from './Header.module.scss'
 
 
 
@@ -16,10 +17,10 @@ import {Link} from 'react-router-dom';
 function HeaderRightDivUserYes() {
     const [isShown, setIsShown] = useState(false);
     return (
-        <div id="headerRightWrapperUserOnline">
+        <div id={styles.headerRightWrapperUserOnline}>
 
             <Link to='/upload'>
-            <button className="userLoggedInSideMenu" >
+            <button className={styles.userLoggedInSideMenu} >
                 <Tooltip title="Upload video"
                     placement="bottom"
                     id="tooltip">
@@ -30,7 +31,7 @@ function HeaderRightDivUserYes() {
             
 
 
-            <button className="userLoggedInSideMenu" >
+            <button className={styles.userLoggedInSideMenu} >
                 <Tooltip title="Inbox"
                     placement="top"
                     id="tooltip">
@@ -38,12 +39,12 @@ function HeaderRightDivUserYes() {
                 </Tooltip>
             </button>
 
-            <span className="profileIconSpan" id="profileIconSpan"
+            <span className={styles.profileIconSpan} id={styles.profileIconSpan}
             onMouseEnter = {()=> setIsShown(true)}
             onMouseLeave = {()=> setIsShown(false)}
             ><CgProfile /></span>
 
-            {isShown && <div className="navHoverMenu"
+            {isShown && <div className={styles.navHoverMenu}
             onMouseEnter = {()=>setIsShown(true)}
             onMouseLeave = {()=> setIsShown(false)}
             >
