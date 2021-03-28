@@ -14,6 +14,7 @@ import SidebarFooter from './Sidebar/SidebarFooter/sidebarFooter'
 import SeeAllButton from './Sidebar/seeAllButton/SeeAllButton'
 import { Layout } from "antd";
 import Upload from './UploadPage/Upload';
+import ViewFullScreenVideo from './VideoFullscreenPage/ViewFullScreenVideo'
 const { Content, Sider } = Layout;
 
 
@@ -90,6 +91,9 @@ function App() {
     <Router>
       <HeaderComp isUserLoggedIn={USER_LOGGED_IN} />
       <Switch>
+        <Route path="/viewVideo">
+          <ViewFullScreenVideo />
+        </Route>
 
         <Route path="/upload">
           <Upload />
@@ -130,7 +134,7 @@ function App() {
               <Layout style={{ padding: "0 24px 24px" }}>
                 <Content className="site-layout-background contentContainer">
                   {videos.map(({ url, likes, comments, addedBy, name }, index) => {
-                    return <Card key={index} videoUrl={url} likes={likes} comments={comments} nickname ={addedBy} fullName ={name} />;
+                    return <Card key={index} videoUrl={url} likes={likes} comments={comments} nickname={addedBy} fullName={name} />;
 
                   })}
                 </Content>
