@@ -6,18 +6,10 @@ import { FaCommentDots, FaHeart } from "react-icons/fa";
 
 
 export default function VideoFullScreen() {
-
-
     function onChange(a, b, c) {
         console.log(a, b, c);
     }
 
-    // const contentStyle = {
-    //     height: '50px',    
-
-
-
-    // };
 
     return (
 

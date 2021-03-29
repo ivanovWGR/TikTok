@@ -9,8 +9,11 @@ import { Input, Space } from 'antd';
 
 const { Search } = Input;
 
-export default function HeaderComp({ isUserLoggedIn }) {
-    const onSearch = value => console.log(value);
+export default function HeaderComp({ isUserLoggedIn, getInput }) {
+    const onSearch = (value, ev) => {  
+        ev.preventDefault()     
+        getInput(value);       
+        };
     return (
         <div className={styles.header}>
             <span>
@@ -19,12 +22,13 @@ export default function HeaderComp({ isUserLoggedIn }) {
                     <img src="https://sf16-scmcdn-va.ibytedtos.com/goofy/tiktok/web/node/_next/static/images/logo-text-dark-673b189595b95d8bbf2ab1783ae2ab25.svg" alt="sign" />
                 </Link>
             </span>
-            <form>                
+            <form onSubmit={(ev)=>{}}>                
                 <Space direction="vertical">
                     <Search className={styles.searchInputContainer}
                         id={styles.searchInput}
-                        placeholder="Search accounts"
-                        allowClear onSearch={onSearch}
+                        placeholder="Search accounts"                        
+                        onSearch={onSearch}
+                        allowClear 
                         bordered={false}
                     />
                 </Space>
