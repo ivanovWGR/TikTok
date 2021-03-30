@@ -8,7 +8,7 @@ const UserInfo = () => {
         <div className={styles.infoWrapper}>
             <div className={styles.userInfo}>
                 <div>
-                    <Avatar size={120} icon={<UserOutlined />} src='here will be profile picture' alt='profile picture' />
+                    <Avatar size={120} icon={<UserOutlined />} src='https://pickytop.com/wp-content/uploads/2020/01/Ronnie-Coleman-is-the-best-bodybuilder-in-the-world.jpg' alt='profile picture' />
                 </div>
                 <div className={styles.infoCont}>
                     <h2 className={styles.username}>YNWA1892Ynwaynwaynwa</h2>

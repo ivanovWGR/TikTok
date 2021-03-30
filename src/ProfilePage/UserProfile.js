@@ -9,6 +9,7 @@ import SidebarLoginBtutton from '../Sidebar/SidebarLogin/SidebarLoginBtn';
 import SidebarFooter from '../Sidebar/SidebarFooter/sidebarFooter';
 import SeeAllButton from '../Sidebar/seeAllButton/SeeAllButton';
 import UserInfo from './UserInfo';
+import UserVideoTab from './UserVideoTab'
 
 import { Layout } from "antd";
 const { Content, Sider } = Layout;
@@ -31,6 +32,7 @@ const UserPage = () => {
             <Layout style={{ padding: "0 24px 24px" }}>
                 <Content className="site-layout-background contentContainer">
                     <UserInfo />
+                    <UserVideoTab/>
                 </Content>
             </Layout>
             </Layout>

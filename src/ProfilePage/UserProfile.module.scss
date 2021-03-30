@@ -92,3 +92,61 @@
 }
 
 //second section 
+.tabWrapper {
+   margin-left: 100px;
+   color:black;
+
+   :global(.ant-tabs-tab-btn){
+   text-size-adjust: 100%;
+   text-align: center;
+   cursor: pointer;
+   font-weight: 700;
+   font-size: 18px;
+   line-height: 25px;
+   color: rgb(18, 18, 18);
+
+    }
+
+}
+
+:global(.ant-tabs-tab){
+    width: 300px;
+}
+
+:global(.ant-tabs-tab-btn){
+    width: 300px;
+    color:rgb(18, 18, 18) !important;
+    font-weight: 700 !important;
+}
+
+:global(.ant-tabs-tab-active){
+    color: black;
+}
+
+:global(.ant-tabs-tab.ant-tabs-tab-active) {
+    border-bottom: 2px solid rgb(18, 18, 18) !important;
+    z-index: 2;
+  }
+
+
+.videosCont {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+//   third section  
+
+.videoContainer {
+    width: 210px;
+    height: 270px;
+    margin-right: 2px;
+    margin-bottom: 2px;
+    background-color: red;
+    box-sizing: border-box;
+
+    .videoComponent {
+        width:100%;
+        height: 100%;
+    }
+}
+
