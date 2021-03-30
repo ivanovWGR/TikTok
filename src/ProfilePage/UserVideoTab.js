@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {Link} from 'react-router-dom';
 import styles from './UserProfile.module.scss';
 import { Tabs } from 'antd';
 import Video from './Video'
@@ -84,7 +85,7 @@ const UserVideoTab = () => {
             <TabPane tab="Videos" key="Videos">
                 <div className={styles.videosCont}>
                     {videos.map(video => (
-                        <Video url={video.url} />
+                       <Link to='/viewVideo'> <Video url={video.url} /></Link>
                     ))}
                 </div>
             </TabPane>
