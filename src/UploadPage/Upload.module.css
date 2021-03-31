@@ -159,8 +159,20 @@ input:focus{
     border-width: 1px;
     border-style: solid;
     border-color: transparent;
-    border-image: initial;
     border-radius: 2px;
+}
+
+.postButtonActive{
+    height: 40px;
+    width: 150px;
+    font-weight: 400;
+    font-size: 15px;
+    cursor: pointer;
+    color:white;
+    background-color: #F34955;
+    position: relative;
+    outline: none;
+    border: none;
 }
 
 .discardButton {
@@ -179,3 +191,52 @@ border-color: transparent;
 border-radius: 2px;
 }
 
+
+/* Drag and drop style */
+.headerDrag { 
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    color: rgba(22, 24, 35, 0.34);
+    margin-top: 29px;
+}
+
+.imageDrag {
+    cursor: pointer;
+    display:inline-block;
+    margin-left: 120px;
+    border:none;
+}
+
+.descriptDrag {
+    margin-top:110px;
+}
+
+.smallTxt {
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    color: rgba(22, 24, 35, 0.34);
+    text-align: left;
+    margin: 0px;
+    margin-top: 15px;
+    padding-left: 82px;
+    margin-bottom: 17px;
+}
+
+.dragLi{
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    color: rgba(22, 24, 35, 0.34);
+}
+
+.descTxt{
+    color: grey;
+    padding-left: 18px;
+}
+
+.ulDiv {
+    padding-left: 27px;
+}
