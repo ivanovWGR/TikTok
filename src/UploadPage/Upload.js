@@ -2,6 +2,7 @@ import styles from './Upload.module.css';
 
 import UploadHeader from './UploadHeader';
 import UploadForm from './UploadForm';
+import Footer from '../Footer/Footer'
 
 
 
@@ -16,6 +17,7 @@ function Upload() {
             <div className={styles.container}>
                <UploadForm/>
             </div>
+          <Footer/>
         </div>
     )
 }
