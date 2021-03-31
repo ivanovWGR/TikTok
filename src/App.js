@@ -85,7 +85,7 @@ function App() {
   useEffect(() => {
     setFiltered(videos)
     
-  }, [])
+  }, [videos])
 
   const searchByName = (value) => {   
     const temp = videos.filter(video => video.addedBy.toLowerCase().includes(value.toLowerCase()))
@@ -108,6 +108,14 @@ function App() {
 
          <Route path="/userprofile">
                 <UserPage/>
+         </Route>
+
+         <Route path="/followingPage">
+                <h4>Following</h4>
+         </Route>
+
+         <Route path="/ForYouPage">
+                <h4>For You</h4>
          </Route>
 
         <Route exact path="/">

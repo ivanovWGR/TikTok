@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { FollowingBtnUnactive } from "./Following/FollowingBtn";
 import { FollowingBtnActive } from "./Following/FollowingBtn";
 import SidebarLoginBtutton from "./SidebarLogin/SidebarLoginBtn";
@@ -26,6 +27,7 @@ export default function ShowSidebar({ isUserLoggedIn }) {
     <div className={styles.siderConteiner}>
       <div>
         <div className={styles.sidebarButtons}>
+        <Link to="/ForYouPage">
           {isActiveForYou ? (
             <FollowingBtnUnactive
               img={forYouUnactive}
@@ -39,20 +41,22 @@ export default function ShowSidebar({ isUserLoggedIn }) {
               onClick={changeButtonStylesForYou}
             />
           )}
-
-          {isActiveFollowing ? (
-            <FollowingBtnUnactive
-              img={followUnactive}
-              description={"Following"}
-              onClick={changeButtonStylesFollowing}
-            />
-          ) : (
-            <FollowingBtnActive
-              img={followActive}
-              description={"Following"}
-              onClick={changeButtonStylesFollowing}
-            />
-          )}
+          </Link>
+          <Link to="/followingPage">
+            {isActiveFollowing ? (
+              <FollowingBtnUnactive
+                img={followUnactive}
+                description={"Following"}
+                onClick={changeButtonStylesFollowing}
+              />
+            ) : (
+              <FollowingBtnActive
+                img={followActive}
+                description={"Following"}
+                onClick={changeButtonStylesFollowing}
+              />
+            )}
+          </Link>
         </div>
         <div>{isUserLoggedIn ? null : <SidebarLoginBtutton />}</div>
       </div>
