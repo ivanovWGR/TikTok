@@ -1,7 +1,8 @@
-import styles from './SidebarLoginButton.module.css'
-import React, { useState } from 'react'
-import { Modal } from 'antd'
-import LoginPage from "../../LoginPage/LoginPage"
+import styles from "./SidebarLoginButton.module.css";
+import React, { useState } from "react";
+import { Modal } from "antd";
+import LoginPage from "../../LoginPage/LoginPage";
+
 
 
 export default function SidebarLoginBtutton ({onClick}) {
@@ -42,3 +43,4 @@ export default function SidebarLoginBtutton ({onClick}) {
         </div>
     )
 }
+

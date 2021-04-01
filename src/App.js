@@ -6,18 +6,14 @@ import "antd/dist/antd.css";
 import "./App.css";
 import firebase, { DataBase } from './firebase'
 import Card from "./Components/Card";
+import ShowSidebar from './Sidebar/Sidebar'
 
-import UserItem from './Sidebar/UserItem/UserItem';
-import ForYouButton from './Sidebar/ForYou/ForYouBtn';
-import FollowingBtn from './Sidebar/Following/FollowingBtn';
-import SidebarLoginBtutton from './Sidebar/SidebarLogin/SidebarLoginBtn';
-import SidebarFooter from './Sidebar/SidebarFooter/sidebarFooter';
-import SeeAllButton from './Sidebar/seeAllButton/SeeAllButton';
 import { Layout } from "antd";
 import Upload from './UploadPage/Upload';
 import ViewFullScreenVideo from './VideoFullscreenPage/ViewFullScreenVideo';
 import UserPage from './ProfilePage/UserProfile';
 const { Content, Sider } = Layout;
+
 
 
 function App() {
@@ -87,6 +83,7 @@ function App() {
   // }]
 
   const [videos, setVideos] = useState([]);
+
   const [filtered, setFiltered] = useState([]);
   const [currentUser, setCurrentUser] = useState("")
 
@@ -122,6 +119,7 @@ function App() {
 
   }
 
+
   const [currentUserVideos, setCurrenUserVideos] = useState([])
 
   useEffect(()=>{
@@ -154,6 +152,7 @@ function App() {
 
 
 
+
   return (
     <Router>
       <HeaderComp isUserLoggedIn={USER_LOGGED_IN} getInput={searchByName} />
@@ -174,32 +173,9 @@ function App() {
             <Layout>
               <Sider width={250} className="site-layout-background siderConteiner">
                 <div className="siderWrapper">
-                  <ForYouButton />
-                  <FollowingBtn />
-                  {USER_LOGGED_IN || <SidebarLoginBtutton />}
-                  <UserItem />
-                  <UserItem />
-                  <UserItem />
-                  <UserItem />
-                  <UserItem />
-                  <UserItem />
-                  <UserItem />
-                  <UserItem />
-                  <UserItem />
-                  <UserItem />
-                  <UserItem />
-                  <UserItem />
-                  <UserItem />
-                  <UserItem />
-                  <UserItem />
-                  <UserItem />
-                  <UserItem />
-                  <UserItem />
-                  <UserItem />
-                  <UserItem />
-                  <UserItem />
-                  <SeeAllButton />
-                  <SidebarFooter />
+
+                <ShowSidebar isUserLoggedIn={USER_LOGGED_IN}/>
+
                 </div>
               </Sider>
               <Layout style={{ padding: "0 24px 24px" }}>
