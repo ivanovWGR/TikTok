@@ -16,7 +16,7 @@ const Card = ({ videoUrl, likes, comments, title, fullName, caption, date }) => 
                         <div className="section">
                             <h3 className="bold">{title}</h3>
                             <p className="username">{fullName}</p>
-                            <p>{date}</p>
+                            {/* <p>{date}</p> */}
                         </div>
                         <p>{caption}</p>
                     </div>

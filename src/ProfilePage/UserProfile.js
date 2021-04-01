@@ -66,7 +66,7 @@ const UserPage = ({ currentUser }) => {
         <div>
             <Layout>
                 <Layout>
-                    <Sider width={250} className="site-layout-background siderConteiner">
+                    <Sider width={250} className="site-layout-background ">
                         <div className="siderWrapper">
                             <Sidebar/>
                             {/* <ForYouButton />
@@ -78,7 +78,7 @@ const UserPage = ({ currentUser }) => {
                         </div>
                     </Sider>
                     <Layout style={{ padding: "0 24px 24px" }}>
-                        <Content className="site-layout-background contentContainer">
+                        <Content className="site-layout-background userPageContent">
                             <UserInfo />
                             <UserVideoTab userVideos={userVideos} likedVideos ={likedVideos}/>
                         </Content>

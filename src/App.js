@@ -163,7 +163,7 @@ function App() {
         <Route path="/upload">
           {USER_LOGGED_IN ? <Upload /> : window.location = '/#'}
         </Route>
-
+        
         <Route path="/userprofile">
           <UserPage currentUser = {currentUser}/>
         </Route>

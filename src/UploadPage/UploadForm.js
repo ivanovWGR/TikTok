@@ -95,7 +95,7 @@ function UploadForm() {
                             addedDate: Date.now(),
                             likedBy:[],
                             numOfComments: 0,
-                            numOfLikes: 0,pwd
+                            numOfLikes: 0,
                         })
                     })
                     .then(() => {

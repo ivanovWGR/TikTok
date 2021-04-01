@@ -21,7 +21,10 @@
   
   min-height: 280;
 }
-
+/* USER PAGE CONTENT CONTAINER */
+.userPageContent{
+  padding-left: 82px;
+}
 .siderWrapper{
   
   border-right: 0;
