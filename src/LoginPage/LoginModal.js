@@ -5,23 +5,24 @@ import UseTwitter from "./commonComponents/UseTwitter"
 import UseGoogle from "./commonComponents/UseGoogle"
 import styles from "./Login.module.css"
 import UseEmail from './commonComponents/UseEmail'
-import UseQr from './commonComponents/UseQr'
-import UseApple from './commonComponents/UseApple'
-import UseInstagram from "./commonComponents/UseInstagram"
 import LoginHeader from "./commonComponents/LoginHeader"
-import { IoClose } from 'react-icons/io5'
-import { IoIosArrowBack } from 'react-icons/io'
+
 
 import LoginForm from "./LoginForm"
 
 
-export default function LoginPagePartOne({ onClick }) {
+export default function LoginModal({ onClick, destroyModal }) {
 
     const [bringForm, showForm] = useState(false)
 
     function goToLoginForm() {
         showForm(true)
     }
+
+    // const createUser = (provider) => {
+
+    // }
+
     return (
 
         bringForm ?
@@ -31,7 +32,7 @@ export default function LoginPagePartOne({ onClick }) {
                     <IoIosArrowBack className={styles.backArrow} />
                     <IoClose />
                 </div> */}
-                <LoginForm />
+                <LoginForm destroyModal={destroyModal}/>
                 <p className={styles.signUp}>Don't have an account? <a href="#" onClick={onClick}> Sign up</a></p>
                 </>
             // </div>
@@ -44,13 +45,12 @@ export default function LoginPagePartOne({ onClick }) {
                 <LoginHeader title="Log in to Tik Tok"
                     paragraph="Manage your account, check notifications, comment on videos, and more." />
                 <div className={styles.choicesOverflow}>
-                    <UseQr text="Use QR code" />
-                    <UseEmail onClick={goToLoginForm} text="Use phone/ email/ username" />
-                    <UseFacebook text="Log in wit Facebook" />
-                    <UseGoogle text="Log in with Google" />
-                    <UseTwitter text="Log in with twitter" />
-                    <UseApple text="Logi in with Apple" />
-                    <UseInstagram text="Log in with Instagram" />
+                    
+                    <UseEmail onClick={goToLoginForm} text="Use phone/ email/ username"  />
+                    <UseFacebook text="Log in wit Facebook" shouldLogin destroyModal={destroyModal}/>
+                    <UseGoogle text="Log in with Google" shouldLogin destroyModal={destroyModal}/>
+                    <UseTwitter text="Log in with twitter" shouldLogin destroyModal={destroyModal}/>                    
+                    
                 </div>
                 <p className={styles.signUp}>Don't have an account? <a href="#" onClick={onClick}> Sign up</a></p>
                 </>

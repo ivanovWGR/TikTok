@@ -13,7 +13,7 @@ import { IoIosArrowBack } from 'react-icons/io'
 import LoginForm from "./LoginForm"
 
 
-export default function LoginPageTwo({ onClick }) {
+export default function LoginPageTwo({onClick, destroyModal}) {
 
     const [bringRegForm, showRegForm] = useState(false)
 
@@ -30,7 +30,7 @@ export default function LoginPageTwo({ onClick }) {
                 <IoIosArrowBack className={styles.backArrow} />
                 <IoClose />
             </div> */}
-            <RegistrationForm className={styles.RegForm} />
+            <RegistrationForm className={styles.RegForm} destroyModal={destroyModal} />
             <p className={styles.signUp}>Allready have an account? <a href="#" onClick={onClick}> Log in</a></p>
             </>
         // </div>
