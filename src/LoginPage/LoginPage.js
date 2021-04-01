@@ -3,21 +3,28 @@ import { useState } from "react"
 
 
 
-import LoginPagePartOne from "./LoginPagePartOne"
-import LoginPageTwo from "./LoginPageTwo"
+import LoginModal from "./LoginModal"
+import RegisterModal from "./RegisterModal"
 
 
-
-export default function LoginPage() {
-    const [showNextPage, callNextPage] = useState(true);    
-
+// Rename to Modal Component
+export default function LoginPage({destroyModal}) {
+    // const [showNextPage, callNextPage] = useState(true);    
+    const [isLoginPageVisible, setIsLoginPageVisible] = useState(true);
+    
     function bringNextPage() {
         console.log("click");
-        callNextPage(!showNextPage)
+        setIsLoginPageVisible(!isLoginPageVisible)
+    }
+    
+
+    if(isLoginPageVisible) {
+        return <LoginModal onClick={bringNextPage} destroyModal={destroyModal} />
     }
     return (
-        
-        showNextPage ? <LoginPagePartOne  onClick={bringNextPage} /> : <LoginPageTwo onClick={bringNextPage} />
+        <RegisterModal onClick={bringNextPage} destroyModal={destroyModal} />
     )
 
 }
+
+

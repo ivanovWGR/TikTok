@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { Modal } from 'antd'
+// import { Modal } from 'antd'
 import LoginPage from "../LoginPage/LoginPage"
 import styles from './Header.module.scss'
 import { HiOutlineDotsVertical } from "react-icons/hi";
+import LoginBtnsModal from '../LoginBtnsModal'
 
 
 function HeaderRightDivUserNot() {
@@ -20,7 +21,8 @@ console.log(LoginPage)
             <button id={styles.upload} >
                 <span>Upload</span></button>
             <button id={styles.loginBtn} onClick={bringModal}>Log in</button>
-            <Modal
+            <LoginBtnsModal closeModal = { closeModal } isModalShown ={isModalShown} onCancel={closeModal}/>
+            {/* <Modal
                 // title="Basic Modal"
                 visible={isModalShown}
                 onCancel={closeModal}
@@ -36,10 +38,8 @@ console.log(LoginPage)
                 }}>
 
                 <LoginPage />            
-               </Modal>
-            {/* <button id="dotsMenu">
-                <HiOutlineDotsVertical />
-            </button> */}
+               </Modal> */}
+            
         </div>
     )
 }

@@ -1,7 +1,8 @@
-import styles from './SidebarLoginButton.module.css'
-import React, { useState } from 'react'
-import { Modal } from 'antd'
-import LoginPage from "../../LoginPage/LoginPage"
+import styles from "./SidebarLoginButton.module.css";
+import React, { useState } from "react";
+import { Modal } from "antd";
+import LoginPage from "../../LoginPage/LoginPage";
+
 
 
 export default function SidebarLoginBtutton ({onClick}) {
@@ -13,14 +14,15 @@ export default function SidebarLoginBtutton ({onClick}) {
     function closeModal() {
         showModal(false)
     }
+    // const modal = Modal.info()
+    // console.log(modal)
     return (
         <div className = {styles.sidebarLoginBtn}>
             <div><span className = {styles.span}>Log in to follow creators, like videos, and view comments.</span></div>
             <button className = {styles.button} onClick={bringModal}>Login</button>
-            <Modal
-               
+            <Modal               
                 visible={isModalShown}
-
+                destroyOnClose
                 onCancel={closeModal}
                 okButtonProps={{ disabled: false }}
                 cancelButtonProps={{ disabled: false }}
@@ -34,10 +36,11 @@ export default function SidebarLoginBtutton ({onClick}) {
                 }}
                 
             >                
-                <LoginPage />              
+                <LoginPage destroyModal = {closeModal} />              
                
                 
             </Modal>
         </div>
     )
 }
+

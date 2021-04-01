@@ -13,37 +13,23 @@
 }
 
 .contentContainer {
+  margin-left: 450px;
+  margin-top: 30px;
+  /* margin: 0px; */
   padding: 24;
-  margin: 0;
+  /* padding-left: 450px; */
+  
   min-height: 280;
 }
 
-
-.siderConteiner {
-  max-height: 90vh;
-  overflow-y: scroll;
-  top: 0;
-  bottom: 0;
-  margin-left: 100px;
-  padding-top: 26px;
-  margin-right: 20px;
-  scrollbar-face-color: red;
-
-}
-/*sidbar scroll*/
-::-webkit-scrollbar {
-  width: 7px;
-}
-::-webkit-scrollbar-track {
-  background: white; 
-}
-::-webkit-scrollbar-thumb {
-  background: rgba(211, 211, 211, 0.15);
-}
-
 .siderWrapper{
+  
   border-right: 0;
   height: 100%;
+}
+.siderPosition{
+  position: fixed;
+
 }
 .center {
   text-align: center;
