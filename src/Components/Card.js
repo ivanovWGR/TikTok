@@ -2,7 +2,7 @@ import React from 'react';
 import { FaCommentDots, FaShare, FaHeart, FaBuromobelexperte } from "react-icons/fa";
 import { Link } from 'react-router-dom'
 
-const Card = ({ videoUrl, likes, comments, nickname, fullName }) => {
+const Card = ({ videoUrl, likes, comments, title, fullName, caption, date }) => {
 
 
     return (
@@ -14,11 +14,11 @@ const Card = ({ videoUrl, likes, comments, nickname, fullName }) => {
 
                     <div>
                         <div className="section">
-                            <h3 className="bold">{nickname}</h3>
+                            <h3 className="bold">{title}</h3>
                             <p className="username">{fullName}</p>
-                            <p>Date</p>
+                            <p>{date}</p>
                         </div>
-                        <p>Description will be here</p>
+                        <p>{caption}</p>
                     </div>
                 </div>
 
