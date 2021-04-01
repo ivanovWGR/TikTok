@@ -1,8 +1,8 @@
-import styles from "./UserItem.module.css";
+import styles from "./UserItem.module.scss";
 
 export default function UserItem({ img, userName, name }) {
   return (
-    <div className={styles.user}>
+    <div id={styles.user}>
       <div className={styles.userItem}>
         <div>
           <img src={img} alt={userName} className={styles.userImg}></img>

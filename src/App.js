@@ -187,10 +187,8 @@ function App() {
                       likes={numOfLikes}
                       comments={numOfComments}
                       title={title}
-
                       date={addedDate}
                       caption={caption} />;
-
                   })}
                 </Content>
               </Layout>
