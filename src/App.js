@@ -171,7 +171,7 @@ function App() {
         <Route exact path="/">
           <Layout>
             <Layout>
-              <Sider width={250} className="site-layout-background siderConteiner">
+              <Sider width={250} className="site-layout-background siderConteiner siderPosition">
                 <div className="siderWrapper">
 
                 <ShowSidebar isUserLoggedIn={USER_LOGGED_IN}/>

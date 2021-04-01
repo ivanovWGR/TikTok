@@ -48,9 +48,9 @@ export default function RegistrationForm({ destroyModal }) {
                 <Form.Item name= "firstName" rules={[{required: true, message: 'Please enter your first name'}]}>
                 <Input placeholder="First name" />
                 </Form.Item>
-                <Form.Item name= "lastName">
+                {/* <Form.Item name= "lastName">
                 <Input placeholder="Last name" rules={[{required: true, message: 'Please enter your last name'}]}/>
-                </Form.Item>
+                </Form.Item> */}
                 <Form.Item name= "nickName" >
                 <Input placeholder="Nickname" />
                 </Form.Item>

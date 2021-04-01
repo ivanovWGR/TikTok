@@ -22,6 +22,9 @@
   border-right: 0;
   height: 100%;
 }
+.siderPosition{
+  position: fixed;
+}
 .center {
   text-align: center;
   color:red;

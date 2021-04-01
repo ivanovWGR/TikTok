@@ -1,7 +1,7 @@
 import firebase, { DataBase } from '../../firebase'
 
 
-const createUserInDatabase = (id, photoURL, displayName, nickName = "") => {
+const createUserInDatabase = (id, displayName, nickName = "",photoURL="") => {
     DataBase.collection("users").doc(id).set({
         photoURL: photoURL,
         displayName: displayName,        

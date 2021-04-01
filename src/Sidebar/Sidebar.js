@@ -23,7 +23,7 @@ export default function ShowSidebar({ isUserLoggedIn }) {
     activeFollowing(!isActiveFollowing);
   }
   return (
-    <div className={styles.siderConteiner}>
+    <div className={styles.siderDiv}>
       <div>
         <div className={styles.sidebarButtons}>
           {isActiveForYou ? (

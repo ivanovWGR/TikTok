@@ -23,7 +23,7 @@ import createUserInDatabase from './createUserInDatabase'
 //         });
 // }
 
-const registerWithEmailAndPass = (email, password, firstName, lastName, nickName) => {
+const registerWithEmailAndPass = (email, password, name, nickName) => {
     firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
             // Signed in 
@@ -31,17 +31,18 @@ const registerWithEmailAndPass = (email, password, firstName, lastName, nickName
             console.log('User ', user)
 
             // Call createUserinTheDatabase
+            createUserInDatabase(user.uid, name, nickName)
             
-            DataBase.collection("users").doc(user.uid).set({
-                avatar: "",
-                firstName: firstName,
-                lastName: lastName,
-                nickName: nickName,
-                fallowers: 0,
-                following: [""],
-                likedVideos: [""],
-                likes: 0
-            })
+            // DataBase.collection("users").doc(user.uid).set({
+            //     avatar: "",
+            //     firstName: name,
+                
+            //     nickName: nickName,
+            //     fallowers: 0,
+            //     following: [""],
+            //     likedVideos: [""],
+            //     likes: 0
+            // })
                 .then(() => {
                     console.log("Document successfully written!");
                 })
