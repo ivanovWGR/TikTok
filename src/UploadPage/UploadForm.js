@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { auth, db, storage } from '../firebase';
+import firebase , {DataBase, storage } from '../firebase';
 import Dropzone from 'react-dropzone';
 
 
@@ -21,7 +21,7 @@ function UploadForm() {
     const [file, setFile] = useState(null);
     const [progressAnt, setProgressAnt] = useState(0);
     // take current user
-    const user = auth.currentUser;
+    const user = firebase.auth().currentUser;
 
     const openNotification = (message) => {
         const key = `open${Date.now()}`;
@@ -87,7 +87,7 @@ function UploadForm() {
             () => {
                 uploadTask.snapshot.ref.getDownloadURL()
                     .then(downloadUrl => {
-                        db.collection('videos').doc().set({
+                        DataBase.collection('videos').doc().set({
                             title: title,
                             caption: description,
                             url: downloadUrl,
@@ -95,7 +95,7 @@ function UploadForm() {
                             addedDate: Date.now(),
                             likedBy:[],
                             numOfComments: 0,
-                            numOfLikes: 0,
+                            numOfLikes: 0,pwd
                         })
                     })
                     .then(() => {
