@@ -48,11 +48,7 @@ console.log(destroyModal);
         colapseModal()
     }
 
-    // const onLoginUser = () => {
-    //     // logvash go
-
-    //     // close the modal here as well.... hideModal()
-    // }
+    
 
     return (
         <div className={styles.choiceWrapper} onClick={onCreateUser}>

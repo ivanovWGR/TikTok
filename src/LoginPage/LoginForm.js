@@ -23,10 +23,8 @@ export default function LoginForm({ destroyModal }) {
                     console.log(`Name ${name}, Email ${email}, UID ${uid}`)
 
                 } else {
-                    // No user is signed in.
-                }
-
-                // ...
+                    
+                }                
             })
             .then(()=>{
                 close()
