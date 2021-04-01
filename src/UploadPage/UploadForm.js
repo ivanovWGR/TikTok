@@ -73,11 +73,12 @@ function UploadForm() {
         }
         setAlert("")
         // upload in store 
-        const uploadTask = storage.ref().child(`videos/${title}.mp4`).put(file);
+        const uploadTask = storage.ref().child(`videos/${title}`).put(file);
         uploadTask.on(
             'state_changed',
             (snapshot) => {
                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                // show procentage uploading
                 setProgressAnt(progress)
             },
             (error) => {
@@ -92,6 +93,7 @@ function UploadForm() {
                             url: downloadUrl,
                             addBy: user.uid,
                             addedDate: Date.now(),
+                            likedBy:[],
                             numOfComments: 0,
                             numOfLikes: 0,
                         })
