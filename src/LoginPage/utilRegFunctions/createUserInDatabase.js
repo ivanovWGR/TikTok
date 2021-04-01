@@ -1,11 +1,11 @@
 import firebase, { DataBase } from '../../firebase'
 
 
-const createUserInDatabase = (id, displayName, nickName = "",photoURL="") => {
+const createUserInDatabase = (id, displayName,photoURL="") => {
     DataBase.collection("users").doc(id).set({
         photoURL: photoURL,
         displayName: displayName,        
-        nickName: nickName,
+        nickName: "",
         fallowers: 0,
         following: [""],        
         likes: 0

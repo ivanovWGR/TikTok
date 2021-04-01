@@ -11,7 +11,7 @@
   display: flex;
   cursor: pointer;
   outline: none;
-  margin-left: 30px;
+  /* margin-left: 30px; */
 }
 .h2Unactive {
   text-align: center;

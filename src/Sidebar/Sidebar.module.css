@@ -31,7 +31,7 @@
 /*sidbar scroll*/
 ::-webkit-scrollbar {
   width: 7px;
-  height: 150px;
+  /* height: 150px; */
 }
 ::-webkit-scrollbar-track {
   background: white;

@@ -27,7 +27,7 @@ console.log(destroyModal);
 
                     if(!result) {
                         // createUserInDatabase({user.displayName, avatar: user.image});
-                        createUserInDatabase(user.uid,user.photoURL, user.displayName)
+                        createUserInDatabase(user.uid, user.displayName, user.photoURL)
                     }
                 })
                 // ...

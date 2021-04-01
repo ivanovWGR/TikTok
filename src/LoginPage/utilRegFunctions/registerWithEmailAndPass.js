@@ -23,7 +23,7 @@ import createUserInDatabase from './createUserInDatabase'
 //         });
 // }
 
-const registerWithEmailAndPass = (email, password, name, nickName) => {
+const registerWithEmailAndPass = (email, password, name) => {
     firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
             // Signed in 
@@ -31,7 +31,7 @@ const registerWithEmailAndPass = (email, password, name, nickName) => {
             console.log('User ', user)
 
             // Call createUserinTheDatabase
-            createUserInDatabase(user.uid, name, nickName)
+            createUserInDatabase(user.uid, name)
             
             // DataBase.collection("users").doc(user.uid).set({
             //     avatar: "",

@@ -13,17 +13,23 @@
 }
 
 .contentContainer {
+  margin-left: 450px;
+  margin-top: 30px;
+  /* margin: 0px; */
   padding: 24;
-  margin: 0;
+  /* padding-left: 450px; */
+  
   min-height: 280;
 }
 
 .siderWrapper{
+  
   border-right: 0;
   height: 100%;
 }
 .siderPosition{
   position: fixed;
+
 }
 .center {
   text-align: center;
