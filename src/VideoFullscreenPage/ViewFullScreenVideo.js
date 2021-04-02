@@ -1,46 +1,85 @@
 import ReactDOM from "react-dom"
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import { Carousel } from 'antd';
 import viewPageStyles from "./ViewFullScreenVideo.module.scss"
 import { FaCommentDots, FaHeart } from "react-icons/fa";
+import { DataBase } from "../firebase";
+import CommentDiv from './CommentDiv';
 
 
 
-export default function VideoFullScreen() {
+export default function VideoFullScreen({ currentUserId }) {
+    const [user, setUser] = useState();
+    const { videoId } = useParams();
+    const [videoSrc, setVideoSrc] = useState("");
+    const [userComment, setUserComment] = useState("");
+    const [input, setInput] = useState("");
+    const [comments, setComments] = useState([])
+    // console.log(videoId)
+    useEffect(() => {
+        DataBase.collection("videos").doc(videoId).get()
+            .then((video) => {
+                console.log(video.data())
+                let src = video.data().url;
+                setVideoSrc(src)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, [videoId])
+    useEffect(() => {
+        const fetchedComments = []
+        DataBase.collection('comments').where('forVideoId', '==', videoId).get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((el) => {
+                    fetchedComments.push(el.data())
+                    console.log(el.data())
+                })
+                setComments(fetchedComments)
+            })
+    }, [videoId])
+    useEffect(() => {
+        DataBase.collection('users').doc(currentUserId).get()
+            .then((res) => {
+                setUser(res.data())
+            })
+    }, [currentUserId])
+    const uploadComment = (ev) => {
+        ev.preventDefault()
+        if (input.trim()) {
+            let date = new Date().toDateString()
+            const commentObj = {
+                addedByUUID: currentUserId,
+                timeStamp: date,
+                forVideoId: videoId,
+                numOfLikes: 0,
+                comment: input,
+                userName: user.displayName,
+
+            }
+            DataBase.collection("comments").doc().set(commentObj)
+                .then(() => {
+                    console.log("Document successfully written!");
+                    setInput("")
+                })
+                .catch((error) => {
+                    console.error("Error writing document: ", error);
+                });
+            setComments([...comments, commentObj])
+        }
+
+    }
     function onChange(a, b, c) {
         console.log(a, b, c);
     }
 
 
     return (
-
         <div className={viewPageStyles.viewContainer}>
             <div className={viewPageStyles.CarouselWrapper}>
-                <Carousel afterChange={onChange} className={viewPageStyles.Carousel}>
-                    <div className={viewPageStyles.videoWrapper}>
-                        <video controls
-                            // className={contentStyle} 
-                            src="https://v77.tiktokcdn.com/3439fcbdb3b94fa8b9958469efeb175d/605fd956/video/tos/useast2a/tos-useast2a-ve-0068c002/70fdf3baf7854b6bb5da3a293c74a21e/?a=1233&br=2162&bt=1081&cd=0%7C0%7C1&ch=0&cr=0&cs=0&cv=1&dr=0&ds=3&er=&l=20210327191758010189066032329544EB&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&qs=0&rc=amlod2pnZDhoNDMzOzczM0ApZzk3NTRmN2U3N2VlZ2ZkPGcwMTIvLmIxbGNgLS1gMTZzc15jYTA2NjIxXzIyYC9hNmE6Yw%3D%3D&vl=&vr=" />
-                        {/* <h3 style={contentStyle}>1</h3> */}
-                    </div>
-                    <div className={viewPageStyles.videoWrapper}>
-                        <video controls
-                            // className={contentStyle} 
-                            src="https://v77.tiktokcdn.com/3439fcbdb3b94fa8b9958469efeb175d/605fd956/video/tos/useast2a/tos-useast2a-ve-0068c002/70fdf3baf7854b6bb5da3a293c74a21e/?a=1233&br=2162&bt=1081&cd=0%7C0%7C1&ch=0&cr=0&cs=0&cv=1&dr=0&ds=3&er=&l=20210327191758010189066032329544EB&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&qs=0&rc=amlod2pnZDhoNDMzOzczM0ApZzk3NTRmN2U3N2VlZ2ZkPGcwMTIvLmIxbGNgLS1gMTZzc15jYTA2NjIxXzIyYC9hNmE6Yw%3D%3D&vl=&vr=" />
-                        {/* <h3 style={contentStyle}>2</h3> */}
-                    </div>
-                    <div className={viewPageStyles.videoWrapper}>
-                        <video controls
-                            // className={contentStyle} 
-                            src="https://v77.tiktokcdn.com/3439fcbdb3b94fa8b9958469efeb175d/605fd956/video/tos/useast2a/tos-useast2a-ve-0068c002/70fdf3baf7854b6bb5da3a293c74a21e/?a=1233&br=2162&bt=1081&cd=0%7C0%7C1&ch=0&cr=0&cs=0&cv=1&dr=0&ds=3&er=&l=20210327191758010189066032329544EB&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&qs=0&rc=amlod2pnZDhoNDMzOzczM0ApZzk3NTRmN2U3N2VlZ2ZkPGcwMTIvLmIxbGNgLS1gMTZzc15jYTA2NjIxXzIyYC9hNmE6Yw%3D%3D&vl=&vr=" />
-
-                    </div>
-                    <div className={viewPageStyles.videoWrapper}>
-                        <video controls
-                            // className={contentStyle} 
-                            src="https://v77.tiktokcdn.com/3439fcbdb3b94fa8b9958469efeb175d/605fd956/video/tos/useast2a/tos-useast2a-ve-0068c002/70fdf3baf7854b6bb5da3a293c74a21e/?a=1233&br=2162&bt=1081&cd=0%7C0%7C1&ch=0&cr=0&cs=0&cv=1&dr=0&ds=3&er=&l=20210327191758010189066032329544EB&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&qs=0&rc=amlod2pnZDhoNDMzOzczM0ApZzk3NTRmN2U3N2VlZ2ZkPGcwMTIvLmIxbGNgLS1gMTZzc15jYTA2NjIxXzIyYC9hNmE6Yw%3D%3D&vl=&vr=" />
-
-                    </div>
-                </Carousel>
+                <video controls src={videoSrc} className={viewPageStyles.video}>
+                </video>
             </div>
 
 
@@ -55,9 +94,18 @@ export default function VideoFullScreen() {
                     <div className={viewPageStyles.videoInfo}>
                         <span><FaHeart className="icons" /></span><span>Num of likes</span>
                         <span><FaCommentDots className="icons" /></span><span>num of comments</span>
-                        <p>Video URL</p>
+                        <p>{videoSrc}</p>
                     </div>
-                    <div className={viewPageStyles.comment}>
+
+                    {comments.map((el, index) => {
+                        return <CommentDiv
+                            key={index}
+                            comment={el.comment}
+                            timeStamp={el.timeStamp}
+                            name={el.userName}
+                        />
+                    })}
+                    {/* <div className={viewPageStyles.comment}>
                         <div className={viewPageStyles.avatar}><img src="" alt="avatar"></img></div>
                         <div className={viewPageStyles.commentContent}>
                             <h3>Name</h3>
@@ -153,17 +201,6 @@ export default function VideoFullScreen() {
                             <span>timestamp</span>
                         </div>
                         <div className={viewPageStyles.heart}>
-                            <FaHeart  />
-                        </div>
-                    </div>
-                    <div className={viewPageStyles.comment}>
-                        <div className={viewPageStyles.avatar}><img src="" alt="avatar"></img></div>
-                        <div className={viewPageStyles.commentContent}>
-                            <h3>Name</h3>
-                            <p>Comment</p>
-                            <span>timestamp</span>
-                        </div>
-                        <div className={viewPageStyles.heart}>
                             <FaHeart />
                         </div>
                     </div>
@@ -178,10 +215,27 @@ export default function VideoFullScreen() {
                             <FaHeart />
                         </div>
                     </div>
+                    <div className={viewPageStyles.comment}>
+                        <div className={viewPageStyles.avatar}><img src="" alt="avatar"></img></div>
+                        <div className={viewPageStyles.commentContent}>
+                            <h3>Name</h3>
+                            <p>Comment</p>
+                            <span>timestamp</span>
+                        </div>
+                        <div className={viewPageStyles.heart}>
+                            <FaHeart />
+                        </div>
+                    </div> */}
                 </div>
                 <div className={viewPageStyles.addCommentContainer}>
-                    <input placeholder="Add comment" className={viewPageStyles.postInput}></input>
-                    <button> Post</button>
+                    <input placeholder="Add comment" value={input} className={viewPageStyles.postInput}
+                        onInput={(ev) => {
+                            setInput(ev.target.value)
+                            console.log(input)
+                        }
+                        }
+                    ></input>
+                    <button onClick={uploadComment}> Post</button>
                 </div>
             </div>
         </div>
