@@ -113,7 +113,18 @@
   font-size: 14px;
   background-color: white;
 }
-
+.following-button{
+  border:0.5px solid rgb(221, 196, 196);
+  border-radius: 4px;
+  width: 89px;
+  height: 30px;
+  color:black;
+  font-weight: 600;
+  padding: 2px 0 3px;
+  text-align: center;
+  font-size: 14px;
+  background-color: white;
+}
 .icons {
   font-size: 21px;
   height: 24px;
