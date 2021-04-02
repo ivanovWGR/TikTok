@@ -1,0 +1,189 @@
+/* HEADER STYLES */
+.header{
+    margin-top: 5px;    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom:1px solid rgba(34,90,89,0.2);
+    padding: 8px; 
+    a {
+        color: black;
+    }
+    
+    form{
+        background-color:rgba(22,24,35,0.06);
+        height: 50px;
+        align-items: center;
+        border-radius: 25px;
+        display: flex;
+        padding-right: 10px;
+        padding: 4px;
+      }
+  }
+ /* HEADER FORM INPUT */
+ #searchInput{  
+   border: none;
+   background-color: #f2f2f2;
+   outline: none;
+  width: 292px;
+  line-height: 18px;
+  font-size: 16px;  
+  caret-color: #fe2c55;  
+ } 
+ .searchInputContainer{
+     padding: 10px;
+     button{
+         border: none;
+         border-left: 1px solid lightgrey;
+         background-color:rgba(22,24,35,0.06);         
+         &:hover{
+             background-color: rgba(22,24,35,0.06);
+             border-left: 1px solid lightgrey;
+         }
+         svg{
+             font-size: 22px;             
+             color: black;
+         }
+     }
+ }
+//  .header form>button{
+//    border: none;
+//    outline: none;
+//    background: transparent;
+//    font-weight: 300;
+   
+//  }
+//  .header form>button>svg{
+//    width: 24px;
+//    height: 24px;
+//    font-weight: 300;
+//    fill: rgba(22, 24, 35, 0.34)
+//  }
+ /* HEADER RIGHT MENU CONTAINER*/
+ #headerRightWrapper{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   width: 230px;
+ }
+ /* LOGIN */
+ #loginBtn{
+   font-family: "proxima-semibold",PingFangSC,sans-serif;
+   width: 84px;  
+   padding-left: 8px;
+   padding-right: 8px;
+   padding-top: 6px;
+   padding-bottom: 6px;
+   background-color: #fe2c55;
+   font-family: "proxima-semibold",PingFangSC,sans-serif;
+   font-weight: 600;
+   min-width: 100px;
+   margin-left: 16px;
+   font-size: 16px;
+   line-height: 22px;
+   border-radius: 4px;
+   color: white;
+   border: none;
+   border-color: white;
+   outline: none;
+   font-weight: 600;
+ }
+ /* DOTS MENU */
+  #dotsMenu{
+   border: none;
+   background: transparent;
+   outline: none;
+  }
+  #dotsMenu:hover{
+    cursor: pointer;
+  }
+  #dotsMenu>svg{
+   width: 24px;
+   height: 24px;
+  }
+  /* UPLOAD BUTTON */
+  #upload{
+    background: transparent;
+    border:none;
+    outline: none;
+  }
+  #upload>span{
+    line-height: 22px;
+   font-size: 16px;
+   font-weight: 600;
+  }
+  #upload>span:hover{
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  button:hover{
+    cursor: pointer;
+  }
+  /* HEADER SIDE MENU WHEN USER IS LOGGED IN */
+#headerRightWrapperUserOnline{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 130px;
+  }
+  .userLoggedInSideMenu{
+    font-size: 24px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+  }
+  .profileIconSpan{
+    font-size: 34px;
+    opacity: 0.4;   
+  }
+  #tooltip{  
+    align-items: center;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;   
+    border-radius: 5px;  
+    border: 1px solid black;  
+    opacity: 0.9;
+  }
+  .navHoverMenu{
+    
+    position: absolute;
+    padding: 10px;
+    top: 56px;
+    right: 95px;
+    width: 223px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* border: 1px solid; */
+    background-color: white;
+    color: black;
+    z-index: 1;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+  } 
+  .navHoverMenu a{
+    color: black;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    opacity: 0.8;  
+  }
+  .navHoverMenu span{
+    margin-right: 15px;
+    text-align: center;
+  }
+  .navHoverMenu span>svg{
+  position: relative;
+  top: 3px;
+  width: 18px;
+  height: 18px;
+  }
+  #profileIconSpan:hover{
+    cursor: pointer;
+  }
+  #logOutDiv{
+    border-top: 1px solid lightgrey;
+    padding-top: 5px;  
+  }

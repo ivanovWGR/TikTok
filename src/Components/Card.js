@@ -1,7 +1,8 @@
 import React from 'react';
-import { FaCommentDots, FaShare, FaHeart } from "react-icons/fa";
+import { FaCommentDots, FaShare, FaHeart, FaBuromobelexperte } from "react-icons/fa";
+import { Link } from 'react-router-dom'
 
-const Card = ({ videoUrl }) => {
+const Card = ({ videoUrl, likes, comments, title, fullName, caption, date }) => {
 
 
     return (
@@ -13,11 +14,11 @@ const Card = ({ videoUrl }) => {
 
                     <div>
                         <div className="section">
-                            <h3 className="bold">Username</h3>
-                            <p className="username">Full name</p>
-                            <p>Date</p>
+                            <h3 className="bold">{title}</h3>
+                            <p className="username">{fullName}</p>
+                            {/* <p>{date}</p> */}
                         </div>
-                        <p>Description will be here</p>
+                        <p>{caption}</p>
                     </div>
                 </div>
 
@@ -31,16 +32,23 @@ const Card = ({ videoUrl }) => {
             <div className="section socials icons-conteiner">
                 <div className='icon-wrapper'>
                     <FaHeart className="icons" />
+
                 </div>
-                <div className="social-tag">likes</div>
-                <div className='icon-wrapper'>
+                <div className="social-tag"><span>{likes}</span></div>
+                
+                
+                <div className='icon-wrapper'>                    
+                <Link to="/viewVideo">
                     <FaCommentDots className="icons" />
+                    </Link>
                 </div>
-                <div className="social-tag">comments</div>
+                
+                <div className="social-tag"><span>{comments}</span></div>
                 <div className='icon-wrapper'>
+
                     <FaShare className="share" />
                 </div>
-                <div className="social-tag">shares</div>
+                <div className="social-tag"><span>Share</span></div>
             </div>
         </div>
     )

@@ -13,20 +13,26 @@
 }
 
 .contentContainer {
+  margin-left: 450px;
+  margin-top: 30px;
+  /* margin: 0px; */
   padding: 24;
-  margin: 0;
+  /* padding-left: 450px; */
+  
   min-height: 280;
 }
-
-.siderConteiner {
-  margin-left: 100px;
-  padding-top: 26px;
-  margin-right: 20px;
+/* USER PAGE CONTENT CONTAINER */
+.userPageContent{
+  padding-left: 82px;
 }
-
 .siderWrapper{
+  
   border-right: 0;
   height: 100%;
+}
+.siderPosition{
+  position: fixed;
+
 }
 .center {
   text-align: center;
@@ -34,107 +40,7 @@
   text-shadow: 1px 1px black;
  }
 
- /* HEADER STYLES */
- .header{
-   margin-top: 5px;
-   
-   display: flex;
-   flex-direction: row;
-   justify-content: space-around;
-   border-bottom:1px solid rgba(34,90,89,0.2);
-   padding: 8px; 
- }
-.header form{
-  background-color:rgba(22,24,35,0.06);
-  align-items: center;
-  border-radius: 25px;
-  display: flex;
-  padding: 8px;
-}
-/* HEADER FORM INPUT */
-.header input{  
-  border: none;
-  background-color: #f2f2f2;
-  outline: none;
- width: 292px;
- line-height: 22px;
- font-size: 16px;  
- caret-color: #fe2c55;
  
-} 
-.header form>button{
-  border: none;
-  outline: none;
-  background: transparent;
-  font-weight: 300;
-  
-}
-.header form>button>svg{
-  width: 24px;
-  height: 24px;
-  font-weight: 300;
-  fill: rgba(22, 24, 35, 0.34)
-}
-/* HEADER RIGHT MENU CONTAINER*/
-#headerRightWrapper{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 230px;
-}
-/* LOGIN */
-#loginBtn{
-  font-family: "proxima-semibold",PingFangSC,sans-serif;
-  width: 84px;  
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  background-color: #fe2c55;
-  font-family: "proxima-semibold",PingFangSC,sans-serif;
-  font-weight: 600;
-  min-width: 100px;
-  margin-left: 16px;
-  font-size: 16px;
-  line-height: 22px;
-  border-radius: 4px;
-  color: white;
-  border: none;
-  border-color: white;
-  outline: none;
-  font-weight: 600;
-}
-/* DOTS MENU */
- #dotsMenu{
-  border: none;
-  background: transparent;
-  outline: none;
- }
- #dotsMenu:hover{
-   cursor: pointer;
- }
- #dotsMenu>svg{
-  width: 24px;
-  height: 24px;
- }
- /* UPLOAD BUTTON */
- #upload{
-   background: transparent;
-   border:none;
-   outline: none;
- }
- #upload>span{
-   line-height: 22px;
-  font-size: 16px;
-  font-weight: 600;
- }
- #upload>span:hover{
-   cursor: pointer;
-   text-decoration: underline;
- }
- button:hover{
-   cursor: pointer;
- }
 
  /* Style card */
  .section {
@@ -182,9 +88,6 @@
   margin-left: 70px;
 }
 
-.card-button-wrapper{
-  
-}
 
 .username {
   margin-left: 10px;
@@ -250,4 +153,7 @@ margin-right: 50px;
   margin-left: 175px;
   padding-top: 7px;
 }
+
+
+
 

@@ -1,0 +1,242 @@
+.uploadpage {
+    margin-left: 30px;
+}
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.bold {
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-size: 24px;
+    line-height: 1;
+    padding-bottom: 12px;
+}
+
+.uploadHeader{
+    font-weight: 700;
+    font-size: 56px;
+    line-height: 1;
+    margin-top: 60px;
+    margin-bottom: 0px;
+}
+
+.userHeader {
+    font-weight: 400;
+    font-size: 18px;
+    color: rgb(138, 139, 145);
+    line-height: 24px;
+    letter-spacing:0.5px;
+}
+
+.coverWrapper{
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(22, 24, 35, 0.12);
+    border-radius: 2px;
+    height: 138px;
+    width: 680px;
+    padding: 8px;
+}
+
+.headerContainer{
+    padding: 0 50px;
+}
+
+.section {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+}
+
+.imageUpload {
+    width: 306px;
+    height: 544px;
+    border-radius: 10px;
+    background-color:rgba(22, 24, 35, 0.03);   
+    margin-right: 50px;
+    margin-left: 47px;
+    margin-top: 20px;
+}
+
+.imageUpload:hover{
+    cursor: pointer;
+    border-radius: 10px;
+    background-color:rgba(22, 24, 35, 0.06);   
+    
+}
+
+.inputSection {
+    margin: 10px;
+    width: 700px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.formSection {
+    margin-left: 20px;
+}
+
+
+
+.input{
+    min-height: 38px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(22, 24, 35, 0.12);
+    border-radius: 2px;
+    width: 685px;
+    padding-left: 10px;
+    outline: none;
+    margin-bottom: 30px;
+}
+
+input:focus{
+    border: none;
+    box-shadow: 2px 2px 2px 2px rgb(208, 208, 238,0.8);
+}
+.caption {
+    margin:0 0 12px;
+}
+
+.infoWrapper {
+    margin-top: 45px;
+    display: flex;
+}
+
+.infoTitle {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+    vertical-align: top;
+    color: rgb(0, 0, 0);
+    margin-bottom: 12px;
+}
+
+.firstGroup{
+    box-sizing: inherit;
+    margin-right: 55px;
+}
+
+.radioGroup {
+    margin-bottom: 26px;
+    display: flex;
+}
+
+.labels {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 32px;
+}
+
+.radioInputs {
+    text-align: left;
+}
+
+.buttonUploadCont {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.postButton{
+    height: 40px;
+    width: 150px;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    cursor: pointer;
+    color: rgb(22, 24, 35);
+    position: relative;
+    outline: none;
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent;
+    border-radius: 2px;
+}
+
+.postButtonActive{
+    height: 40px;
+    width: 150px;
+    font-weight: 400;
+    font-size: 15px;
+    cursor: pointer;
+    color:white;
+    background-color: #F34955;
+    position: relative;
+    outline: none;
+    border: none;
+}
+
+.discardButton {
+margin-right: 32px;
+background-color: transparent;
+font-weight: 400;
+font-size: 15px;
+line-height: 18px;
+cursor: pointer;
+color: rgb(22, 24, 35);
+position: relative;
+outline: none;
+border-width: 1px;
+border-style: solid;
+border-color: transparent;
+border-radius: 2px;
+}
+
+
+/* Drag and drop style */
+.headerDrag { 
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    color: rgba(22, 24, 35, 0.34);
+    margin-top: 29px;
+}
+
+.imageDrag {
+    cursor: pointer;
+    display:inline-block;
+    margin-left: 120px;
+    border:none;
+}
+
+.descriptDrag {
+    margin-top:110px;
+}
+
+.smallTxt {
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    color: rgba(22, 24, 35, 0.34);
+    text-align: left;
+    margin: 0px;
+    margin-top: 15px;
+    padding-left: 82px;
+    margin-bottom: 17px;
+}
+
+.dragLi{
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    color: rgba(22, 24, 35, 0.34);
+}
+
+.descTxt{
+    color: grey;
+    padding-left: 18px;
+}
+
+.ulDiv {
+    padding-left: 27px;
+}
