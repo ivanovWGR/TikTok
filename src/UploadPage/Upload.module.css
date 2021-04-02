@@ -191,7 +191,6 @@ border-color: transparent;
 border-radius: 2px;
 }
 
-
 /* Drag and drop style */
 .headerDrag { 
     font-weight: 400;
@@ -239,4 +238,50 @@ border-radius: 2px;
 
 .ulDiv {
     padding-left: 27px;
+}
+
+.progressCont {
+    margin-top: 20px;
+    margin-left:70px;
+}
+
+.afterUpload {
+    font-size: 20px;
+    margin-right: 40px;
+    color: black;
+    text-align: center;
+}
+
+.afterUpload:hover{
+    color: #F34955;
+}
+
+:global(.ant-modal-body){
+    text-align: center;
+}
+
+:global(.ant-modal-footer){
+    display: none;
+}
+
+:global(.ant-modal-content){
+    border-radius: 25px;
+}
+
+.fileInformation{
+    list-style: none;
+    margin-top: 8px;
+    position: relative;
+    left:-40px;
+}
+
+.uploadAnother {
+    border:none;
+    background-color: #F34955;
+    color: white;
+    width: 350px;
+    border-radius: 8px;
+    padding:6px;
+    font-weight: bold;
+    margin-right: 18px;
 }

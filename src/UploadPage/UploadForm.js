@@ -1,6 +1,8 @@
-import React, { useCallback, useState } from 'react';
-import firebase , {DataBase, storage } from '../firebase';
+import React, { useCallback, useState, useEffect } from 'react';
+import firebase, { DataBase, storage } from '../firebase';
 import Dropzone from 'react-dropzone';
+import { Link } from 'react-router-dom';
+import ModalUpload from './modalUpload';
 
 
 import FirstGroup from './FirstGroup';
@@ -20,7 +22,15 @@ function UploadForm() {
     const [alert, setAlert] = useState("");
     const [file, setFile] = useState(null);
     const [progressAnt, setProgressAnt] = useState(0);
-    // take current user
+
+    useEffect(() => {
+        if (progressAnt === 100) {
+            setTimeout(() => {
+                setTitle("");
+                setDescription("")
+            }, 3000)
+        }
+    }, [progressAnt])
     const user = firebase.auth().currentUser;
 
     const openNotification = (message) => {
@@ -72,13 +82,12 @@ function UploadForm() {
 
         }
         setAlert("")
-        // upload in store 
+
         const uploadTask = storage.ref().child(`videos/${title}`).put(file);
         uploadTask.on(
             'state_changed',
             (snapshot) => {
                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                // show procentage uploading
                 setProgressAnt(progress)
             },
             (error) => {
@@ -93,26 +102,29 @@ function UploadForm() {
                             url: downloadUrl,
                             addBy: user.uid,
                             addedDate: Date.now(),
-                            likedBy:[],
+                            likedBy: [],
                             numOfComments: 0,
                             numOfLikes: 0,
                         })
                     })
                     .then(() => {
-                        openNotification('Your video is being uploaded to TikTok!');
+                        console.log('success');
                     })
                     .catch(err => openNotification(err.message));
             })
 
     }
 
-    const clearFile = (e) => {
-        e.preventDefault()
+    const clearFile = () => {
         setFile(null);
+        setTitle("")
+        setDescription("");
+        setProgressAnt(0);
         const message = 'File removed...'
         openNotification(message)
     }
 
+    const link = <Link to='/userprofile'> <h3 className={styles.afterUpload}>Your video is being uploaded to TikTok successfully! <p><strong>View profile</strong></p></h3></Link>
 
     return (
         <form onSubmit={onSubmit}>
@@ -142,13 +154,23 @@ function UploadForm() {
                                             <li className={styles.dragLi}>720x1280 resolution or higher</li>
                                             <li className={styles.dragLi}>Up to 60 seconds</li>
                                         </ul>
-                                        <Progress type="circle" percent={progressAnt} width={80} />
+                                        {file ? <Progress type="circle" percent={progressAnt} width={100} className={styles.progressCont} />
+                                            :
+                                            null
+                                        }
                                     </div>
                                 </div>}
                                 {isDragReject && "File type not accepted"}
                             </div>
                         )}
                     </Dropzone>
+                    {file ?
+                        <ul className={styles.fileInformation}>
+                            <li>File: {file.name}</li>
+                            <li>Size: {(+file.size / 1000000).toFixed(2)} MB</li>
+                        </ul>
+                        : null
+                    }
                 </div>
 
                 <div className={styles.formSection}>
@@ -168,7 +190,6 @@ function UploadForm() {
                     <div className={styles.inputSection}>
                         <div className={styles.bold}>
                             <label>Description</label></div>
-                        {/* className={styles.coverWrapper} in div  for test */}
                         <div>
                             <TextArea
                                 style={{ width: '700px', height: '150px' }}
@@ -192,8 +213,16 @@ function UploadForm() {
                         </div>
                     </div>
                     <div className={styles.buttonUploadCont}>
-                        <button className={styles.discardButton} onClick={clearFile}>Discard</button>
-                        <button className={file ? styles.postButtonActive : styles.postButton} onSubmit={onSubmit}>Post</button>
+                        {progressAnt === 100 ?
+                            <div>
+                                <ModalUpload link={link} clearFile={clearFile} />
+                            </div>
+                            :
+                            <div>
+                                <button className={styles.discardButton} disabled={!file ? true : false} onClick={clearFile}>Discard</button>
+                                <button className={file ? styles.postButtonActive : styles.postButton} disabled={!file ? true : false} onSubmit={onSubmit}>Post</button>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
