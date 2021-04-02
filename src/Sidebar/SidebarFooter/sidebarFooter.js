@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./SidebarFooter.module.css";
+import styles from "./SidebarFooter.module.scss";
 export default function SidebarFooter() {
   return (
     <div>
@@ -132,11 +132,11 @@ export default function SidebarFooter() {
       </div>
 
       <div className={styles.containerSpan}>
-        <p className={styles.span}>More</p>
+        <p className={styles.paragraph}>More</p>
       </div>
 
       <div className={styles.containerSpan}>
-        <p className={styles.span}>© 2021 TikTok</p>
+        <p className={styles.paragraph}>© 2021 TikTok</p>
       </div>
     </div>
   );

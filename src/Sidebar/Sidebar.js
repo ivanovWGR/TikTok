@@ -3,7 +3,7 @@ import { FollowingBtnUnactive } from "./Following/FollowingBtn";
 import { FollowingBtnActive } from "./Following/FollowingBtn";
 import SidebarLoginBtutton from "./SidebarLogin/SidebarLoginBtn";
 import SidebarFooter from "./SidebarFooter/sidebarFooter";
-import styles from "./Sidebar.module.css";
+import styles from "./Sidebar.module.scss";
 import SuggestionAccounts from "./SuggestedAccounts/SuggestedAccounts";
 import YourTopAccounts from "./YourTopAccounts/YourTopAccounts";
 import followUnactive from "../date/img/followUnactive.png";
@@ -23,7 +23,7 @@ export default function ShowSidebar({ isUserLoggedIn }) {
     activeFollowing(!isActiveFollowing);
   }
   return (
-    <div className={styles.siderDiv}>
+    <div id={styles.siderDiv}>
       <div>
         <div className={styles.sidebarButtons}>
           {isActiveForYou ? (
