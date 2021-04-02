@@ -12,6 +12,11 @@
     width: 60%;
     height: 800px;
     background-color: blueviolet;
+    video{
+        margin: 0 auto;
+        width: 400px;             
+    
+    }
     .Carousel{
         margin: 0 auto;
         margin-top: 0 auto;
@@ -19,15 +24,9 @@
         align-items: center;
         height: 750px;
         width: 400px;
-        .videoWrapper{  
-         margin-top: 25px;
-                    border: 1px solid black;
-            video{
-                margin: 0 auto;
-                height: 700px;                
+        
             
-            }
-        }
+        
     }    
 }
 .commentsContainer{

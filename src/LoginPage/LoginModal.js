@@ -47,9 +47,9 @@ export default function LoginModal({ onClick, destroyModal }) {
                 <div className={styles.choicesOverflow}>
                     
                     <UseEmail onClick={goToLoginForm} text="Use phone/ email/ username"  />
-                    <UseFacebook text="Log in wit Facebook" shouldLogin destroyModal={destroyModal}/>
+                    {/* <UseFacebook text="Log in wit Facebook" shouldLogin destroyModal={destroyModal}/> */}
                     <UseGoogle text="Log in with Google" shouldLogin destroyModal={destroyModal}/>
-                    <UseTwitter text="Log in with twitter" shouldLogin destroyModal={destroyModal}/>                    
+                    {/* <UseTwitter text="Log in with twitter" shouldLogin destroyModal={destroyModal}/>                     */}
                     
                 </div>
                 <p className={styles.signUp}>Don't have an account? <a href="#" onClick={onClick}> Sign up</a></p>

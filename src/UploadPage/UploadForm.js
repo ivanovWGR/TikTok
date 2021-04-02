@@ -20,6 +20,7 @@ function UploadForm() {
     const [alert, setAlert] = useState("");
     const [file, setFile] = useState(null);
     const [progressAnt, setProgressAnt] = useState(0);
+    const [videoUrl, setVideoUrl] = useState(null);
     // take current user
     const user = firebase.auth().currentUser;
 
@@ -55,6 +56,7 @@ function UploadForm() {
 
     const onSubmit = (ev) => {
         ev.preventDefault();
+        if(!file) return;
         if (!title.trim()) {
             setAlert('Please add a title!');
             openNotification(alert)
@@ -87,6 +89,7 @@ function UploadForm() {
             () => {
                 uploadTask.snapshot.ref.getDownloadURL()
                     .then(downloadUrl => {
+                        setVideoUrl(downloadUrl)
                         DataBase.collection('videos').doc().set({
                             title: title,
                             caption: description,
@@ -148,6 +151,7 @@ function UploadForm() {
                                 {isDragReject && "File type not accepted"}
                             </div>
                         )}
+                        {/* {videoUrl && <video src={videoUrl} /> } */}
                     </Dropzone>
                 </div>
 
@@ -193,7 +197,7 @@ function UploadForm() {
                     </div>
                     <div className={styles.buttonUploadCont}>
                         <button className={styles.discardButton} onClick={clearFile}>Discard</button>
-                        <button className={file ? styles.postButtonActive : styles.postButton} onSubmit={onSubmit}>Post</button>
+                        <button className={file ? styles.postButtonActive : styles.postButton} disabled={!file} onSubmit={onSubmit}>Post</button>
                     </div>
                 </div>
             </div>
