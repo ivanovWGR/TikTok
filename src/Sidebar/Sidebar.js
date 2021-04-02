@@ -12,6 +12,7 @@ import forYouActive from "../date/img/forYouActive.png";
 import forYouUnactive from "../date/img/forYouUnactive.png";
 
 export default function ShowSidebar({ isUserLoggedIn }) {
+  console.log(isUserLoggedIn)
   const [isActiveForYou, activeForYou] = useState(true);
   const [isActiveFollowing, activeFollowing] = useState(true);
   function changeButtonStylesForYou() {
@@ -54,7 +55,7 @@ export default function ShowSidebar({ isUserLoggedIn }) {
             />
           )}
         </div>
-        <div>{isUserLoggedIn ? null : <SidebarLoginBtutton />}</div>
+        <div>{!isUserLoggedIn && <SidebarLoginBtutton />  }</div>
       </div>
       <div className={styles.suggestedAccounts}>
         <SuggestionAccounts />
