@@ -82,7 +82,7 @@ function App() {
   // }]
   const [videos, setVideos] = useState([]);
   const [filtered, setFiltered] = useState([]);
-  const [currentUser, setCurrentUser] = useState("");
+  const [currentUserId, setCurrentUserId] = useState("");
 
   useEffect(() => {
     console.log("Inside effect");
@@ -92,14 +92,10 @@ function App() {
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
           tempVideos.push(doc.data());
-          // console.log(doc.id, " => ", doc.data());
         });
         setVideos(tempVideos);
         setFiltered(tempVideos);
-        // console.log('Videos ', videos)
-        // console.log('filtered ', filtered)
       });
   }, []);
 
@@ -110,27 +106,23 @@ function App() {
       video.addBy.toLowerCase().includes(input.toLowerCase())
     );
     setFiltered(temp);
-    // console.log(temp)
   };
   const [currentUserVideos, setCurrenUserVideos] = useState([]);
   useEffect(() => {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
-        setCurrentUser(user.uid);
+        setCurrentUserId(user.uid);
         isUserLoggedIn(true);
-        //     // const fetchedVideos = [];
-        //
-
-        // console.log(currentUser)
-      } else {
+      }
+      else {
         isUserLoggedIn(false);
-        setCurrentUser("");
+        setCurrentUserId("");
       }
     });
-  }, [currentUser]);
+  }, [currentUserId]);
 
   // useEffect(()=>{
-  //   const user = firebase.auth().currentUser
+  //   const user = firebase.auth().currentUserId
   //   if(user){
   //     isUserLoggedIn(true)
   //     console.log('User ', user)
@@ -150,7 +142,7 @@ function App() {
         </Route>
 
         <Route path="/userprofile">
-          <UserPage currentUser={currentUser} />
+          <UserPage currentUserId={currentUserId} />
         </Route>
         <Route path="/user/:id">
           <Layout>

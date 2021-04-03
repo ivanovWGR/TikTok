@@ -32,6 +32,7 @@ function UploadForm() {
         }
     }, [progressAnt])
     const user = firebase.auth().currentUser;
+    console.log(user)
 
     const openNotification = (message) => {
         const key = `open${Date.now()}`;
