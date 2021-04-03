@@ -14,10 +14,7 @@ import { DataBase } from "../firebase";
 
 
 export default function ShowSidebar({ isUserLoggedIn, currentUserUid }) {
-  const users = [];
-  const account = [];
-  const topAccount = [];
-  const suggestedAcc = [];
+
   const [currentAccount, setCurrentAccount] = useState([]);
   const [yourTopAccounts, setYourTopAccounts] = useState([]);
   const [suggestedAccounts, SetSuggestedAccounts] = useState([]);
@@ -34,36 +31,41 @@ export default function ShowSidebar({ isUserLoggedIn, currentUserUid }) {
   }
   //get current user obj
   useEffect(() => {
+  
     DataBase.collection("users")
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           if (doc.id === currentUserUid) {
-            account.push(doc.data().following);
+            let res = {...doc.data()}
+            setCurrentAccount([...res.following])
+            console.log("current account", res)
           }
         });
-        setCurrentAccount(account);
       })
       .catch((error) => {
         console.log("Error getting document:", error);
       });
-  },[]);
+  },[currentUserUid]);
 
   useEffect(() => {
+    const users = [];
+    const topAccount = [];
+    const suggestedAcc = [];
     DataBase.collection("users")
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           let user = { ...doc.data() };
           user.id = doc.id;
-          if(currentUserUid){
-            if (currentAccount[0].indexOf(doc.id) < 0  && doc.id !== currentUserUid) {
-              suggestedAcc.push(user)
-            } 
-            if (currentAccount[0].indexOf(doc.id) >= 0  && doc.id !== currentUserUid)  {
+            if (currentAccount.includes(doc.id)) {
               topAccount.push(user)
+             
+            } else {
+              if (doc.id !== currentUserUid) {
+                suggestedAcc.push(user)
+              }
             }
-          }
           users.push(user);
         });
         setYourTopAccounts(topAccount)
@@ -73,7 +75,7 @@ export default function ShowSidebar({ isUserLoggedIn, currentUserUid }) {
       .catch((error) => {
         console.log("Error getting document:", error);
       });
-  },[currentUserUid]);
+  },[currentAccount]);
 
   return (
     <div id={styles.siderDiv}>

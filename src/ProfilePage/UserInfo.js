@@ -7,32 +7,30 @@ import { DataBase } from '../firebase'
 import { RiCreativeCommonsZeroLine } from 'react-icons/ri';
 
 const UserInfo = ({currentUser}) => {
-    const [userObj, setUserObj] = useState([])
-    const user = []
+    console.log(currentUser)
+    const [userObj, setUserObj] = useState({})
+    let user = {}
     useEffect(() => {
-        DataBase.collection('users').get()
-          .then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-            if (doc.id === currentUser) {
-              user.push(doc.data());
-            }
+        DataBase.collection('users').doc(currentUser).get()
+          .then((res) => {
+            user = {...res.data()}
+            setUserObj(user)
+          })
+          .catch((error) => {
+            console.log("Error getting document:", error);
           });
-          setUserObj(user);
-        })
-        .catch((error) => {
-          console.log("Error getting document:", error);
-        });
+     
     },[currentUser]);
-    console.log(userObj[0])
+    console.log(userObj)
     return (
         <div className={styles.infoWrapper}>
             <div className={styles.userInfo}>
                 <div>
-                    <Avatar size={120} icon={<UserOutlined />} src = {userObj[0].photoURL} alt= {userObj[0].nickName} />
+                    <Avatar size={120} icon={<UserOutlined />} src = {userObj.photoURL} alt= {userObj.nickName} />
                 </div>
                 <div className={styles.infoCont}>
-                    <h2 className={styles.username}>{userObj[0].nickName}</h2>
-                    <h1 className={styles.description}>{userObj[0].displayName}</h1>
+                    <h2 className={styles.username}>{userObj.nickName}</h2>
+                    <h1 className={styles.description}>{userObj.displayName}</h1>
                     <div>
                         <button className={styles.userPageBtn}>Follow</button>
                     </div>

@@ -10,7 +10,7 @@ import { Layout } from "antd";
 
 const { Content, Sider } = Layout;
 
-const UserPage = ({ currentUser }) => {
+const UserPage = ({ currentUser, isUserLoggedIn, currentUserUid }) => {
     console.log('profile page ', currentUser);
     const [userVideos, setUserVideos] = useState([]);
     const [likedVideos, setLikedVideos] = useState([]);
@@ -54,24 +54,13 @@ const UserPage = ({ currentUser }) => {
                 console.log("Error getting documents: ", error);
             });
     }, [currentUser])
-
-  
-
-
-
     return (
         <div>
             <Layout>
                 <Layout>
                     <Sider width={250} className="site-layout-background ">
                         <div className="siderWrapper">
-                            <Sidebar/>
-                            {/* <ForYouButton />
-                            <FollowingBtn />
-                            <SidebarLoginBtutton />
-                            <UserItem />
-                            <SeeAllButton />
-                            <SidebarFooter /> */}
+                            <Sidebar isUserLoggedIn = {isUserLoggedIn} currentUserUid = {currentUserUid}/>
                         </div>
                     </Sider>
                     <Layout style={{ padding: "0 24px 24px" }}>

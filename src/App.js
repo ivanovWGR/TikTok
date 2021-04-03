@@ -13,13 +13,14 @@ import Upload from "./UploadPage/Upload";
 import ViewFullScreenVideo from "./VideoFullscreenPage/ViewFullScreenVideo";
 import UserPage from "./ProfilePage/UserProfile";
 import SelectedUser from "./SelectedUser/selectedUser";
+import ShowForYouPage from './ForYouPage/ForYouPage'
 const { Content, Sider } = Layout;
 
 function App() {
   const [USER_LOGGED_IN, isUserLoggedIn] = useState(false); //for test only, change the value will change the header header
   const [videos, setVideos] = useState([]);
   const [filtered, setFiltered] = useState([]);
-  const [currentUser, setCurrentUser] = useState("");
+  const [currentUserId, setCurrentUserId] = useState("");
 
   useEffect(() => {
     console.log("Inside effect");
@@ -53,21 +54,21 @@ function App() {
   useEffect(() => {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
-        setCurrentUser(user.uid);
+        setCurrentUserId(user.uid);
         isUserLoggedIn(true);
         //     // const fetchedVideos = [];
         //
 
-        // console.log(currentUser)
+        // console.log(currentUserId)
       } else {
         isUserLoggedIn(false);
-        setCurrentUser("");
+        setCurrentUserId("");
       }
     });
-  }, [currentUser]);
+  }, [currentUserId]);
 
   // useEffect(()=>{
-  //   const user = firebase.auth().currentUser
+  //   const user = firebase.auth().currentUserId
   //   if(user){
   //     isUserLoggedIn(true)
   //     console.log('User ', user)
@@ -78,7 +79,7 @@ function App() {
   return (
     <Router>
       <HeaderComp isUserLoggedIn={USER_LOGGED_IN} getInput={searchByName} />
-      <Switch>
+    <Switch>
         <Route path="/viewVideo">
           <ViewFullScreenVideo />
         </Route>
@@ -86,12 +87,16 @@ function App() {
           {USER_LOGGED_IN ? <Upload /> : (window.location = "/#")}
         </Route>
 
+        <Route path="/ForYouPage">
+          <ShowForYouPage isUserLoggedIn={USER_LOGGED_IN} currentUserUid = {currentUserId}/>
+        </Route>
+
         <Route path="/userprofile">
-          <UserPage currentUser={currentUser} />
+          <UserPage currentUser={currentUserId} />
         </Route>
 
         <Route path="/user/:id">
-          <SelectedUser isUserLoggedIn={USER_LOGGED_IN}/>
+          <SelectedUser isUserLoggedIn={USER_LOGGED_IN} currentUserUid = {currentUserId}/>
         </Route>
 
         <Route exact path="/">
@@ -102,7 +107,7 @@ function App() {
                 className="site-layout-background siderConteiner siderPosition"
               >
                 <div className="siderWrapper">
-                  <ShowSidebar isUserLoggedIn={USER_LOGGED_IN} currentUserUid={currentUser}/>
+                  <ShowSidebar isUserLoggedIn={USER_LOGGED_IN} currentUserUid={currentUserId}/>
                 </div>
               </Sider>
               <Layout style={{ padding: "0 24px 24px" }}>
@@ -143,3 +148,4 @@ function App() {
 }
 
 export default App;
+

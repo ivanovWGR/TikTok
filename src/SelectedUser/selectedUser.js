@@ -1,15 +1,11 @@
-import { useEffect, useState } from "react";
-import { RiCreativeCommonsZeroLine } from "react-icons/ri";
 import { useParams } from "react-router";
-import { DataBase } from "../firebase";
 import UserPage from "../ProfilePage/UserProfile";
 
-export default function SelectedUser() {
+export default function SelectedUser({isUserLoggedIn, currentUserUid}) {
   const { id } = useParams();
-
   return (
     <div>
-      <UserPage currentUser={id} />
+      <UserPage currentUser={id} isUserLoggedIn = {isUserLoggedIn} currentUserUid = {currentUserUid}/>
     </div>
   );
 }
