@@ -14,7 +14,6 @@ import { DataBase } from "../firebase";
 
 
 export default function ShowSidebar({ isUserLoggedIn, currentUserUid }) {
-
   const [currentAccount, setCurrentAccount] = useState([]);
   const [yourTopAccounts, setYourTopAccounts] = useState([]);
   const [suggestedAccounts, SetSuggestedAccounts] = useState([]);
@@ -31,8 +30,7 @@ export default function ShowSidebar({ isUserLoggedIn, currentUserUid }) {
   }
   //get current user obj
   useEffect(() => {
-  
-    DataBase.collection("users")
+      DataBase.collection("users")
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
