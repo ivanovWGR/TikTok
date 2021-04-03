@@ -12,7 +12,7 @@ import { Layout } from "antd";
 import Upload from "./UploadPage/Upload";
 import ViewFullScreenVideo from "./VideoFullscreenPage/ViewFullScreenVideo";
 import UserPage from "./ProfilePage/UserProfile";
-import User from "./UserTest/User";
+import SelectedUser from "./SelectedUser/selectedUser";
 const { Content, Sider } = Layout;
 
 function App() {
@@ -86,27 +86,12 @@ function App() {
           {USER_LOGGED_IN ? <Upload /> : (window.location = "/#")}
         </Route>
 
-        <Route path="/userprofile/:id">
+        <Route path="/userprofile">
           <UserPage currentUser={currentUser} />
         </Route>
+
         <Route path="/user/:id">
-          <Layout>
-            <Layout>
-              <Sider
-                width={250}
-                className="site-layout-background siderConteiner siderPosition"
-              >
-                <div className="siderWrapper">
-                  <ShowSidebar isUserLoggedIn={USER_LOGGED_IN} />
-                </div>
-              </Sider>
-              <Layout style={{ padding: "0 24px 24px" }}>
-                <Content className="site-layout-background contentContainer">
-                  <User />
-                </Content>
-              </Layout>
-            </Layout>
-          </Layout>
+          <SelectedUser isUserLoggedIn={USER_LOGGED_IN}/>
         </Route>
 
         <Route exact path="/">

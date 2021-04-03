@@ -4,7 +4,7 @@ import SeeLessButton from "../seeLessButton/SeeLessButton";
 import UserItem from "../UserItem/UserItem";
 
 export default function SuggestionAccounts({suggestedAcc, allUsers, cuurentUser}) {
-  console.log(allUsers)
+
   const [isShowAll, showAll] = useState(true);
   function showAllUsers() {
     showAll(!isShowAll);

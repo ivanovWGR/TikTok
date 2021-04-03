@@ -12,6 +12,7 @@ import forYouActive from "../date/img/forYouActive.png";
 import forYouUnactive from "../date/img/forYouUnactive.png";
 import { DataBase } from "../firebase";
 
+
 export default function ShowSidebar({ isUserLoggedIn, currentUserUid }) {
   const users = [];
   const account = [];
@@ -46,7 +47,7 @@ export default function ShowSidebar({ isUserLoggedIn, currentUserUid }) {
       .catch((error) => {
         console.log("Error getting document:", error);
       });
-  });
+  },[]);
 
   useEffect(() => {
     DataBase.collection("users")
@@ -72,7 +73,7 @@ export default function ShowSidebar({ isUserLoggedIn, currentUserUid }) {
       .catch((error) => {
         console.log("Error getting document:", error);
       });
-  });
+  },[currentUserUid]);
 
   return (
     <div id={styles.siderDiv}>

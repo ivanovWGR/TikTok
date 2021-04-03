@@ -2,17 +2,37 @@ import React from 'react';
 import styles from './UserProfile.module.scss';
 import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
+import { useEffect, useState } from 'react';
+import { DataBase } from '../firebase' 
+import { RiCreativeCommonsZeroLine } from 'react-icons/ri';
 
-const UserInfo = () => {
+const UserInfo = ({currentUser}) => {
+    const [userObj, setUserObj] = useState([])
+    const user = []
+    useEffect(() => {
+        DataBase.collection('users').get()
+          .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+            if (doc.id === currentUser) {
+              user.push(doc.data());
+            }
+          });
+          setUserObj(user);
+        })
+        .catch((error) => {
+          console.log("Error getting document:", error);
+        });
+    },[currentUser]);
+    console.log(userObj[0])
     return (
         <div className={styles.infoWrapper}>
             <div className={styles.userInfo}>
                 <div>
-                    <Avatar size={120} icon={<UserOutlined />} src='https://pickytop.com/wp-content/uploads/2020/01/Ronnie-Coleman-is-the-best-bodybuilder-in-the-world.jpg' alt='profile picture' />
+                    <Avatar size={120} icon={<UserOutlined />} src = {userObj[0].photoURL} alt= {userObj[0].nickName} />
                 </div>
                 <div className={styles.infoCont}>
-                    <h2 className={styles.username}>YNWA1892Ynwaynwaynwa</h2>
-                    <h1 className={styles.description}>One two three</h1>
+                    <h2 className={styles.username}>{userObj[0].nickName}</h2>
+                    <h1 className={styles.description}>{userObj[0].displayName}</h1>
                     <div>
                         <button className={styles.userPageBtn}>Follow</button>
                     </div>

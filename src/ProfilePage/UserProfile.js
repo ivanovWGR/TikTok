@@ -3,13 +3,6 @@ import firebase, { DataBase } from '../firebase'
 import "antd/dist/antd.css";
 import styles from './UserProfile.module.scss';
 import Sidebar from '../Sidebar/Sidebar'
-
-// import UserItem from '../Sidebar/UserItem/UserItem';
-// import ForYouButton from '../Sidebar/ForYou/ForYouBtn';
-// import FollowingBtn from '../Sidebar/Following/FollowingBtn';
-// import SidebarLoginBtutton from '../Sidebar/SidebarLogin/SidebarLoginBtn';
-// import SidebarFooter from '../Sidebar/SidebarFooter/sidebarFooter';
-// import SeeAllButton from '../Sidebar/seeAllButton/SeeAllButton';
 import UserInfo from './UserInfo';
 import UserVideoTab from './UserVideoTab'
 
@@ -21,6 +14,7 @@ const UserPage = ({ currentUser }) => {
     console.log('profile page ', currentUser);
     const [userVideos, setUserVideos] = useState([]);
     const [likedVideos, setLikedVideos] = useState([]);
+
 
     //ASYNC
     useEffect(() => {
@@ -40,7 +34,8 @@ const UserPage = ({ currentUser }) => {
             .catch((error) => {
                 console.log("Error getting documents: ", error);
             });
-    }, [])
+    }, [currentUser])
+
     useEffect(() => {
         const fetchedLikedVideos = [];
         DataBase.collection("videos").where("likedBy", "==", currentUser)
@@ -58,7 +53,9 @@ const UserPage = ({ currentUser }) => {
             .catch((error) => {
                 console.log("Error getting documents: ", error);
             });
-    }, [])
+    }, [currentUser])
+
+  
 
 
 
@@ -79,7 +76,7 @@ const UserPage = ({ currentUser }) => {
                     </Sider>
                     <Layout style={{ padding: "0 24px 24px" }}>
                         <Content className="site-layout-background userPageContent">
-                            <UserInfo />
+                            <UserInfo currentUser ={currentUser}/>
                             <UserVideoTab userVideos={userVideos} likedVideos ={likedVideos}/>
                         </Content>
                     </Layout>
