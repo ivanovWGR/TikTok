@@ -23,7 +23,7 @@ function App() {
 
   const [filtered, setFiltered] = useState([]);
   const [currentUserId, setCurrentUserId] = useState("");
-  
+
   const [currentUserVideos, setCurrenUserVideos] = useState([])
 
   const onNext = () => {
@@ -55,15 +55,15 @@ function App() {
       querySnapshot.forEach((doc) => {
         let video = { ...doc.data() }
         video.videoId = doc.id;
-        console.log(video)
+
         tempVideos.push(video)
-        
+
       });
 
       setVideos(tempVideos)
       setFiltered(tempVideos)
       // console.log('Videos ', videos)
-      console.log('filtered ', filtered)
+
     });
 
   }, [])
@@ -110,7 +110,7 @@ function App() {
     return chunkVideos;
   }, [videos, loadedVideosCount])
 
-  console.log(USER_LOGGED_IN);
+
   return (
     <Router>
       <HeaderComp isUserLoggedIn={USER_LOGGED_IN} getInput={searchByName} />
@@ -140,12 +140,13 @@ function App() {
                 <Content className="site-layout-background contentContainer">
                   {filtered.map(({ url, numOfLikes, numOfComments, title, addedDate, caption, videoId }, index) => {
                     return <Card
+                      USER_LOGGED_IN={USER_LOGGED_IN}
                       key={videoId}
                       videoUrl={url}
                       likes={numOfLikes}
                       comments={numOfComments}
                       title={title}
-                      videoId = {videoId}
+                      videoId={videoId}
                       date={addedDate}
                       caption={caption} />;
 
