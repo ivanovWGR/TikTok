@@ -3,13 +3,6 @@ import firebase, { DataBase } from '../firebase'
 import "antd/dist/antd.css";
 import styles from './UserProfile.module.scss';
 import Sidebar from '../Sidebar/Sidebar'
-
-// import UserItem from '../Sidebar/UserItem/UserItem';
-// import ForYouButton from '../Sidebar/ForYou/ForYouBtn';
-// import FollowingBtn from '../Sidebar/Following/FollowingBtn';
-// import SidebarLoginBtutton from '../Sidebar/SidebarLogin/SidebarLoginBtn';
-// import SidebarFooter from '../Sidebar/SidebarFooter/sidebarFooter';
-// import SeeAllButton from '../Sidebar/seeAllButton/SeeAllButton';
 import UserInfo from './UserInfo';
 import UserVideoTab from './UserVideoTab'
 
@@ -17,16 +10,17 @@ import { Layout } from "antd";
 
 const { Content, Sider } = Layout;
 
-const UserPage = ({ currentUserId, isUserLoggedIn }) => {
+
+
+
+const UserPage = ({ currentUserId, isUserLoggedIn, currentUserUid }) => {
     console.log('profile page ', currentUserId);
     const [userVideos, setUserVideos] = useState([]);
     const [likedVideos, setLikedVideos] = useState([]);
-
     //ASYNC
     useEffect(() => {
         const fetchedVideos = [];
         const fetchedLikedVideos = [];
-
         DataBase.collection("videos").where("addBy", "==", currentUserId)
             .get()
             .then((querySnapshot) => {
@@ -41,7 +35,11 @@ const UserPage = ({ currentUserId, isUserLoggedIn }) => {
                 console.log("Error getting documents: ", error);
             });
 
-        DataBase.collection("videos").where("likedBy", "==", currentUserId)
+    }, [currentUserId])
+
+    useEffect(() => {
+        const fetchedLikedVideos = [];  
+      DataBase.collection("videos").where("likedBy", "==", currentUserId)
             .get()
             .then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
@@ -58,24 +56,22 @@ const UserPage = ({ currentUserId, isUserLoggedIn }) => {
             });
     }, [currentUserId])
 
+
     return (
         <div>
             <Layout>
                 <Layout>
                     <Sider width={250} className="site-layout-background ">
                         <div className="siderWrapper">
-                            <Sidebar isUserLoggedIn={isUserLoggedIn} />
-                            {/* <ForYouButton />
-                            <FollowingBtn />
-                            <SidebarLoginBtutton />
-                            <UserItem />
-                            <SeeAllButton />
-                            <SidebarFooter /> */}
+
+                            <Sidebar isUserLoggedIn = {isUserLoggedIn} currentUserUid = {currentUserId}/>                            
+
                         </div>
                     </Sider>
                     <Layout style={{ padding: "0 24px 24px" }}>
                         <Content className="site-layout-background userPageContent">
-                            <UserInfo />
+                            <UserInfo currentUser ={currentUserId}/>                       
+                           
                             <UserVideoTab currentUserId={currentUserId} userVideos={userVideos} likedVideos={likedVideos} />
                         </Content>
                     </Layout>

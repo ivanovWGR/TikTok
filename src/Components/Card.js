@@ -2,16 +2,16 @@ import React from 'react';
 import { FaCommentDots, FaShare, FaHeart, FaBuromobelexperte } from "react-icons/fa";
 import { Link } from 'react-router-dom'
 
-const Card = ({ videoUrl, likes, comments, title, fullName, caption, date, videoId, USER_LOGGED_IN }) => {
 
 
+
+const Card = ({ videoUrl, likes, comments, title, fullName, caption, date, videoId, photo, USER_LOGGED_IN }) => {
     return (
         <div className="card">
             <div className="break" />
             <div className="section">
                 <div className="user-info">
-                    <img className="user-avatar" src='https://pbs.twimg.com/profile_images/1245370888830279687/Yg52KzMm.jpg' width={'100%'} alt='username' />
-
+                    <img className="user-avatar" src={photo} width={'100%'} alt='username' />
                     <div>
                         <div className="section">
                             <h3 className="bold">{title}</h3>

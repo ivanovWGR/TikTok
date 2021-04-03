@@ -1,6 +1,8 @@
 
+
 import { useState, useEffect, useMemo } from 'react'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+
 import HeaderComp from "./HeaderComponents/HeaderComp";
 import "antd/dist/antd.css";
 import "./App.css";
@@ -11,16 +13,20 @@ import { Layout } from "antd";
 import Upload from "./UploadPage/Upload";
 import ViewFullScreenVideo from "./VideoFullscreenPage/ViewFullScreenVideo";
 import UserPage from "./ProfilePage/UserProfile";
-import User from "./UserTest/User";
+import SelectedUser from "./SelectedUser/selectedUser";
+import ShowForYouPage from './ForYouPage/ForYouPage'
 const { Content, Sider } = Layout;
 
 function App() {
 
+
   const [USER_LOGGED_IN, isUserLoggedIn] = useState(false);//for test only, change the value will change the header header
+
   const [videos, setVideos] = useState([]);
   const [loadedVideosCount, setLoadedVideosCount] = useState(40);
   const [filtered, setFiltered] = useState([]);
   const [currentUserId, setCurrentUserId] = useState("");
+
 
   const [currentUserVideos, setCurrenUserVideos] = useState([]);//IT IS NOT USED AT THE MOMENT?!?
 
@@ -28,17 +34,18 @@ function App() {
   const onNext = () => {
     setLoadedVideosCount(loadedVideosCount + 20);
   }
+
   useEffect(() => {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         setCurrentUserId(user.uid);
-        isUserLoggedIn(true)
+        isUserLoggedIn(true);
       } else {
         isUserLoggedIn(false);
-        setCurrentUserId('')
+        setCurrentUserId("");
       }
     });
-  }, [currentUserId])
+  }, [currentUserId]);     
 
   useEffect(() => {
     const tempVideos = []
@@ -47,9 +54,7 @@ function App() {
       querySnapshot.forEach((doc) => {
         let video = { ...doc.data() }
         video.videoId = doc.id;
-
         tempVideos.push(video)
-
       });
       setVideos(tempVideos);
       setFiltered(tempVideos);
@@ -60,7 +65,7 @@ function App() {
     setFiltered(temp);
   }
   // useEffect(()=>{
-  //   const user = firebase.auth().currentUser
+  //   const user = firebase.auth().currentUserId
   //   if(user){
   //     isUserLoggedIn(true)
   //     console.log('User ', user)
@@ -104,27 +109,16 @@ function App() {
           {USER_LOGGED_IN ? <UserPage currentUserId={currentUserId} isUserLoggedIn={USER_LOGGED_IN} /> : <Redirect to="/" />}
         </Route>
 
+
+        <Route path="/ForYouPage">
+          <ShowForYouPage isUserLoggedIn={USER_LOGGED_IN} currentUserUid = {currentUserId}/>
+        </Route>      
+
         <Route path="/userprofile">
           <UserPage currentUserId={currentUserId} />
         </Route>
         <Route path="/user/:id">
-          <Layout>
-            <Layout>
-              <Sider
-                width={250}
-                className="site-layout-background siderConteiner siderPosition"
-              >
-                <div className="siderWrapper">
-                  <ShowSidebar isUserLoggedIn={USER_LOGGED_IN} />
-                </div>
-              </Sider>
-              <Layout style={{ padding: "0 24px 24px" }}>
-                <Content className="site-layout-background contentContainer">
-                  <User />
-                </Content>
-              </Layout>
-            </Layout>
-          </Layout>
+          <SelectedUser isUserLoggedIn={USER_LOGGED_IN} currentUserUid = {currentUserId}/>
         </Route>
 
         <Route exact path="/">
@@ -135,7 +129,7 @@ function App() {
                 className="site-layout-background siderConteiner siderPosition"
               >
                 <div className="siderWrapper">
-                  <ShowSidebar isUserLoggedIn={USER_LOGGED_IN} />
+                  <ShowSidebar isUserLoggedIn={USER_LOGGED_IN} currentUserUid={currentUserId}/>
                 </div>
               </Sider>
               <Layout style={{ padding: "0 24px 24px" }}>
@@ -164,3 +158,4 @@ function App() {
 }
 
 export default App;
+
