@@ -2,21 +2,17 @@ import React,{useState} from 'react';
 import { FaCommentDots, FaShare, FaHeart, FaBuromobelexperte } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 
-
-const Card = ({ videoUrl, likes, comments, title, fullName, caption}) => {
+const Card = ({ videoUrl, likes, comments, title, fullName, caption, date, videoId, photo, USER_LOGGED_IN }) => {
     const [toggle,setToggle] = useState(false);
     const [following,setFollowing] = useState('Follow')
- const toogleClick = () => {
+    const toogleClick = () => {
       setToggle(!toggle)
       if (!toggle){
            setFollowing('Following')
       }else {
           setFollowing('Follow')
       }
- }
-
-
-const Card = ({ videoUrl, likes, comments, title, fullName, caption, date, videoId, photo, USER_LOGGED_IN }) => {
+    }
     return (
         <div className="card">
             <div className="break" />

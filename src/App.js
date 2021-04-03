@@ -1,8 +1,5 @@
-
-
 import { useState, useEffect, useMemo } from 'react'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-
 import HeaderComp from "./HeaderComponents/HeaderComp";
 import "antd/dist/antd.css";
 import "./App.css";
@@ -18,10 +15,7 @@ import ShowForYouPage from './ForYouPage/ForYouPage'
 const { Content, Sider } = Layout;
 
 function App() {
-
-
   const [USER_LOGGED_IN, isUserLoggedIn] = useState(false);//for test only, change the value will change the header header
-
   const [videos, setVideos] = useState([]);
   const [loadedVideosCount, setLoadedVideosCount] = useState(40);
   const [filtered, setFiltered] = useState([]);
@@ -42,7 +36,6 @@ function App() {
     });
 
   }, [currentUserId]);
-
 
   useEffect(() => {
     const tempVideos = []

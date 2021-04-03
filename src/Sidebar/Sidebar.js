@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { FollowingBtnUnactive } from "./Following/FollowingBtn";
-import { FollowingBtnActive } from "./Following/FollowingBtn";
+import {FollowingBtnUnactive} from "./Following/FollowingBtn";
+import {FollowingBtnActive} from "./Following/FollowingBtn";
+import {ForYouBtnActive} from "./ForYou/ForYouBtn";
+import {ForYouBtnUnactive} from "./ForYou/ForYouBtn";
 import SidebarLoginBtutton from "./SidebarLogin/SidebarLoginBtn";
 import SidebarFooter from "./SidebarFooter/sidebarFooter";
 import styles from "./Sidebar.module.scss";
@@ -74,20 +76,20 @@ export default function ShowSidebar({ isUserLoggedIn, currentUserUid }) {
       .catch((error) => {
         console.log("Error getting document:", error);
       });
-  },[currentAccount]);
+  },[currentAccount, currentUserUid]);
 
   return (
     <div id={styles.siderDiv}>
       <div>
         <div className={styles.sidebarButtons}>
           {isActiveForYou ? (
-            <FollowingBtnUnactive
+            <ForYouBtnActive
               img={forYouUnactive}
               description={"For You"}
               onClick={changeButtonStylesForYou}
             />
           ) : (
-            <FollowingBtnActive
+            <ForYouBtnUnactive 
               img={forYouActive}
               description={"For You"}
               onClick={changeButtonStylesForYou}
