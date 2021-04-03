@@ -105,7 +105,8 @@ function UploadForm() {
                             likedBy: [],
                             numOfComments: 0,
                             numOfLikes: 0,
-                            displayName:user.dislayName
+                            displayName:user.dislayName,
+                            photoURL:user.photoUrl
                         })
                     })
                     .then(() => {
