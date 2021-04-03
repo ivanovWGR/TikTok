@@ -106,8 +106,8 @@ function UploadForm() {
                             likedBy: [],
                             numOfComments: 0,
                             numOfLikes: 0,
-                            displayName:user.dislayName,
-                            photoURL:user.photoUrl
+                            // displayName:user.dislayName,
+                            // photoURL:user.photoUrl
                         })
                     })
                     .then(() => {
@@ -222,7 +222,7 @@ function UploadForm() {
                             </div>
                             :
                             <div>
-                                <button className={styles.discardButton} disabled={!file ? true : false} onClick={clearFile}>Discard</button>
+                                <button className={ file? styles.discardButtonActive:styles.discardButton} disabled={!file ? true : false} onClick={clearFile}>Discard</button>
                                 <button className={file ? styles.postButtonActive : styles.postButton} disabled={!file ? true : false} onSubmit={onSubmit}>Post</button>
                             </div>
                         }
