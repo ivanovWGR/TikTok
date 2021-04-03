@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FollowingBtnUnactive } from "./Following/FollowingBtn";
 import { FollowingBtnActive } from "./Following/FollowingBtn";
 import SidebarLoginBtutton from "./SidebarLogin/SidebarLoginBtn";
@@ -10,9 +10,15 @@ import followUnactive from "../date/img/followUnactive.png";
 import followActive from "../date/img/followActive.png";
 import forYouActive from "../date/img/forYouActive.png";
 import forYouUnactive from "../date/img/forYouUnactive.png";
+import { DataBase } from "../firebase";
 
-export default function ShowSidebar({ isUserLoggedIn }) {
-  console.log(isUserLoggedIn)
+
+
+export default function ShowSidebar({ isUserLoggedIn, currentUserUid }) {
+  const [currentAccount, setCurrentAccount] = useState([]);
+  const [yourTopAccounts, setYourTopAccounts] = useState([]);
+  const [suggestedAccounts, SetSuggestedAccounts] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
   const [isActiveForYou, activeForYou] = useState(true);
   const [isActiveFollowing, activeFollowing] = useState(true);
   function changeButtonStylesForYou() {
@@ -23,6 +29,53 @@ export default function ShowSidebar({ isUserLoggedIn }) {
     activeForYou(isActiveFollowing);
     activeFollowing(!isActiveFollowing);
   }
+  //get current user obj
+  useEffect(() => {
+      DataBase.collection("users")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          if (doc.id === currentUserUid) {
+            let res = {...doc.data()}
+            setCurrentAccount([...res.following])
+            console.log("current account", res)
+          }
+        });
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+  },[currentUserUid]);
+
+  useEffect(() => {
+    const users = [];
+    const topAccount = [];
+    const suggestedAcc = [];
+    DataBase.collection("users")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          let user = { ...doc.data() };
+          user.id = doc.id;
+            if (currentAccount.includes(doc.id)) {
+              topAccount.push(user)
+             
+            } else {
+              if (doc.id !== currentUserUid) {
+                suggestedAcc.push(user)
+              }
+            }
+          users.push(user);
+        });
+        setYourTopAccounts(topAccount)
+        SetSuggestedAccounts(suggestedAcc)
+        setAllUsers(users)
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+  },[currentAccount]);
+
   return (
     <div id={styles.siderDiv}>
       <div>
@@ -58,10 +111,10 @@ export default function ShowSidebar({ isUserLoggedIn }) {
         <div>{!isUserLoggedIn && <SidebarLoginBtutton />  }</div>
       </div>
       <div className={styles.suggestedAccounts}>
-        <SuggestionAccounts />
+        <SuggestionAccounts suggestedAcc={suggestedAccounts} allUsers = {allUsers} cuurentUser = {currentUserUid}/>
       </div>
       <div className={styles.yourTopAccounts}>
-        <YourTopAccounts />
+        <YourTopAccounts topAcc={yourTopAccounts} cuurentUser = {currentUserUid}/>
       </div>
       <div>
         <SidebarFooter />
