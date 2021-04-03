@@ -5,7 +5,7 @@ import { Layout } from "antd";
 import { DataBase } from "../firebase";
 const { Content, Sider } = Layout;
 
-export default function ShowForYouPage ({isUserLoggedIn, currentUserUid}) {
+export default function ShowForYouPage ({USER_LOGGED_IN, currentUserUid}) {
     const [currentAccount, setCurrentAccount] = useState([]);
     const [allVideos, setAllVideos] = useState([]);
     const [videos, setVideos] = useState([]);
@@ -57,15 +57,15 @@ export default function ShowForYouPage ({isUserLoggedIn, currentUserUid}) {
           .get()
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
+              let chunkVideoObj = {...doc.data()}
+              chunkVideoObj.videoId = doc.id
                 console.log(currentAccount)
                 console.log(doc.data().addBy)
-              if (!currentAccount.includes(doc.data().addBy) && currentUserUid !== doc.data().addBy){
-                tempVideos.push(doc.data());
+              if (!currentAccount.includes(chunkVideoObj.addBy) && currentUserUid !== chunkVideoObj.addBy){                
+                tempVideos.push(chunkVideoObj);
               }
-              videos.push(doc.data())
-            });
-            console.log(tempVideos)
-            console.log(videos)
+              videos.push(chunkVideoObj)
+            });            
             setVideos(tempVideos)
             setAllVideos(videos)
           });
@@ -80,12 +80,12 @@ export default function ShowForYouPage ({isUserLoggedIn, currentUserUid}) {
                 className="site-layout-background siderConteiner siderPosition"
               >
                 <div className="siderWrapper">
-                  <ShowSidebar isUserLoggedIn={isUserLoggedIn} currentUserUid={currentUserUid}/>
+                  <ShowSidebar isUserLoggedIn={USER_LOGGED_IN} currentUserUid={currentUserUid}/>
                 </div>
               </Sider>
               <Layout style={{ padding: "0 24px 24px" }}>
                 <Content className="site-layout-background contentContainer">
-                {isUserLoggedIn? videos.map(
+                {USER_LOGGED_IN? videos.map(
                     (
                       {
                         url,
@@ -95,11 +95,13 @@ export default function ShowForYouPage ({isUserLoggedIn, currentUserUid}) {
                         addedDate,
                         caption,
                         photoUrl,
+                        videoId
                       },
                       index
                     ) => {
                       return (
                         <Card
+                         USER_LOGGED_IN={USER_LOGGED_IN}
                           key={index}
                           videoUrl={url}
                           likes={numOfLikes}
@@ -108,6 +110,7 @@ export default function ShowForYouPage ({isUserLoggedIn, currentUserUid}) {
                           date={addedDate}
                           caption={caption}
                           photo={photoUrl}
+                          videoId = {videoId}
                         />
                       );
                     }
@@ -121,11 +124,13 @@ export default function ShowForYouPage ({isUserLoggedIn, currentUserUid}) {
                         addedDate,
                         caption,
                         photoUrl,
+                        videoId,
                       },
                       index
                     ) => {
                       return (
                         <Card
+                        videoId = {videoId}
                           key={index}
                           videoUrl={url}
                           likes={numOfLikes}

@@ -70,7 +70,7 @@ const UserPage = ({ currentUserId, isUserLoggedIn, currentUserUid }) => {
                     </Sider>
                     <Layout style={{ padding: "0 24px 24px" }}>
                         <Content className="site-layout-background userPageContent">
-                            <UserInfo currentUser ={currentUserId}/>                       
+                            <UserInfo currentUserId ={currentUserId}/>                       
                            
                             <UserVideoTab currentUserId={currentUserId} userVideos={userVideos} likedVideos={likedVideos} />
                         </Content>

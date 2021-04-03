@@ -5,7 +5,7 @@ export default function SelectedUser({isUserLoggedIn, currentUserUid}) {
   const { id } = useParams();
   return (
     <div>
-      <UserPage currentUser={id} isUserLoggedIn = {isUserLoggedIn} currentUserUid = {currentUserUid}/>
+      <UserPage currentUserId={id} isUserLoggedIn = {isUserLoggedIn} currentUserUid = {currentUserUid}/>
     </div>
   );
 }

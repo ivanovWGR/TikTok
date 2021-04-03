@@ -111,7 +111,7 @@ function App() {
 
 
         <Route path="/ForYouPage">
-          <ShowForYouPage isUserLoggedIn={USER_LOGGED_IN} currentUserUid = {currentUserId}/>
+          <ShowForYouPage USER_LOGGED_IN={USER_LOGGED_IN} currentUserUid = {currentUserId}/>
         </Route>      
 
         <Route path="/userprofile">

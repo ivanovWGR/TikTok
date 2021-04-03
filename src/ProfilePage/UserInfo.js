@@ -6,12 +6,12 @@ import { useEffect, useState } from 'react';
 import { DataBase } from '../firebase' 
 import { RiCreativeCommonsZeroLine } from 'react-icons/ri';
 
-const UserInfo = ({currentUser}) => {
-    console.log(currentUser)
+const UserInfo = ({currentUserId}) => {
+    console.log(currentUserId)
     const [userObj, setUserObj] = useState({})
     let user = {}
     useEffect(() => {
-        DataBase.collection('users').doc(currentUser).get()
+        DataBase.collection('users').doc(currentUserId).get()
           .then((res) => {
             user = {...res.data()}
             setUserObj(user)
@@ -20,7 +20,7 @@ const UserInfo = ({currentUser}) => {
             console.log("Error getting document:", error);
           });
      
-    },[currentUser]);
+    },[currentUserId]);
     console.log(userObj)
     return (
         <div className={styles.infoWrapper}>
