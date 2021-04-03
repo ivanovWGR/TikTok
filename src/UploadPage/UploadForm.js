@@ -22,7 +22,6 @@ function UploadForm() {
     const [alert, setAlert] = useState("");
     const [file, setFile] = useState(null);
     const [progressAnt, setProgressAnt] = useState(0);
-
     useEffect(() => {
         if (progressAnt === 100) {
             setTimeout(() => {
@@ -31,6 +30,9 @@ function UploadForm() {
             }, 3000)
         }
     }, [progressAnt])
+    const [videoUrl, setVideoUrl] = useState(null);
+    // take current user
+
     const user = firebase.auth().currentUser;
     console.log(user)
 
@@ -66,6 +68,7 @@ function UploadForm() {
 
     const onSubmit = (ev) => {
         ev.preventDefault();
+        if(!file) return;
         if (!title.trim()) {
             setAlert('Please add a title!');
             openNotification(alert)
@@ -97,6 +100,7 @@ function UploadForm() {
             () => {
                 uploadTask.snapshot.ref.getDownloadURL()
                     .then(downloadUrl => {
+                        setVideoUrl(downloadUrl)
                         DataBase.collection('videos').doc().set({
                             title: title,
                             caption: description,
@@ -106,8 +110,8 @@ function UploadForm() {
                             likedBy: [],
                             numOfComments: 0,
                             numOfLikes: 0,
-                            // displayName:user.dislayName,
-                            // photoURL:user.photoUrl
+                            // displayName:user.displayName,
+                            // photoUrl:user.photoUrl
                         })
                     })
                     .then(() => {
@@ -166,6 +170,7 @@ function UploadForm() {
                                 {isDragReject && "File type not accepted"}
                             </div>
                         )}
+                        {/* {videoUrl && <video src={videoUrl} /> } */}
                     </Dropzone>
                     {file ?
                         <ul className={styles.fileInformation}>
@@ -216,6 +221,7 @@ function UploadForm() {
                         </div>
                     </div>
                     <div className={styles.buttonUploadCont}>
+
                         {progressAnt === 100 ?
                             <div>
                                 <ModalUpload link={link} clearFile={clearFile} />
@@ -226,6 +232,7 @@ function UploadForm() {
                                 <button className={file ? styles.postButtonActive : styles.postButton} disabled={!file ? true : false} onSubmit={onSubmit}>Post</button>
                             </div>
                         }
+
                     </div>
                 </div>
             </div>

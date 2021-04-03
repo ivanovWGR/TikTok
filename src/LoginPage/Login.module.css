@@ -57,9 +57,9 @@
     align-items: center;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     width: 315px;
-    height: 357px;
+    height: 200px;
     overflow-y: scroll;
 }
 .iconDiv{

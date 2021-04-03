@@ -10,11 +10,10 @@ import { Input, Space } from 'antd';
 const { Search } = Input;
 
 export default function HeaderComp({ isUserLoggedIn, getInput }) {
-    const search = getInput
     const onSearch = (ev, value) => { 
         console.log(value); 
         // ev.preventDefault()     
-        search(value);       
+        getInput(value);       
         };
     return (
         <div className={styles.header}>

@@ -2,17 +2,35 @@ import React from 'react';
 import styles from './UserProfile.module.scss';
 import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
+import { useEffect, useState } from 'react';
+import { DataBase } from '../firebase' 
+import { RiCreativeCommonsZeroLine } from 'react-icons/ri';
 
-const UserInfo = () => {
+const UserInfo = ({currentUserId}) => {
+    console.log(currentUserId)
+    const [userObj, setUserObj] = useState({})
+    let user = {}
+    useEffect(() => {
+        DataBase.collection('users').doc(currentUserId).get()
+          .then((res) => {
+            user = {...res.data()}
+            setUserObj(user)
+          })
+          .catch((error) => {
+            console.log("Error getting document:", error);
+          });
+     
+    },[currentUserId]);
+    console.log(userObj)
     return (
         <div className={styles.infoWrapper}>
             <div className={styles.userInfo}>
                 <div>
-                    <Avatar size={120} icon={<UserOutlined />} src='https://pickytop.com/wp-content/uploads/2020/01/Ronnie-Coleman-is-the-best-bodybuilder-in-the-world.jpg' alt='profile picture' />
+                    <Avatar size={120} icon={<UserOutlined />} src = {userObj.photoURL} alt= {userObj.nickName} />
                 </div>
                 <div className={styles.infoCont}>
-                    <h2 className={styles.username}>YNWA1892Ynwaynwaynwa</h2>
-                    <h1 className={styles.description}>One two three</h1>
+                    <h2 className={styles.username}>{userObj.nickName}</h2>
+                    <h1 className={styles.description}>{userObj.displayName}</h1>
                     <div>
                         <button className={styles.userPageBtn}>Follow</button>
                     </div>

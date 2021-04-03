@@ -15,13 +15,14 @@ const Card = ({ videoUrl, likes, comments, title, fullName, caption}) => {
       }
  }
 
+
+const Card = ({ videoUrl, likes, comments, title, fullName, caption, date, videoId, photo, USER_LOGGED_IN }) => {
     return (
         <div className="card">
             <div className="break" />
             <div className="section">
                 <div className="user-info">
-                    <img className="user-avatar" src='https://pbs.twimg.com/profile_images/1245370888830279687/Yg52KzMm.jpg' width={'100%'} alt='username' />
-
+                    <img className="user-avatar" src={photo} width={'100%'} alt='username' />
                     <div>
                         <div className="section">
                             <h3 className="bold">{title}</h3>
@@ -46,10 +47,13 @@ const Card = ({ videoUrl, likes, comments, title, fullName, caption}) => {
                 <div className="social-tag"><span>{likes}</span></div>
                 
                 
-                <div className='icon-wrapper'>                    
-                <Link to="/viewVideo">
+                <div className='icon-wrapper'>
+                    {USER_LOGGED_IN ?<Link to={`/viewVideo/${videoId}`}>
                     <FaCommentDots className="icons" />
-                    </Link>
+                    </Link> : 
+                    <FaCommentDots className="icons"/>
+                    }                    
+                
                 </div>
                 
                 <div className="social-tag"><span>{comments}</span></div>
