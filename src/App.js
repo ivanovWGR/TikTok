@@ -1,22 +1,25 @@
+
 import { useState, useEffect, useMemo } from 'react'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
-import HeaderComp from './HeaderComponents/HeaderComp';
+
+
+import HeaderComp from "./HeaderComponents/HeaderComp";
 import "antd/dist/antd.css";
 import "./App.css";
-import firebase, { DataBase } from './firebase'
+import firebase, { DataBase } from "./firebase";
 import Card from "./Components/Card";
-import ShowSidebar from './Sidebar/Sidebar'
+import ShowSidebar from "./Sidebar/Sidebar";
 
 import { Layout } from "antd";
-import Upload from './UploadPage/Upload';
-import ViewFullScreenVideo from './VideoFullscreenPage/ViewFullScreenVideo';
-import UserPage from './ProfilePage/UserProfile';
+import Upload from "./UploadPage/Upload";
+import ViewFullScreenVideo from "./VideoFullscreenPage/ViewFullScreenVideo";
+import UserPage from "./ProfilePage/UserProfile";
+import User from "./UserTest/User";
 const { Content, Sider } = Layout;
 
-
-
 function App() {
+
   const [USER_LOGGED_IN, isUserLoggedIn] = useState(false);//for test only, change the value will change the header header
   const [videos, setVideos] = useState([]);
   const [loadedVideosCount, setLoadedVideosCount] = useState(40)
@@ -26,10 +29,12 @@ function App() {
 
   const [currentUserVideos, setCurrenUserVideos] = useState([])
 
+
   const onNext = () => {
     setLoadedVideosCount(loadedVideosCount + 20);
   }
   useEffect(() => {
+
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         setCurrentUserId(user.uid);
@@ -85,15 +90,23 @@ function App() {
 
 
 
+   
+
+  
+  
+ 
+
+
   // useEffect(()=>{
   //   const user = firebase.auth().currentUser
   //   if(user){
   //     isUserLoggedIn(true)
   //     console.log('User ', user)
-  //   }else{      
+  //   }else{
   //     isUserLoggedIn(false);
   //   }
   // },[])
+
 
 
   // const filteredvideos = useMemo(() => {
@@ -111,6 +124,8 @@ function App() {
   }, [videos, loadedVideosCount])
 
 
+
+
   return (
     <Router>
       <HeaderComp isUserLoggedIn={USER_LOGGED_IN} getInput={searchByName} />
@@ -119,25 +134,60 @@ function App() {
           <ViewFullScreenVideo currentUserId={currentUserId} />
         </Route>
         <Route path="/upload">
+
           {USER_LOGGED_IN ? <Upload /> : <Redirect to="/" />}
         </Route>
 
         <Route path="/userprofile">
           {USER_LOGGED_IN ? <UserPage currentUserId={currentUserId} isUserLoggedIn={USER_LOGGED_IN} /> : <Redirect to="/" />}
+
+         
+        </Route>
+
+        <Route path="/userprofile">
+          <UserPage currentUser={currentUser} />
+        </Route>
+        <Route path="/user/:id">
+          <Layout>
+            <Layout>
+              <Sider
+                width={250}
+                className="site-layout-background siderConteiner siderPosition"
+              >
+                <div className="siderWrapper">
+                  <ShowSidebar isUserLoggedIn={USER_LOGGED_IN} />
+                </div>
+              </Sider>
+              <Layout style={{ padding: "0 24px 24px" }}>
+                <Content className="site-layout-background contentContainer">
+                  <User />
+                </Content>
+              </Layout>
+            </Layout>
+          </Layout>
+
         </Route>
 
         <Route exact path="/">
           <Layout>
             <Layout>
-              <Sider width={250} className="site-layout-background siderConteiner siderPosition">
+              <Sider
+                width={250}
+                className="site-layout-background siderConteiner siderPosition"
+              >
                 <div className="siderWrapper">
 
+
                   <ShowSidebar isUserLoggedIn={USER_LOGGED_IN} />
+
+
+                  
 
                 </div>
               </Sider>
               <Layout style={{ padding: "0 24px 24px" }}>
                 <Content className="site-layout-background contentContainer">
+
                   {filtered.map(({ url, numOfLikes, numOfComments, title, addedDate, caption, videoId }, index) => {
                     return <Card
                       USER_LOGGED_IN={USER_LOGGED_IN}
@@ -151,15 +201,15 @@ function App() {
                       caption={caption} />;
 
                   })}
+
+                
+
                 </Content>
               </Layout>
             </Layout>
           </Layout>
         </Route>
-
       </Switch>
-
-
     </Router>
   );
 }

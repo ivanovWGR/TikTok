@@ -1,4 +1,4 @@
-import styles from "./SidebarLoginButton.module.css";
+import styles from "./SidebarLoginButton.module.scss";
 import React, { useState } from "react";
 import { Modal } from "antd";
 import LoginPage from "../../LoginPage/LoginPage";
@@ -17,7 +17,7 @@ export default function SidebarLoginBtutton ({onClick}) {
     // const modal = Modal.info()
     // console.log(modal)
     return (
-        <div className = {styles.sidebarLoginBtn}>
+        <div id = {styles.sidebarLoginBtn}>
             <div><span className = {styles.span}>Log in to follow creators, like videos, and view comments.</span></div>
             <button className = {styles.button} onClick={bringModal}>Login</button>
             <Modal               

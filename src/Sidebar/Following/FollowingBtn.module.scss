@@ -1,0 +1,39 @@
+#button {
+  box-sizing: border-box;
+  width: 224px;
+  height: 68px;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-bottom: 12px;
+  padding-top: 16px;
+  border: none;
+  background-color: white;
+  display: flex;
+  cursor: pointer;
+  outline: none;
+  
+  .h2Unactive {
+    text-align: center;
+    font-weight: 400;
+    font-size: 24px;
+    color: #161823;
+    margin-left: 15px;
+    margin-bottom: 0;
+  }
+  .img {
+    margin-left: 15px;
+  }
+  .h2Active {
+    text-align: center;
+    font-weight: 700;
+    font-size: 24px;
+    color: #fe2c55;
+    margin-left: 15px;
+    margin-bottom: 0;
+  }
+}
+
+.button:hover {
+  background-color: rgba(211, 211, 211, 0.15);
+}
+
