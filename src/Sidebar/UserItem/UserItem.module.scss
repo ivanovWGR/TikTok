@@ -1,45 +1,50 @@
 #user {
-  align-items: center;
+  align-items  : center;
   margin-bottom: 20px;
-  margin-top: 20px;
+  margin-top   : 20px;
+
   .h4 {
-    max-width: 140px;
-    margin-right: 4px;
-    overflow: hidden;
-    white-space: nowrap;
+    max-width    : 140px;
+    margin-right : 4px;
+    overflow     : hidden;
+    white-space  : nowrap;
     text-overflow: ellipsis;
-    color: black;
-    font-weight: bold;
+    color        : black;
+    font-weight  : bold;
     margin-bottom: 0;
   }
+
   .p {
-    height: 20px;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
-    color: rgb(22, 24, 35);
-    white-space: nowrap;
+    height       : 20px;
+    font-weight  : 400;
+    font-size    : 14px;
+    line-height  : 20px;
+    color        : rgb(22, 24, 35);
+    white-space  : nowrap;
     text-overflow: ellipsis;
-    overflow: hidden;
-    max-width: 140px;
+    overflow     : hidden;
+    max-width    : 140px;
     margin-bottom: 0;
   }
+
   .userInfo {
     margin-left: 12px;
   }
+
   .userImg {
-    width: 48px;
-    height: 48px;
+    width        : 48px;
+    height       : 48px;
     border-radius: 50%;
   }
+
   .userItem {
-    padding-left: 4px;
-    width: 224px;
-    height: 54px;
-    display: flex;
+    padding-left  : 4px;
+    width         : 224px;
+    height        : 54px;
+    display       : flex;
     flex-direction: row;
-    margin-top: 10px;
-    cursor: pointer;
-    align-items: center;
+    margin-top    : 10px;
+    cursor        : pointer;
+    align-items   : center;
   }
 }

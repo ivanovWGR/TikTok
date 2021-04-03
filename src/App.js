@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
 import HeaderComp from "./HeaderComponents/HeaderComp";
 import "antd/dist/antd.css";
 import "./App.css";
 import firebase, { DataBase } from "./firebase";
 import Card from "./Components/Card";
 import ShowSidebar from "./Sidebar/Sidebar";
-
 import { Layout } from "antd";
 import Upload from "./UploadPage/Upload";
 import ViewFullScreenVideo from "./VideoFullscreenPage/ViewFullScreenVideo";
@@ -25,19 +23,14 @@ function App() {
   useEffect(() => {
     console.log("Inside effect");
     const tempVideos = [];
-    // Asynch operation
     DataBase.collection("videos")
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
           tempVideos.push(doc.data());
-          // console.log(doc.id, " => ", doc.data());
-        });
+         });
         setVideos(tempVideos);
         setFiltered(tempVideos);
-        // console.log('Videos ', videos)
-        // console.log('filtered ', filtered)
       });
   }, []);
 
@@ -48,7 +41,6 @@ function App() {
       video.addBy.toLowerCase().includes(input.toLowerCase())
     );
     setFiltered(temp);
-    // console.log(temp)
   };
   
   useEffect(() => {
@@ -56,10 +48,6 @@ function App() {
       if (user) {
         setCurrentUserId(user.uid);
         isUserLoggedIn(true);
-        //     // const fetchedVideos = [];
-        //
-
-        // console.log(currentUserId)
       } else {
         isUserLoggedIn(false);
         setCurrentUserId("");

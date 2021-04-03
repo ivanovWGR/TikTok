@@ -1,27 +1,28 @@
-
 #containerSeeAll {
-  display: flex;
+  display       : flex;
   flex-direction: row;
-  text-align: center;
-  cursor: pointer;
-  height: 25px;
-  padding-left: 16px;
-  margin-top: 12px;
-  margin-bottom: 9px;
-  align-items: center;
+  text-align    : center;
+  cursor        : pointer;
+  height        : 25px;
+  padding-left  : 16px;
+  margin-top    : 12px;
+  margin-bottom : 9px;
+  align-items   : center;
+
   .seeAll {
-    font-family: "sofiapro-bold", PingFangSC, sans-serif;
-    font-weight: 700;
-    font-size: 18px;
-    line-height: 18px;
-    color: #fe2c55;
+    font-family  : "sofiapro-bold", PingFangSC, sans-serif;
+    font-weight  : 700;
+    font-size    : 18px;
+    line-height  : 18px;
+    color        : #fe2c55;
     margin-bottom: 0;
-    padding-top: 5px;
-    text-align: center;
+    padding-top  : 5px;
+    text-align   : center;
   }
+
   .svg {
-    width: 2em;
+    width : 2em;
     height: 2em;
-    color: #fe2c55;
+    color : #fe2c55;
   }
 }
