@@ -1,187 +1,179 @@
 import ReactDOM from "react-dom"
+import { useEffect, useState } from 'react'
+import { useParams, useHistory } from 'react-router-dom'
 import { Carousel } from 'antd';
 import viewPageStyles from "./ViewFullScreenVideo.module.scss"
-import { FaCommentDots, FaHeart } from "react-icons/fa";
+import { FaCommentDots, FaHeart, FaMusic } from "react-icons/fa";
+import { GrClose } from 'react-icons/gr'
+import { DataBase } from "../firebase";
+import CommentDiv from './CommentDiv';
 
 
+// TO DO VALIDATION UP TO 200 letters for comment, enter to triger uploading. Styling.
+export default function VideoFullScreen({ currentUserId }) {
+    const { videoId } = useParams();
+    const [user, setUser] = useState();
+    const [currentVideo, takeCurrentVideo] = useState({})
+    const [videoSrc, setVideoSrc] = useState("");
+    const [userComment, setUserComment] = useState("");
+    const [input, setInput] = useState("");
+    const [comments, setComments] = useState([])
+    const history = useHistory();
+    // console.log(videoId)
+    useEffect(() => {
+        DataBase.collection("videos").doc(videoId).get()
+            .then((video) => {
+                console.log(video.data())
+                let src = video.data().url;
+                let temp = { ...video.data() }
+                setVideoSrc(src)
+                takeCurrentVideo(temp)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, [videoId])
 
-export default function VideoFullScreen() {
+    useEffect(() => {
+        const fetchedComments = []
+        DataBase.collection('comments').where('forVideoId', '==', videoId).get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((el) => {
+                    fetchedComments.push(el.data())
+
+                })
+                setComments(fetchedComments)
+
+            })
+
+
+    }, [videoId])
+    useEffect(() => {
+        return DataBase.collection('videos').doc(videoId).update({
+            numOfComments: comments.length
+
+        })
+            .then(() => {
+                console.log('Comments length: ', comments.length)
+                console.log("num of comments updated")
+            })
+    }, [comments])
+
+
+    useEffect(() => {
+        DataBase.collection('users').doc(currentUserId).get()
+            .then((res) => {
+
+                setUser(res.data())
+            })
+    }, [currentUserId])
+
+
+    const uploadComment = (ev) => {
+        ev.preventDefault()
+        console.log("event :", ev)
+        if (input.trim().length < 200) {
+            let date = new Date().toDateString()
+            const commentObj = {
+                addedByUUID: currentUserId,
+                timeStamp: date,
+                forVideoId: videoId,
+                numOfLikes: 0,
+                comment: input,
+                userName: user.displayName,
+                photoUrl: user.photoUrl
+
+            }
+            DataBase.collection("comments").doc().set(commentObj)
+                .then(() => {
+                    console.log("Document successfully written!");
+                    setInput("")
+                })
+                .catch((error) => {
+                    console.error("Error writing document: ", error);
+                });
+            setComments([...comments, commentObj])
+            return DataBase.collection('videos').doc(videoId).update({
+                numOfComments: comments.length
+
+            })
+                .then(() => {
+                    console.log('Comments length: ', comments.length)
+                    console.log("num of comments updated")
+                })
+
+        } else {
+            alert("Comments should be max 200 letters.")
+        }
+
+
+    }
+    const goToHomePage = () => {
+        history.push("/")
+    }
     function onChange(a, b, c) {
         console.log(a, b, c);
     }
-
-
+    let numOfComments = comments.length
+    // console.log(user.photoUrl)
+    // console.log('video',currentVideo)
     return (
-
         <div className={viewPageStyles.viewContainer}>
+            <button onClick={goToHomePage} className={viewPageStyles.closeBtn}><GrClose /></button>
             <div className={viewPageStyles.CarouselWrapper}>
-                <Carousel afterChange={onChange} className={viewPageStyles.Carousel}>
-                    <div className={viewPageStyles.videoWrapper}>
-                        <video controls
-                            // className={contentStyle} 
-                            src="https://v77.tiktokcdn.com/3439fcbdb3b94fa8b9958469efeb175d/605fd956/video/tos/useast2a/tos-useast2a-ve-0068c002/70fdf3baf7854b6bb5da3a293c74a21e/?a=1233&br=2162&bt=1081&cd=0%7C0%7C1&ch=0&cr=0&cs=0&cv=1&dr=0&ds=3&er=&l=20210327191758010189066032329544EB&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&qs=0&rc=amlod2pnZDhoNDMzOzczM0ApZzk3NTRmN2U3N2VlZ2ZkPGcwMTIvLmIxbGNgLS1gMTZzc15jYTA2NjIxXzIyYC9hNmE6Yw%3D%3D&vl=&vr=" />
-                        {/* <h3 style={contentStyle}>1</h3> */}
-                    </div>
-                    <div className={viewPageStyles.videoWrapper}>
-                        <video controls
-                            // className={contentStyle} 
-                            src="https://v77.tiktokcdn.com/3439fcbdb3b94fa8b9958469efeb175d/605fd956/video/tos/useast2a/tos-useast2a-ve-0068c002/70fdf3baf7854b6bb5da3a293c74a21e/?a=1233&br=2162&bt=1081&cd=0%7C0%7C1&ch=0&cr=0&cs=0&cv=1&dr=0&ds=3&er=&l=20210327191758010189066032329544EB&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&qs=0&rc=amlod2pnZDhoNDMzOzczM0ApZzk3NTRmN2U3N2VlZ2ZkPGcwMTIvLmIxbGNgLS1gMTZzc15jYTA2NjIxXzIyYC9hNmE6Yw%3D%3D&vl=&vr=" />
-                        {/* <h3 style={contentStyle}>2</h3> */}
-                    </div>
-                    <div className={viewPageStyles.videoWrapper}>
-                        <video controls
-                            // className={contentStyle} 
-                            src="https://v77.tiktokcdn.com/3439fcbdb3b94fa8b9958469efeb175d/605fd956/video/tos/useast2a/tos-useast2a-ve-0068c002/70fdf3baf7854b6bb5da3a293c74a21e/?a=1233&br=2162&bt=1081&cd=0%7C0%7C1&ch=0&cr=0&cs=0&cv=1&dr=0&ds=3&er=&l=20210327191758010189066032329544EB&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&qs=0&rc=amlod2pnZDhoNDMzOzczM0ApZzk3NTRmN2U3N2VlZ2ZkPGcwMTIvLmIxbGNgLS1gMTZzc15jYTA2NjIxXzIyYC9hNmE6Yw%3D%3D&vl=&vr=" />
 
-                    </div>
-                    <div className={viewPageStyles.videoWrapper}>
-                        <video controls
-                            // className={contentStyle} 
-                            src="https://v77.tiktokcdn.com/3439fcbdb3b94fa8b9958469efeb175d/605fd956/video/tos/useast2a/tos-useast2a-ve-0068c002/70fdf3baf7854b6bb5da3a293c74a21e/?a=1233&br=2162&bt=1081&cd=0%7C0%7C1&ch=0&cr=0&cs=0&cv=1&dr=0&ds=3&er=&l=20210327191758010189066032329544EB&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&qs=0&rc=amlod2pnZDhoNDMzOzczM0ApZzk3NTRmN2U3N2VlZ2ZkPGcwMTIvLmIxbGNgLS1gMTZzc15jYTA2NjIxXzIyYC9hNmE6Yw%3D%3D&vl=&vr=" />
-
-                    </div>
-                </Carousel>
+                <video controls src={videoSrc} className={viewPageStyles.video}>
+                </video>
             </div>
 
 
             <div className={viewPageStyles.commentsContainer}>
                 <div className={viewPageStyles.commentsHeader}>
-                    <h1 className={viewPageStyles.uploaderInfo}>UploaderName</h1>
-                    <button className='follow-button'>Follow</button>
-                    <p>video description</p>
+
+                    <h1 className={viewPageStyles.uploaderInfo}>
+                        <img src={currentVideo.photoUrl} alt="pic" className={viewPageStyles.uploaderPic} />
+                        {currentVideo.displayName}</h1>
+                    <button className={`follow-button ${viewPageStyles.followBtn}`}>Follow</button>
                 </div>
 
                 <div className={viewPageStyles.commentsWrapper}>
                     <div className={viewPageStyles.videoInfo}>
-                        <span><FaHeart className="icons" /></span><span>Num of likes</span>
-                        <span><FaCommentDots className="icons" /></span><span>num of comments</span>
-                        <p>Video URL</p>
+                        <h1>{currentVideo.title}</h1>
+                        <p className={viewPageStyles.caption}><FaMusic />{currentVideo.caption}</p>
+                        <div className={viewPageStyles.iconsDiv}>
+                            <span><FaHeart className={viewPageStyles.icons} /></span><span>Num of likes</span>
+                            <span><FaCommentDots className={viewPageStyles.icons} /></span><span>{numOfComments}</span>
+                        </div>
+
+                        <div className={viewPageStyles.adressDiv}>
+                            <p>{videoSrc}</p>
+                        </div>
+
                     </div>
-                    <div className={viewPageStyles.comment}>
-                        <div className={viewPageStyles.avatar}><img src="" alt="avatar"></img></div>
-                        <div className={viewPageStyles.commentContent}>
-                            <h3>Name</h3>
-                            <p>Comment</p>
-                            <span>timestamp</span>
-                        </div >
-                        <div className={viewPageStyles.heart}>
-                            <FaHeart />
-                        </div>
-                    </div>
-                    <div className={viewPageStyles.comment}>
-                        <div className={viewPageStyles.avatar}><img src="" alt="avatar"></img></div>
-                        <div className={viewPageStyles.commentContent}>
-                            <h3>Name</h3>
-                            <p>Comment</p>
-                            <span>timestamp</span>
-                        </div>
-                        <div className={viewPageStyles.heart}>
-                            <FaHeart />
-                        </div>
-                    </div>
-                    <div className={viewPageStyles.comment}>
-                        <div className={viewPageStyles.avatar}><img src="" alt="avatar"></img></div>
-                        <div className={viewPageStyles.commentContent}>
-                            <h3>Name</h3>
-                            <p>Comment</p>
-                            <span>timestamp</span>
-                        </div>
-                        <div className={viewPageStyles.heart}>
-                            <FaHeart />
-                        </div>
-                    </div>
-                    <div className={viewPageStyles.comment}>
-                        <div className={viewPageStyles.avatar}><img src="" alt="avatar"></img></div>
-                        <div className={viewPageStyles.commentContent}>
-                            <h3>Name</h3>
-                            <p>Comment</p>
-                            <span>timestamp</span>
-                        </div>
-                        <div className={viewPageStyles.heart}>
-                            <FaHeart />
-                        </div>
-                    </div>
-                    <div className={viewPageStyles.comment}>
-                        <div className={viewPageStyles.avatar}><img src="" alt="avatar"></img></div>
-                        <div className={viewPageStyles.commentContent}>
-                            <h3>Name</h3>
-                            <p>Comment</p>
-                            <span>timestamp</span>
-                        </div>
-                        <div className={viewPageStyles.heart}>
-                            <FaHeart />
-                        </div>
-                    </div>
-                    <div className={viewPageStyles.comment}>
-                        <div className={viewPageStyles.avatar}><img src="" alt="avatar"></img></div>
-                        <div className={viewPageStyles.commentContent}>
-                            <h3>Name</h3>
-                            <p>Comment</p>
-                            <span>timestamp</span>
-                        </div>
-                        <div className={viewPageStyles.heart}>
-                            <FaHeart />
-                        </div>
-                    </div>
-                    <div className={viewPageStyles.comment}>
-                        <div className={viewPageStyles.avatar}><img src="" alt="avatar"></img></div>
-                        <div className={viewPageStyles.commentContent}>
-                            <h3>Name</h3>
-                            <p>Comment</p>
-                            <span>timestamp</span>
-                        </div>
-                        <div className={viewPageStyles.heart}>
-                            <FaHeart />
-                        </div>
-                    </div>
-                    <div className={viewPageStyles.comment}>
-                        <div className={viewPageStyles.avatar}><img src="" alt="avatar"></img></div>
-                        <div className={viewPageStyles.commentContent}>
-                            <h3>Name</h3>
-                            <p>Comment</p>
-                            <span>timestamp</span>
-                        </div>
-                        <div className={viewPageStyles.heart}>
-                            <FaHeart />
-                        </div>
-                    </div>
-                    <div className={viewPageStyles.comment}>
-                        <div className={viewPageStyles.avatar}><img src="" alt="avatar"></img></div>
-                        <div className={viewPageStyles.commentContent}>
-                            <h3>Name</h3>
-                            <p>Comment</p>
-                            <span>timestamp</span>
-                        </div>
-                        <div className={viewPageStyles.heart}>
-                            <FaHeart  />
-                        </div>
-                    </div>
-                    <div className={viewPageStyles.comment}>
-                        <div className={viewPageStyles.avatar}><img src="" alt="avatar"></img></div>
-                        <div className={viewPageStyles.commentContent}>
-                            <h3>Name</h3>
-                            <p>Comment</p>
-                            <span>timestamp</span>
-                        </div>
-                        <div className={viewPageStyles.heart}>
-                            <FaHeart />
-                        </div>
-                    </div>
-                    <div className={viewPageStyles.comment}>
-                        <div className={viewPageStyles.avatar}><img src="" alt="avatar"></img></div>
-                        <div className={viewPageStyles.commentContent}>
-                            <h3>Name</h3>
-                            <p>Comment</p>
-                            <span>timestamp</span>
-                        </div>
-                        <div className={viewPageStyles.heart}>
-                            <FaHeart />
-                        </div>
-                    </div>
+
+                    {comments.map((el, index) => {
+                        return <CommentDiv
+
+                            key={index}
+                            photoUrl={el.photoUrl}
+                            comment={el.comment}
+                            timeStamp={el.timeStamp}
+                            name={el.userName}
+                        />
+                    })}
+
                 </div>
                 <div className={viewPageStyles.addCommentContainer}>
-                    <input placeholder="Add comment" className={viewPageStyles.postInput}></input>
-                    <button> Post</button>
+                    <form className={viewPageStyles.form}>
+                        <input placeholder="Add comment" value={input} className={viewPageStyles.postInput}
+                            onInput={(ev) => {
+                                setInput(ev.target.value)
+                                console.log(input)
+                            }
+                            }
+                        ></input>
+                        <button type="submit" onClick={uploadComment}> Post</button>
+                    </form>
                 </div>
             </div>
         </div>

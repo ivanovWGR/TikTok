@@ -9,10 +9,9 @@ export default function LoginForm({ destroyModal }) {
     
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
-        firebase.auth().signInWithEmailAndPassword(values.username, values.password)
+        firebase.auth().signInWithEmailAndPassword(values.username.trim(), values.password)
             .then((userCredential) => {
-                console.log('user credential ', userCredential)
-                // Signed in
+                console.log('user credential ', userCredential);                // Signed in
 
                 const user = firebase.auth().currentUser;
                 if (user) {
@@ -21,22 +20,15 @@ export default function LoginForm({ destroyModal }) {
                     const photoUrl = user.photoURL;
                     const uid = user.uid;
                     console.log(`Name ${name}, Email ${email}, UID ${uid}`)
-
+                    close()
                 } else {
-                    
+                    throw new Error('Wrong email or password!')
                 }                
-            })
-            .then(()=>{
-                close()
-            })
-            .catch((error) => {
+            })            
+            .catch((error) => {               
+                alert("Wrong email or password!")
                 
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                alert(errorMessage)
-                console.log(errorMessage)
-            });
-        
+            });        
     };
 
     return (
@@ -77,11 +69,11 @@ export default function LoginForm({ destroyModal }) {
                         placeholder="Password"
                     />
                 </Form.Item>
-                <Form.Item>
+                {/* <Form.Item>
                     <a className={`login-form-forgot ${styles.forgotPass}`} href="">
                         Forgot password?
         </a>
-                </Form.Item>
+                </Form.Item> */}
 
                 <Form.Item>
                     <Button type="primary" htmlType="submit" className={`login-form-button ${styles.loginFormBtn}`}>

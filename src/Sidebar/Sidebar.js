@@ -13,6 +13,7 @@ import forYouUnactive from "../date/img/forYouUnactive.png";
 import { DataBase } from "../firebase";
 
 
+
 export default function ShowSidebar({ isUserLoggedIn, currentUserUid }) {
   const [currentAccount, setCurrentAccount] = useState([]);
   const [yourTopAccounts, setYourTopAccounts] = useState([]);
@@ -107,7 +108,7 @@ export default function ShowSidebar({ isUserLoggedIn, currentUserUid }) {
             />
           )}
         </div>
-        <div>{isUserLoggedIn ? null : <SidebarLoginBtutton />}</div>
+        <div>{!isUserLoggedIn && <SidebarLoginBtutton />  }</div>
       </div>
       <div className={styles.suggestedAccounts}>
         <SuggestionAccounts suggestedAcc={suggestedAccounts} allUsers = {allUsers} cuurentUser = {currentUserUid}/>

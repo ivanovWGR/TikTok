@@ -6,7 +6,7 @@ const createUserInDatabase = (id, displayName,photoURL="") => {
         photoURL: photoURL,
         displayName: displayName,        
         nickName: "",
-        fallowers: 0,
+        followers: 0,
         following: [""],        
         likes: 0
     })
