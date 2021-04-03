@@ -45,9 +45,9 @@ export default function LoginPageTwo({onClick, destroyModal}) {
 
         <div className={styles.LoginPagePartTwo}>
             <UseEmail onClick={goToRegForm} text="Use phone or email" />
-            <UseFacebook text="Continue with Facebook" />
+            {/* <UseFacebook text="Continue with Facebook" /> */}
             <UseGoogle text="Continue with Google" />
-            <UseTwitter text="Continue with twitter" />
+            {/* <UseTwitter text="Continue with twitter" /> */}
         </div>
         <p className={styles.signUp}>Allready have an account? <a href="#" onClick={onClick}> Log in</a></p>
         </>
