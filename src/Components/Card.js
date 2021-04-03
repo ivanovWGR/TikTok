@@ -2,7 +2,7 @@ import React from 'react';
 import { FaCommentDots, FaShare, FaHeart, FaBuromobelexperte } from "react-icons/fa";
 import { Link } from 'react-router-dom'
 
-const Card = ({ videoUrl, likes, comments, title, fullName, caption, date }) => {
+const Card = ({ videoUrl, likes, comments, title, fullName, caption, date, videoId, USER_LOGGED_IN }) => {
 
 
     return (
@@ -37,10 +37,13 @@ const Card = ({ videoUrl, likes, comments, title, fullName, caption, date }) => 
                 <div className="social-tag"><span>{likes}</span></div>
                 
                 
-                <div className='icon-wrapper'>                    
-                <Link to="/viewVideo">
+                <div className='icon-wrapper'>
+                    {USER_LOGGED_IN ?<Link to={`/viewVideo/${videoId}`}>
                     <FaCommentDots className="icons" />
-                    </Link>
+                    </Link> : 
+                    <FaCommentDots className="icons"/>
+                    }                    
+                
                 </div>
                 
                 <div className="social-tag"><span>{comments}</span></div>
