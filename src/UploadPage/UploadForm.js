@@ -32,9 +32,8 @@ function UploadForm() {
     }, [progressAnt])
     const [videoUrl, setVideoUrl] = useState(null);
     // take current user
-
     const user = firebase.auth().currentUser;
-    console.log(user)
+
 
     const openNotification = (message) => {
         const key = `open${Date.now()}`;
@@ -44,7 +43,7 @@ function UploadForm() {
             </Button>
         );
         notification.open({
-            message: 'Notification Title',
+            message: 'Notification Upload',
             description: message,
             btn,
             key,
@@ -68,7 +67,7 @@ function UploadForm() {
 
     const onSubmit = (ev) => {
         ev.preventDefault();
-        if(!file) return;
+        if (!file) return;
         if (!title.trim()) {
             setAlert('Please add a title!');
             openNotification(alert)
@@ -110,8 +109,8 @@ function UploadForm() {
                             likedBy: [],
                             numOfComments: 0,
                             numOfLikes: 0,
-                            // displayName:user.displayName,
-                            // photoUrl:user.photoUrl
+                            displayName: user.displayName,
+                            photoUrl: user.photoUrl
                         })
                     })
                     .then(() => {
@@ -228,7 +227,7 @@ function UploadForm() {
                             </div>
                             :
                             <div>
-                                <button className={ file? styles.discardButtonActive:styles.discardButton} disabled={!file ? true : false} onClick={clearFile}>Discard</button>
+                                <button className={file ? styles.discardButtonActive : styles.discardButton} disabled={!file ? true : false} onClick={clearFile}>Discard</button>
                                 <button className={file ? styles.postButtonActive : styles.postButton} disabled={!file ? true : false} onSubmit={onSubmit}>Post</button>
                             </div>
                         }
