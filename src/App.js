@@ -26,15 +26,10 @@ function App() {
   const [loadedVideosCount, setLoadedVideosCount] = useState(40);
   const [filtered, setFiltered] = useState([]);
   const [currentUserId, setCurrentUserId] = useState("");
-
-
   const [currentUserVideos, setCurrenUserVideos] = useState([]);//IT IS NOT USED AT THE MOMENT?!?
-
-
   const onNext = () => {
     setLoadedVideosCount(loadedVideosCount + 20);
   }
-
   useEffect(() => {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
@@ -45,7 +40,9 @@ function App() {
         setCurrentUserId("");
       }
     });
-  }, [currentUserId]);     
+
+  }, [currentUserId]);
+
 
   useEffect(() => {
     const tempVideos = []
@@ -108,13 +105,10 @@ function App() {
         <Route path="/userprofile">
           {USER_LOGGED_IN ? <UserPage currentUserId={currentUserId} isUserLoggedIn={USER_LOGGED_IN} /> : <Redirect to="/" />}
         </Route>
-
-
         <Route path="/ForYouPage">
           <ShowForYouPage USER_LOGGED_IN={USER_LOGGED_IN} currentUserUid = {currentUserId}/>
-        </Route>      
-
-        <Route path="/userprofile">
+        </Route>    
+       <Route path="/userprofile">
           <UserPage currentUserId={currentUserId} />
         </Route>
         <Route path="/user/:id">

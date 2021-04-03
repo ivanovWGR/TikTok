@@ -1,8 +1,19 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { FaCommentDots, FaShare, FaHeart, FaBuromobelexperte } from "react-icons/fa";
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 
+const Card = ({ videoUrl, likes, comments, title, fullName, caption}) => {
+    const [toggle,setToggle] = useState(false);
+    const [following,setFollowing] = useState('Follow')
+ const toogleClick = () => {
+      setToggle(!toggle)
+      if (!toggle){
+           setFollowing('Following')
+      }else {
+          setFollowing('Follow')
+      }
+ }
 
 
 const Card = ({ videoUrl, likes, comments, title, fullName, caption, date, videoId, photo, USER_LOGGED_IN }) => {
@@ -16,14 +27,13 @@ const Card = ({ videoUrl, likes, comments, title, fullName, caption, date, video
                         <div className="section">
                             <h3 className="bold">{title}</h3>
                             <p className="username">{fullName}</p>
-                            {/* <p>{date}</p> */}
                         </div>
                         <p>{caption}</p>
                     </div>
                 </div>
 
                 <div className='card-button-wrapper'>
-                    <button className='follow-button'>Follow</button>
+    <button className={toggle?'following-button':'follow-button'} onClick={toogleClick}>{following}</button>
                 </div>
             </div>
             <video className="video" controls src={videoUrl}
