@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaCommentDots, FaShare, FaHeart, FaBuromobelexperte } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 
+
     const Card = ({ url, likes, comments, title, caption, displayName, videoId, photoUrl, USER_LOGGED_IN }) => {
         const [toggle, setToggle] = useState(false);
         const [following, setFollowing] = useState('Follow')
@@ -16,6 +17,7 @@ import { Link } from 'react-router-dom';
             }
             
         }
+
         return (
             <div className="card">
                 <div className="break" />
@@ -34,9 +36,7 @@ import { Link } from 'react-router-dom';
                         <button className={toggle ? 'following-button' : 'follow-button'} onClick={toogleClick}>{following}</button>
                     </div>
                 </div>
-                <video className="video" controls src={url}
-                />
-
+                <video className="video" controls src={url}/>
                 <div className="section socials icons-conteiner">
                     <div className='icon-wrapper'>
                         <FaHeart className="icons" />
@@ -65,3 +65,4 @@ import { Link } from 'react-router-dom';
         )
     }
 export default Card
+

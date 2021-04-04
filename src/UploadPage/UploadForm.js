@@ -61,7 +61,7 @@ function UploadForm() {
             </Button>
         );
         notification.open({
-            message: 'Notification Title',
+            message: 'Notification Upload',
             description: message,
             btn,
             key,
@@ -85,7 +85,7 @@ function UploadForm() {
 
     const onSubmit = (ev) => {
         ev.preventDefault();
-        if(!file) return;
+        if (!file) return;
         if (!title.trim()) {
             setAlert('Please add a title!');
             openNotification(alert)
@@ -131,6 +131,7 @@ function UploadForm() {
                             numOfLikes: 0,
                             displayName:user.displayName,
                             photoUrl:user.photoUrl
+
                         })
                     })
                     .then(() => {
@@ -245,7 +246,7 @@ function UploadForm() {
                             </div>
                             :
                             <div>
-                                <button className={ file? styles.discardButtonActive:styles.discardButton} disabled={!file ? true : false} onClick={clearFile}>Discard</button>
+                                <button className={file ? styles.discardButtonActive : styles.discardButton} disabled={!file ? true : false} onClick={clearFile}>Discard</button>
                                 <button className={file ? styles.postButtonActive : styles.postButton} disabled={!file ? true : false} onSubmit={onSubmit}>Post</button>
                             </div>
                         }
@@ -256,5 +257,4 @@ function UploadForm() {
         </form>
     )
 }
-
 export default UploadForm;
