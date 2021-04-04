@@ -1,9 +1,9 @@
 import firebase, { DataBase } from '../../firebase'
 
 
-const createUserInDatabase = (id, displayName,photoURL="") => {
+const createUserInDatabase = (id, displayName,photoUrl="") => {
     DataBase.collection("users").doc(id).set({
-        photoURL: photoURL,
+        photoUrl: photoUrl,
         displayName: displayName,        
         nickName: "",
         followers: 0,

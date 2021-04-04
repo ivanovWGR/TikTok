@@ -3,10 +3,7 @@ import { FaCommentDots, FaShare, FaHeart, FaBuromobelexperte } from "react-icons
 import { Link } from 'react-router-dom';
 
 
-
-
-
-    const Card = ({ videoUrl, likes, comments, title, fullName, caption, date, videoId, photo, USER_LOGGED_IN }) => {
+    const Card = ({ url, likes, comments, title, caption, displayName, videoId, photoUrl, USER_LOGGED_IN }) => {
         const [toggle, setToggle] = useState(false);
         const [following, setFollowing] = useState('Follow')
         const toogleClick = () => {
@@ -26,11 +23,11 @@ import { Link } from 'react-router-dom';
                 <div className="break" />
                 <div className="section">
                     <div className="user-info">
-                        <img className="user-avatar" src={photo} width={'100%'} alt='username' />
+                        <img className="user-avatar" src={photoUrl} width={'100%'} alt='username' />
                         <div>
                             <div className="section">
                                 <h3 className="bold">{title}</h3>
-                                <p className="username">{fullName}</p>
+                                <p className="username">{displayName}</p>
                             </div>
                             <p>{caption}</p>
                         </div>
@@ -39,9 +36,7 @@ import { Link } from 'react-router-dom';
                         <button className={toggle ? 'following-button' : 'follow-button'} onClick={toogleClick}>{following}</button>
                     </div>
                 </div>
-                <video className="video" controls src={videoUrl}
-                />
-
+                <video className="video" controls src={url}/>
                 <div className="section socials icons-conteiner">
                     <div className='icon-wrapper'>
                         <FaHeart className="icons" />
@@ -69,5 +64,5 @@ import { Link } from 'react-router-dom';
             </div>
         )
     }
+export default Card
 
-    export default Card

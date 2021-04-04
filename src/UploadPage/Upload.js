@@ -8,6 +8,7 @@ import Footer from '../Footer/Footer'
 
 
 function Upload() {
+
     return (
         <div className={styles.uploadpage}>
             <div>

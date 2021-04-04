@@ -29,7 +29,7 @@ export default function SuggestionAccounts({suggestedAcc, allUsers, cuurentUser}
       {
         <div>
           {userOne.map((el) => (
-            <UserItem key = {el.id} id = {el.id} img={el.photoURL} userName={el.nickName} name={el.displayName} />
+            <UserItem key = {el.id} id = {el.id} img={el.photoUrl} userName={el.nickName} name={el.displayName} />
           ))}
         </div>
       }
