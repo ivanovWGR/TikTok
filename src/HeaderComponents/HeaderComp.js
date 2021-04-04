@@ -1,10 +1,11 @@
 import { FaSearch } from "react-icons/fa";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 import HeaderRightDivUserNot from "./HeaderRightDivUserNot"
 import HeaderRightDivUserYes from "./HeaderRightDivUserYes"
 import styles from './Header.module.scss'
 import { Input, Space } from 'antd';
+
 
 
 const { Search } = Input;
@@ -14,8 +15,8 @@ export default function HeaderComp({ isUserLoggedIn,onTitleInputChange,searchVal
     const inputTittleChange = (ev) => {
         ev.preventDefault();
         onTitleInputChange(ev.target.value)
-
     }
+
 
     return (
         <div className={styles.header}>

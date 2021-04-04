@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import HeaderComp from "./HeaderComponents/HeaderComp";
 import "antd/dist/antd.css";
@@ -12,7 +12,10 @@ import ViewFullScreenVideo from "./VideoFullscreenPage/ViewFullScreenVideo";
 import UserPage from "./ProfilePage/UserProfile";
 import SelectedUser from "./SelectedUser/selectedUser";
 import ShowForYouPage from './ForYouPage/ForYouPage'
-import ShowFollowingPage from './FollowingPage/FollowingPage'
+import ShowFollowingPage from './FollowingPage/FollowingPage';
+import _ from 'lodash';
+
+
 const { Content, Sider } = Layout;
 
 function App() {
@@ -67,9 +70,9 @@ function App() {
   //   }
   // },[])
 
-  const filteredvideos =  filtered.filter(video => video.caption.includes(searchValue))
-  
-  
+  const filteredvideos = filtered.filter(video => video.caption.includes(searchValue))
+
+
   const chunkedVideos = useMemo(() => {
     let chunkVideos = [];
 
@@ -80,17 +83,22 @@ function App() {
     return chunkVideos;
   }, [videos, loadedVideosCount])
 
+  const servicesValue = (value) => {
+    setSearchValue(value)
+  }
+
+  const servicesVal = _.debounce(servicesValue, 1000);
+
+  const onTitleInputChange = (value) => {
+    setSearchValue(value)
+    servicesVal(value)
+  },
 
 
 
   return (
-    <Router>    
-      
-
-
-      <HeaderComp isUserLoggedIn={USER_LOGGED_IN} onTitleInputChange={(value)=>setSearchValue(value)} searchValue={searchValue} />    
-      
-
+    <Router>
+      <HeaderComp isUserLoggedIn={USER_LOGGED_IN} onTitleInputChange={onTitleInputChange} searchValue={searchValue} />
 
       <Switch>
         <Route path="/viewVideo/:videoId">
@@ -98,24 +106,22 @@ function App() {
         </Route>
         <Route path="/upload">
 
-          {USER_LOGGED_IN ? <Upload currentUserId={currentUserId}/> : <Redirect to="/" />}
+          {USER_LOGGED_IN ? <Upload currentUserId={currentUserId} /> : <Redirect to="/" />}
         </Route>
 
         <Route path="/userprofile">
           {USER_LOGGED_IN ? <UserPage currentUserId={currentUserId} isUserLoggedIn={USER_LOGGED_IN} /> : <Redirect to="/" />}
         </Route>
-        <Route path="/ForYouPage">         
+        <Route path="/ForYouPage">
 
 
-          <ShowForYouPage USER_LOGGED_IN={USER_LOGGED_IN} currentUserUid = {currentUserId}/>
-        </Route>   
+          <ShowForYouPage USER_LOGGED_IN={USER_LOGGED_IN} currentUserUid={currentUserId} />
+        </Route>
         <Route path="/FollowingPage">
-          <ShowFollowingPage USER_LOGGED_IN={USER_LOGGED_IN} currentUserUid = {currentUserId}/>
-        </Route>  
-       
+          <ShowFollowingPage USER_LOGGED_IN={USER_LOGGED_IN} currentUserUid={currentUserId} />
+        </Route>
 
 
-         
         <Route path="/user/:id">
           <SelectedUser isUserLoggedIn={USER_LOGGED_IN} currentUserUid={currentUserId} />
         </Route>
@@ -133,10 +139,10 @@ function App() {
               </Sider>
               <Layout style={{ padding: "0 24px 24px" }}>
                 {/* Кард контаинер */}
-                <Content className="site-layout-background contentContainer">               
+                <Content className="site-layout-background contentContainer">
 
 
-                  {filteredvideos.map(({ url, numOfLikes, numOfComments, title, caption, videoId,photoUrl, displayName }, index) => {                 
+                  {filteredvideos.map(({ url, numOfLikes, numOfComments, title, caption, videoId, photoUrl, displayName }, index) => {
 
 
                     return <Card
@@ -146,10 +152,10 @@ function App() {
                       likes={numOfLikes}
                       comments={numOfComments}
                       title={title}
-                      videoId={videoId}                      
+                      videoId={videoId}
                       caption={caption}
-                      photoUrl= {photoUrl}
-                      displayName = {displayName} />;
+                      photoUrl={photoUrl}
+                      displayName={displayName} />;
                   })}
                 </Content>
               </Layout>
