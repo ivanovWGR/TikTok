@@ -13,6 +13,7 @@ import followActive from "../date/img/followActive.png";
 import forYouActive from "../date/img/forYouActive.png";
 import forYouUnactive from "../date/img/forYouUnactive.png";
 import { DataBase } from "../firebase";
+import {useLocation} from 'react-router-dom'
 
 
 
@@ -21,9 +22,11 @@ export default function ShowSidebar({ isUserLoggedIn, currentUserUid }) {
   const [yourTopAccounts, setYourTopAccounts] = useState([]);
   const [suggestedAccounts, SetSuggestedAccounts] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
+  const location = useLocation();
+
   // const [isActiveForYou, activeForYou] = useState(true);
   // const [isActiveFollowing, activeFollowing] = useState(true);
-  const pathname = window.location.pathname
+
   // function changeButtonStylesForYou() {
   //   if (isActiveForYou) {
   //   activeForYou(!isActiveForYou);
@@ -87,7 +90,7 @@ export default function ShowSidebar({ isUserLoggedIn, currentUserUid }) {
     <div id={styles.siderDiv}>
       <div>
         <div className={styles.sidebarButtons}>
-        {pathname === "/ForYouPage" ? (
+        {location.pathname === "/ForYouPage" ? (
             <ForYouBtnUnactive
               img={forYouActive}
               description={"For You"}
@@ -101,7 +104,7 @@ export default function ShowSidebar({ isUserLoggedIn, currentUserUid }) {
             />
           )}
 
-          {pathname === "/FollowingPage" ? 
+          {location.pathname === "/FollowingPage" ? 
           (
             <FollowingBtnActive
               img={followActive}
