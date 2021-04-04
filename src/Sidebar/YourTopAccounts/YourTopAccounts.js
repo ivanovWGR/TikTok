@@ -3,13 +3,12 @@ import SeeAllButton from "../seeAllButton/SeeAllButton";
 import SeeLessButton from "../seeLessButton/SeeLessButton";
 import UserItem from "../UserItem/UserItem";
 
-export default function YourTopAccounts({topAcc, cuurentUser}) {
-  
+export default function YourTopAccounts({topAcc, loggedInUserId}) {
   const [isShowAll, showAll] = useState(true);
+  const [yourTopAccounts, setYourTopAccounts] = useState([]);
   function showAllUsers() {
     showAll(!isShowAll);
   }
-
   const numOfFirstUsersShow = 5;
   let userOne = [];
 
@@ -19,7 +18,7 @@ export default function YourTopAccounts({topAcc, cuurentUser}) {
     userOne = topAcc;
   }
 
-  if (!cuurentUser || topAcc.length < 0) {
+  if (!loggedInUserId || (topAcc.length < 0)) {
     return(
       <div>
         <p>here you can see yours top accounts</p>

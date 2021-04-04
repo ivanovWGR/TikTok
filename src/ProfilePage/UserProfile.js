@@ -13,15 +13,14 @@ const { Content, Sider } = Layout;
 
 
 
-const UserPage = ({ currentUserId, isUserLoggedIn, currentUserUid }) => {
-    console.log('profile page ', currentUserId);
+const UserPage = ({ selectedUserId, isUserLoggedIn, loggedInUserId }) => {
+    console.log('profile page ', selectedUserId);
     const [userVideos, setUserVideos] = useState([]);
     const [likedVideos, setLikedVideos] = useState([]);
     //ASYNC
     useEffect(() => {
         const fetchedVideos = [];
-        const fetchedLikedVideos = [];
-        DataBase.collection("videos").where("addBy", "==", currentUserId)
+        DataBase.collection("videos").where("addBy", "==", selectedUserId)
             .get()
             .then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
@@ -34,12 +33,11 @@ const UserPage = ({ currentUserId, isUserLoggedIn, currentUserUid }) => {
             .catch((error) => {
                 console.log("Error getting documents: ", error);
             });
-
-    }, [currentUserId])
+    }, [selectedUserId])
 
     useEffect(() => {
         const fetchedLikedVideos = [];  
-      DataBase.collection("videos").where("likedBy", "==", currentUserId)
+      DataBase.collection("videos").where("likedBy", "==", selectedUserId)
             .get()
             .then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
@@ -54,7 +52,7 @@ const UserPage = ({ currentUserId, isUserLoggedIn, currentUserUid }) => {
             .catch((error) => {
                 console.log("Error getting documents: ", error);
             });
-    }, [currentUserId])
+    }, [selectedUserId, likedVideos])
 
 
     return (
@@ -64,15 +62,14 @@ const UserPage = ({ currentUserId, isUserLoggedIn, currentUserUid }) => {
                     <Sider width={250} className="site-layout-background ">
                         <div className="siderWrapper">
 
-                            <Sidebar isUserLoggedIn = {isUserLoggedIn} currentUserUid = {currentUserUid}/>                            
+                            <Sidebar isUserLoggedIn = {isUserLoggedIn} loggedInUserId = {loggedInUserId}/>                            
 
                         </div>
                     </Sider>
                     <Layout style={{ padding: "0 24px 24px" }}>
                         <Content className="site-layout-background userPageContent">
-                            <UserInfo currentUserId ={currentUserId}/>                       
-                           
-                            <UserVideoTab currentUserId={currentUserId} userVideos={userVideos} likedVideos={likedVideos} />
+                            <UserInfo selectedUserId ={selectedUserId}/>                       
+                            <UserVideoTab userVideos={userVideos} likedVideos={likedVideos} />
                         </Content>
                     </Layout>
                 </Layout>

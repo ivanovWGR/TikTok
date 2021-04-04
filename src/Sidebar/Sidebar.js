@@ -17,7 +17,7 @@ import {useLocation} from 'react-router-dom'
 
 
 
-export default function ShowSidebar({ isUserLoggedIn, currentUserUid }) {
+export default function ShowSidebar({ isUserLoggedIn, loggedInUserId }) {
   const [currentAccount, setCurrentAccount] = useState([]);
   const [yourTopAccounts, setYourTopAccounts] = useState([]);
   const [suggestedAccounts, SetSuggestedAccounts] = useState([]);
@@ -45,7 +45,7 @@ export default function ShowSidebar({ isUserLoggedIn, currentUserUid }) {
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          if (doc.id === currentUserUid) {
+          if (doc.id === loggedInUserId) {
             let res = {...doc.data()}
             setCurrentAccount([...res.following])
             console.log("current account", res)
@@ -55,7 +55,7 @@ export default function ShowSidebar({ isUserLoggedIn, currentUserUid }) {
       .catch((error) => {
         console.log("Error getting document:", error);
       });
-  },[currentUserUid]);
+  },[loggedInUserId]);
 
   useEffect(() => {
     const users = [];
@@ -69,9 +69,10 @@ export default function ShowSidebar({ isUserLoggedIn, currentUserUid }) {
           user.id = doc.id;
             if (currentAccount.includes(doc.id)) {
               topAccount.push(user)
+              
              
             } else {
-              if (doc.id !== currentUserUid) {
+              if (doc.id !== loggedInUserId) {
                 suggestedAcc.push(user)
               }
             }
@@ -84,7 +85,7 @@ export default function ShowSidebar({ isUserLoggedIn, currentUserUid }) {
       .catch((error) => {
         console.log("Error getting document:", error);
       });
-  },[currentAccount, currentUserUid]);
+  },[currentAccount, loggedInUserId]);
 
   return (
     <div id={styles.siderDiv}>
@@ -122,10 +123,10 @@ export default function ShowSidebar({ isUserLoggedIn, currentUserUid }) {
         <div>{!isUserLoggedIn && <SidebarLoginBtutton />  }</div>
       </div>
       <div className={styles.suggestedAccounts}>
-        <SuggestionAccounts suggestedAcc={suggestedAccounts} allUsers = {allUsers} cuurentUser = {currentUserUid}/>
+        <SuggestionAccounts suggestedAcc={suggestedAccounts} allUsers = {allUsers} loggedInUserId = {loggedInUserId}/>
       </div>
       <div className={styles.yourTopAccounts}>
-        <YourTopAccounts topAcc={yourTopAccounts} cuurentUser = {currentUserUid}/>
+        <YourTopAccounts topAcc={yourTopAccounts} loggedInUserId = {loggedInUserId}/>
       </div>
       <div>
         <SidebarFooter />

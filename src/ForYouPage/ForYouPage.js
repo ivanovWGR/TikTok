@@ -5,7 +5,7 @@ import { Layout } from "antd";
 import { DataBase } from "../firebase";
 const { Content, Sider } = Layout;
 
-export default function ShowForYouPage ({USER_LOGGED_IN, currentUserUid}) {
+export default function ShowForYouPage ({USER_LOGGED_IN, loggedInUserId}) {
     const [currentAccount, setCurrentAccount] = useState([]);
     const [allVideos, setAllVideos] = useState([]);
     const [videos, setVideos] = useState([]);
@@ -16,7 +16,7 @@ export default function ShowForYouPage ({USER_LOGGED_IN, currentUserUid}) {
         .get()
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
-            if (doc.id === currentUserUid) {
+            if (doc.id === loggedInUserId) {
               let res = {...doc.data()}
               setCurrentAccount([...res.following])
             }
@@ -25,7 +25,7 @@ export default function ShowForYouPage ({USER_LOGGED_IN, currentUserUid}) {
         .catch((error) => {
           console.log("Error getting document:", error);
         });
-    },[currentUserUid]);
+    },[loggedInUserId]);
 
     // useEffect(() => {
     //     const users = [];
@@ -36,7 +36,7 @@ export default function ShowForYouPage ({USER_LOGGED_IN, currentUserUid}) {
     //         querySnapshot.forEach((doc) => {
     //           let user = { ...doc.data() };
     //           user.id = doc.id;
-    //             if (!currentAccount.includes(doc.id) && doc.id !== currentUserUid) {
+    //             if (!currentAccount.includes(doc.id) && doc.id !== loggedInUserId) {
     //                     suggestedAcc.push(user)
     //             } 
     //           users.push(user);
@@ -58,7 +58,7 @@ export default function ShowForYouPage ({USER_LOGGED_IN, currentUserUid}) {
             querySnapshot.forEach((doc) => {
               let chunkVideoObj = {...doc.data()}
               chunkVideoObj.videoId = doc.id
-              if (!currentAccount.includes(chunkVideoObj.addBy) && currentUserUid !== chunkVideoObj.addBy){                
+              if (!currentAccount.includes(chunkVideoObj.addBy) && loggedInUserId !== chunkVideoObj.addBy){                
                 tempVideos.push(chunkVideoObj);
               }
               videos.push(chunkVideoObj)
@@ -66,7 +66,7 @@ export default function ShowForYouPage ({USER_LOGGED_IN, currentUserUid}) {
             setVideos(tempVideos)
             setAllVideos(videos)
           });
-    }, [currentUserUid, currentAccount]);
+    }, [loggedInUserId, currentAccount]);
 
     return (
         <div>
@@ -77,7 +77,7 @@ export default function ShowForYouPage ({USER_LOGGED_IN, currentUserUid}) {
                 className="site-layout-background siderConteiner siderPosition"
               >
                 <div className="siderWrapper">
-                  <ShowSidebar isUserLoggedIn={USER_LOGGED_IN} currentUserUid={currentUserUid}/>
+                  <ShowSidebar isUserloggedInUserId={USER_LOGGED_IN} loggedInUserId={loggedInUserId}/>
                 </div>
               </Sider>
               <Layout style={{ padding: "0 24px 24px" }}>
