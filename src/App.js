@@ -48,6 +48,7 @@ function App() {
     const tempVideos = []
     // Asynch operation
     DataBase.collection("videos").get().then((querySnapshot) => {
+      console.log('Shouts once!')
       querySnapshot.forEach((doc) => {
         let video = { ...doc.data() }
         video.videoId = doc.id;
@@ -93,6 +94,7 @@ function App() {
   return (
     <Router>
       <HeaderComp isUserLoggedIn={USER_LOGGED_IN} getInput={searchByName} />
+      {/* Сайбар + лейаути */}
       <Switch>
         <Route path="/viewVideo/:videoId">
           <ViewFullScreenVideo currentUserId={currentUserId} />
@@ -106,13 +108,13 @@ function App() {
           {USER_LOGGED_IN ? <UserPage currentUserId={currentUserId} isUserLoggedIn={USER_LOGGED_IN} /> : <Redirect to="/" />}
         </Route>
         <Route path="/ForYouPage">
-          <ShowForYouPage USER_LOGGED_IN={USER_LOGGED_IN} currentUserUid = {currentUserId}/>
-        </Route>    
-       <Route path="/userprofile">
+          <ShowForYouPage USER_LOGGED_IN={USER_LOGGED_IN} currentUserUid={currentUserId} />
+        </Route>
+        <Route path="/userprofile">
           <UserPage currentUserId={currentUserId} />
         </Route>
         <Route path="/user/:id">
-          <SelectedUser isUserLoggedIn={USER_LOGGED_IN} currentUserUid = {currentUserId}/>
+          <SelectedUser isUserLoggedIn={USER_LOGGED_IN} currentUserUid={currentUserId} />
         </Route>
 
         <Route exact path="/">
@@ -123,23 +125,24 @@ function App() {
                 className="site-layout-background siderConteiner siderPosition"
               >
                 <div className="siderWrapper">
-                  <ShowSidebar isUserLoggedIn={USER_LOGGED_IN} currentUserUid={currentUserId}/>
+                  <ShowSidebar isUserLoggedIn={USER_LOGGED_IN} currentUserUid={currentUserId} />
                 </div>
               </Sider>
               <Layout style={{ padding: "0 24px 24px" }}>
+                {/* Кард контаинер */}
                 <Content className="site-layout-background contentContainer">
-                  {filtered.map(({ url, numOfLikes, numOfComments, title, addedDate, caption, videoId }, index) => {
+                  {filtered.map(({ url, numOfLikes, numOfComments, title, caption, videoId, displayName, photoUrl }, index) => {
                     return <Card
                       USER_LOGGED_IN={USER_LOGGED_IN}
                       key={videoId}
-                      videoUrl={url}
+                      url={url}
                       likes={numOfLikes}
                       comments={numOfComments}
                       title={title}
-                      videoId={videoId}
-                      date={addedDate}
-                      caption={caption} />;
-
+                      videoId={videoId}                      
+                      caption={caption}
+                      photoUrl= {photoUrl}
+                      displayName = {displayName} />;
                   })}
                 </Content>
               </Layout>

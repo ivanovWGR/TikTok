@@ -19,6 +19,7 @@ export default function LoginForm({ destroyModal }) {
                     const email = user.email;
                     const photoUrl = user.photoURL;
                     const uid = user.uid;
+                    console.log('User ', user)
                     console.log(`Name ${name}, Email ${email}, UID ${uid}`)
                     close()
                 } else {
