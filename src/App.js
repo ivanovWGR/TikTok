@@ -67,9 +67,9 @@ function App() {
   //   }
   // },[])
 
-  const filteredvideos =  filtered.filter(video => video.caption.includes(searchValue))
-  
-  
+  const filteredvideos = filtered.filter(video => video.caption.includes(searchValue))
+
+
   const chunkedVideos = useMemo(() => {
     let chunkVideos = [];
 
@@ -84,61 +84,45 @@ function App() {
 
 
   return (
-    <Router>    
-      
+    
 
 
-      <HeaderComp isUserLoggedIn={USER_LOGGED_IN} onTitleInputChange={(value)=>setSearchValue(value)} searchValue={searchValue} />    
-      
-
-
+<Router>
+      <HeaderComp  isUserLoggedIn={USER_LOGGED_IN} onTitleInputChange={(value) => setSearchValue(value)} searchValue={searchValue} />
       <Switch>
         <Route path="/viewVideo/:videoId">
           <ViewFullScreenVideo currentUserId={currentUserId} />
         </Route>
         <Route path="/upload">
-
-          {USER_LOGGED_IN ? <Upload currentUserId={currentUserId}/> : <Redirect to="/" />}
+          {USER_LOGGED_IN ? <Upload currentUserId={currentUserId} /> : <Redirect to="/" />}
         </Route>
-
         <Route path="/userprofile">
-          {USER_LOGGED_IN ? <UserPage currentUserId={currentUserId} isUserLoggedIn={USER_LOGGED_IN} /> : <Redirect to="/" />}
+          {USER_LOGGED_IN ? <UserPage selectedUserId={currentUserId} isUserLoggedIn={USER_LOGGED_IN} /> : <Redirect to="/" />}
         </Route>
-        <Route path="/ForYouPage">         
-
-
-          <ShowForYouPage USER_LOGGED_IN={USER_LOGGED_IN} currentUserUid = {currentUserId}/>
-        </Route>   
+        <Route path="/ForYouPage">
+          <ShowForYouPage USER_LOGGED_IN={USER_LOGGED_IN} loggedInUserId={currentUserId} />
+        </Route>
         <Route path="/FollowingPage">
-          <ShowFollowingPage USER_LOGGED_IN={USER_LOGGED_IN} currentUserUid = {currentUserId}/>
-        </Route>  
-       
-
-
-         
-        <Route path="/user/:id">
-          <SelectedUser isUserLoggedIn={USER_LOGGED_IN} currentUserUid={currentUserId} />
+          <ShowFollowingPage USER_LOGGED_IN={USER_LOGGED_IN} loggedInUserId={currentUserId} />
         </Route>
-
+        <Route path="/user/:id">
+          <SelectedUser isUserLoggedIn={USER_LOGGED_IN} loggedInUserId={currentUserId} />
+        </Route>
         <Route exact path="/">
-          <Layout>
+          <Layout className="layout">
             <Layout>
               <Sider
                 width={250}
                 className="site-layout-background siderConteiner siderPosition"
               >
                 <div className="siderWrapper">
-                  <ShowSidebar isUserLoggedIn={USER_LOGGED_IN} currentUserUid={currentUserId} />
+                  <ShowSidebar isUserLoggedIn={USER_LOGGED_IN} loggedInUserId={currentUserId} />
                 </div>
               </Sider>
               <Layout style={{ padding: "0 24px 24px" }}>
                 {/* Кард контаинер */}
-                <Content className="site-layout-background contentContainer">               
-
-
-                  {filteredvideos.map(({ url, numOfLikes, numOfComments, title, caption, videoId,photoUrl, displayName }, index) => {                 
-
-
+                <Content className="site-layout-background contentContainer">
+                  {filteredvideos.map(({ url, numOfLikes, numOfComments, title, caption, videoId, photoUrl, displayName }, index) => {
                     return <Card
                       USER_LOGGED_IN={USER_LOGGED_IN}
                       key={videoId}
@@ -146,10 +130,10 @@ function App() {
                       likes={numOfLikes}
                       comments={numOfComments}
                       title={title}
-                      videoId={videoId}                      
+                      videoId={videoId}
                       caption={caption}
-                      photoUrl= {photoUrl}
-                      displayName = {displayName} />;
+                      photoUrl={photoUrl}
+                      displayName={displayName} />;
                   })}
                 </Content>
               </Layout>

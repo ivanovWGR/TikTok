@@ -6,11 +6,23 @@
 .ant-layout{
  background-color: #fff;
 }
+.layout{
+  width         : 100%;
+  display       : flex;
+  flex-direction: column;
+  max-height    : 90vh;
+  overflow-y    : scroll;  
+  top           : 100px;
+  bottom        : 0;  
+  padding-top   : 26px;
+  margin-right  : 20px;
 
-.header {
+}
+/* .header {
+  
   background: #fff;
   margin-bottom: 10px;
-}
+} */
 
 .contentContainer {
   margin-left: 450px;
