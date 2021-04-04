@@ -26,7 +26,7 @@ const UserInfo = ({currentUserId}) => {
         <div className={styles.infoWrapper}>
             <div className={styles.userInfo}>
                 <div>
-                    <Avatar size={120} icon={<UserOutlined />} src = {userObj.photoURL} alt= {userObj.nickName} />
+                    <Avatar size={120} icon={<UserOutlined />} src = {userObj.photoUrl} alt= {userObj.nickName} />
                 </div>
                 <div className={styles.infoCont}>
                     <h2 className={styles.username}>{userObj.nickName}</h2>

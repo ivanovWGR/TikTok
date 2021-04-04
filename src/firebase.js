@@ -1,4 +1,17 @@
 import firebase from 'firebase';
+//origin
+// const firebaseConfig = {
+//   apiKey: "AIzaSyBhmeauIX75GPOpZOry14DQNGPIKzVpRIY",
+//   authDomain: "tiktokclonetrainingproject.firebaseapp.com",
+//   projectId: "tiktokclonetrainingproject",
+//   storageBucket: "tiktokclonetrainingproject.appspot.com",
+//   messagingSenderId: "469574152133",
+//   appId: "1:469574152133:web:16c8832d479d60aff625ac",
+//   measurementId: "G-RXX2642PWD"
+// };
+
+
+//Georgi
 
 
 //ORIGIN DATABASE
@@ -22,6 +35,7 @@ const firebaseConfig = {
   appId: "1:104039151185:web:dc9aa6e0cc4a5ab8c7aa70",
   measurementId: "G-6CH7QF7EG1"
 };
+
 
 firebase.initializeApp(firebaseConfig);
 const DataBase = firebase.firestore();

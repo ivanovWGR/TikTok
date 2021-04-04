@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { FollowingBtnUnactive } from "./Following/FollowingBtn";
-import { FollowingBtnActive } from "./Following/FollowingBtn";
+import {FollowingBtnUnactive} from "./Following/FollowingBtn";
+import {FollowingBtnActive} from "./Following/FollowingBtn";
+import {ForYouBtnActive} from "./ForYou/ForYouBtn";
+import {ForYouBtnUnactive} from "./ForYou/ForYouBtn";
 import SidebarLoginBtutton from "./SidebarLogin/SidebarLoginBtn";
 import SidebarFooter from "./SidebarFooter/sidebarFooter";
 import styles from "./Sidebar.module.scss";
@@ -11,6 +13,7 @@ import followActive from "../date/img/followActive.png";
 import forYouActive from "../date/img/forYouActive.png";
 import forYouUnactive from "../date/img/forYouUnactive.png";
 import { DataBase } from "../firebase";
+import {useLocation} from 'react-router-dom'
 
 
 
@@ -19,16 +22,23 @@ export default function ShowSidebar({ isUserLoggedIn, currentUserUid }) {
   const [yourTopAccounts, setYourTopAccounts] = useState([]);
   const [suggestedAccounts, SetSuggestedAccounts] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
-  const [isActiveForYou, activeForYou] = useState(true);
-  const [isActiveFollowing, activeFollowing] = useState(true);
-  function changeButtonStylesForYou() {
-    activeForYou(!isActiveForYou);
-    activeFollowing(isActiveForYou);
-  }
-  function changeButtonStylesFollowing() {
-    activeForYou(isActiveFollowing);
-    activeFollowing(!isActiveFollowing);
-  }
+  const location = useLocation();
+
+  // const [isActiveForYou, activeForYou] = useState(true);
+  // const [isActiveFollowing, activeFollowing] = useState(true);
+
+  // function changeButtonStylesForYou() {
+  //   if (isActiveForYou) {
+  //   activeForYou(!isActiveForYou);
+  //   activeFollowing(isActiveForYou);
+  //   }
+  // }
+  // function changeButtonStylesFollowing() {
+  //   if(isActiveFollowing) {
+  //     activeForYou(isActiveFollowing);
+  //     activeFollowing(!isActiveFollowing);
+  //   }
+  // }
   //get current user obj
   useEffect(() => {
       DataBase.collection("users")
@@ -74,37 +84,38 @@ export default function ShowSidebar({ isUserLoggedIn, currentUserUid }) {
       .catch((error) => {
         console.log("Error getting document:", error);
       });
-  },[currentAccount]);
+  },[currentAccount, currentUserUid]);
 
   return (
     <div id={styles.siderDiv}>
       <div>
         <div className={styles.sidebarButtons}>
-          {isActiveForYou ? (
-            <FollowingBtnUnactive
-              img={forYouUnactive}
-              description={"For You"}
-              onClick={changeButtonStylesForYou}
-            />
-          ) : (
-            <FollowingBtnActive
+        {location.pathname === "/ForYouPage" ? (
+            <ForYouBtnUnactive
               img={forYouActive}
               description={"For You"}
-              onClick={changeButtonStylesForYou}
+              // onClick={changeButtonStylesForYou}
+            />
+          ) : (
+            <ForYouBtnActive
+              img={forYouUnactive}
+              description={"For You"}
+              // onClick={changeButtonStylesForYou}
             />
           )}
 
-          {isActiveFollowing ? (
-            <FollowingBtnUnactive
-              img={followUnactive}
-              description={"Following"}
-              onClick={changeButtonStylesFollowing}
-            />
-          ) : (
+          {location.pathname === "/FollowingPage" ? 
+          (
             <FollowingBtnActive
               img={followActive}
               description={"Following"}
-              onClick={changeButtonStylesFollowing}
+              // onClick={changeButtonStylesForYou}
+            />
+          ) : (
+            <FollowingBtnUnactive
+              img={followUnactive}
+              description={"Following"}
+              // onClick={changeButtonStylesForYou}
             />
           )}
         </div>

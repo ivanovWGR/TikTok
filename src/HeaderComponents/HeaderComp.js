@@ -9,12 +9,14 @@ import { Input, Space } from 'antd';
 
 const { Search } = Input;
 
-export default function HeaderComp({ isUserLoggedIn, getInput }) {
-    const onSearch = (ev, value) => { 
-        console.log(value); 
-        // ev.preventDefault()     
-        getInput(value);       
-        };
+export default function HeaderComp({ isUserLoggedIn,onTitleInputChange,searchValue}) {
+
+    const inputTittleChange = (ev) => {
+        ev.preventDefault();
+        onTitleInputChange(ev.target.value)
+
+    }
+
     return (
         <div className={styles.header}>
             <span>
@@ -28,9 +30,10 @@ export default function HeaderComp({ isUserLoggedIn, getInput }) {
                     <Search className={styles.searchInputContainer}
                         id={styles.searchInput}
                         placeholder="Search accounts"                        
-                        onSearch={onSearch}
+                        onInput={inputTittleChange}
                         allowClear 
                         bordered={false}
+                        value={searchValue}
                     />
                 </Space>
             </form>
