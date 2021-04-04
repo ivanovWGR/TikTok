@@ -36,13 +36,12 @@ export default function ShowFollowingPage ({USER_LOGGED_IN, currentUserUid}) {
             querySnapshot.forEach((doc) => {
               let chunkVideoObj = {...doc.data()}
               chunkVideoObj.videoId = doc.id
-                console.log(currentAccount)
-                console.log(doc.data().addBy)
               if (currentAccount.includes(chunkVideoObj.addBy) && currentUserUid !== chunkVideoObj.addBy){                
                 tempVideos.push(chunkVideoObj);
               }
               videos.push(chunkVideoObj)
-            });            
+            }); 
+                       
             setVideos(tempVideos)
             setAllVideos(videos)
           });

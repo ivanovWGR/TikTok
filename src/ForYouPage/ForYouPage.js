@@ -19,7 +19,6 @@ export default function ShowForYouPage ({USER_LOGGED_IN, currentUserUid}) {
             if (doc.id === currentUserUid) {
               let res = {...doc.data()}
               setCurrentAccount([...res.following])
-              console.log("current account", res)
             }
           });
         })
@@ -59,8 +58,6 @@ export default function ShowForYouPage ({USER_LOGGED_IN, currentUserUid}) {
             querySnapshot.forEach((doc) => {
               let chunkVideoObj = {...doc.data()}
               chunkVideoObj.videoId = doc.id
-                console.log(currentAccount)
-                console.log(doc.data().addBy)
               if (!currentAccount.includes(chunkVideoObj.addBy) && currentUserUid !== chunkVideoObj.addBy){                
                 tempVideos.push(chunkVideoObj);
               }
@@ -69,7 +66,7 @@ export default function ShowForYouPage ({USER_LOGGED_IN, currentUserUid}) {
             setVideos(tempVideos)
             setAllVideos(videos)
           });
-    }, [currentUserUid]);
+    }, [currentUserUid, currentAccount]);
 
     return (
         <div>

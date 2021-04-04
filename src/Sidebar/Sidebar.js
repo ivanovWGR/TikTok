@@ -21,16 +21,21 @@ export default function ShowSidebar({ isUserLoggedIn, currentUserUid }) {
   const [yourTopAccounts, setYourTopAccounts] = useState([]);
   const [suggestedAccounts, SetSuggestedAccounts] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
-  const [isActiveForYou, activeForYou] = useState(true);
-  const [isActiveFollowing, activeFollowing] = useState(true);
-  function changeButtonStylesForYou() {
-    activeForYou(!isActiveForYou);
-    activeFollowing(isActiveForYou);
-  }
-  function changeButtonStylesFollowing() {
-    activeForYou(isActiveFollowing);
-    activeFollowing(!isActiveFollowing);
-  }
+  // const [isActiveForYou, activeForYou] = useState(true);
+  // const [isActiveFollowing, activeFollowing] = useState(true);
+  const pathname = window.location.pathname
+  // function changeButtonStylesForYou() {
+  //   if (isActiveForYou) {
+  //   activeForYou(!isActiveForYou);
+  //   activeFollowing(isActiveForYou);
+  //   }
+  // }
+  // function changeButtonStylesFollowing() {
+  //   if(isActiveFollowing) {
+  //     activeForYou(isActiveFollowing);
+  //     activeFollowing(!isActiveFollowing);
+  //   }
+  // }
   //get current user obj
   useEffect(() => {
       DataBase.collection("users")
@@ -82,31 +87,32 @@ export default function ShowSidebar({ isUserLoggedIn, currentUserUid }) {
     <div id={styles.siderDiv}>
       <div>
         <div className={styles.sidebarButtons}>
-          {isActiveForYou ? (
+        {pathname === "/ForYouPage" ? (
+            <ForYouBtnUnactive
+              img={forYouActive}
+              description={"For You"}
+              // onClick={changeButtonStylesForYou}
+            />
+          ) : (
             <ForYouBtnActive
               img={forYouUnactive}
               description={"For You"}
-              onClick={changeButtonStylesForYou}
-            />
-          ) : (
-            <ForYouBtnUnactive 
-              img={forYouActive}
-              description={"For You"}
-              onClick={changeButtonStylesForYou}
+              // onClick={changeButtonStylesForYou}
             />
           )}
 
-          {isActiveFollowing ? (
-            <FollowingBtnUnactive
-              img={followUnactive}
-              description={"Following"}
-              onClick={changeButtonStylesFollowing}
-            />
-          ) : (
+          {pathname === "/FollowingPage" ? 
+          (
             <FollowingBtnActive
               img={followActive}
               description={"Following"}
-              onClick={changeButtonStylesFollowing}
+              // onClick={changeButtonStylesForYou}
+            />
+          ) : (
+            <FollowingBtnUnactive
+              img={followUnactive}
+              description={"Following"}
+              // onClick={changeButtonStylesForYou}
             />
           )}
         </div>

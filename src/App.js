@@ -1,5 +1,10 @@
-import { useState, useEffect, useMemo } from 'react'
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { useState, useEffect, useMemo } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import HeaderComp from "./HeaderComponents/HeaderComp";
 import "antd/dist/antd.css";
 import "./App.css";
@@ -11,19 +16,20 @@ import Upload from "./UploadPage/Upload";
 import ViewFullScreenVideo from "./VideoFullscreenPage/ViewFullScreenVideo";
 import UserPage from "./ProfilePage/UserProfile";
 import SelectedUser from "./SelectedUser/selectedUser";
-import ShowForYouPage from './ForYouPage/ForYouPage'
+import ShowForYouPage from "./ForYouPage/ForYouPage";
+import ShowFollowingPage from "./FollowingPage/FollowingPage";
 const { Content, Sider } = Layout;
 
 function App() {
-  const [USER_LOGGED_IN, isUserLoggedIn] = useState(false);//for test only, change the value will change the header header
+  const [USER_LOGGED_IN, isUserLoggedIn] = useState(false); //for test only, change the value will change the header header
   const [videos, setVideos] = useState([]);
   const [loadedVideosCount, setLoadedVideosCount] = useState(40);
   const [filtered, setFiltered] = useState([]);
   const [currentUserId, setCurrentUserId] = useState("");
-  const [currentUserVideos, setCurrenUserVideos] = useState([]);//IT IS NOT USED AT THE MOMENT?!?
+  const [currentUserVideos, setCurrenUserVideos] = useState([]); //IT IS NOT USED AT THE MOMENT?!?
   const onNext = () => {
     setLoadedVideosCount(loadedVideosCount + 20);
-  }
+  };
   useEffect(() => {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
@@ -34,26 +40,29 @@ function App() {
         setCurrentUserId("");
       }
     });
-
   }, [currentUserId]);
 
   useEffect(() => {
-    const tempVideos = []
+    const tempVideos = [];
     // Asynch operation
-    DataBase.collection("videos").get().then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        let video = { ...doc.data() }
-        video.videoId = doc.id;
-        tempVideos.push(video)
+    DataBase.collection("videos")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          let video = { ...doc.data() };
+          video.videoId = doc.id;
+          tempVideos.push(video);
+        });
+        setVideos(tempVideos);
+        setFiltered(tempVideos);
       });
-      setVideos(tempVideos);
-      setFiltered(tempVideos);
-    });
-  }, [])
+  }, []);
   const searchByName = (input) => {
-    const temp = videos.filter(video => video.addBy.toLowerCase().includes(input.toLowerCase()));
+    const temp = videos.filter((video) =>
+      video.addBy.toLowerCase().includes(input.toLowerCase())
+    );
     setFiltered(temp);
-  }
+  };
   // useEffect(()=>{
   //   const user = firebase.auth().currentUserId
   //   if(user){
@@ -63,8 +72,6 @@ function App() {
   //     isUserLoggedIn(false);
   //   }
   // },[])
-
-
 
   // const filteredvideos = useMemo(() => {
 
@@ -78,10 +85,7 @@ function App() {
     }
 
     return chunkVideos;
-  }, [videos, loadedVideosCount])
-
-
-
+  }, [videos, loadedVideosCount]);
 
   return (
     <Router>
@@ -91,21 +95,39 @@ function App() {
           <ViewFullScreenVideo currentUserId={currentUserId} />
         </Route>
         <Route path="/upload">
-
           {USER_LOGGED_IN ? <Upload /> : <Redirect to="/" />}
         </Route>
 
         <Route path="/userprofile">
-          {USER_LOGGED_IN ? <UserPage currentUserId={currentUserId} isUserLoggedIn={USER_LOGGED_IN} /> : <Redirect to="/" />}
+          {USER_LOGGED_IN ? (
+            <UserPage
+              currentUserId={currentUserId}
+              isUserLoggedIn={USER_LOGGED_IN}
+            />
+          ) : (
+            <Redirect to="/" />
+          )}
         </Route>
         <Route path="/ForYouPage">
-          <ShowForYouPage USER_LOGGED_IN={USER_LOGGED_IN} currentUserUid = {currentUserId}/>
-        </Route>    
-       <Route path="/userprofile">
+          <ShowForYouPage
+            USER_LOGGED_IN={USER_LOGGED_IN}
+            currentUserUid={currentUserId}
+          />
+        </Route>
+        <Route path="/FollowingPage">
+          <ShowFollowingPage
+            USER_LOGGED_IN={USER_LOGGED_IN}
+            currentUserUid={currentUserId}
+          />
+        </Route>
+        <Route path="/userprofile">
           <UserPage currentUserId={currentUserId} />
         </Route>
         <Route path="/user/:id">
-          <SelectedUser isUserLoggedIn={USER_LOGGED_IN} currentUserUid = {currentUserId}/>
+          <SelectedUser
+            isUserLoggedIn={USER_LOGGED_IN}
+            currentUserUid={currentUserId}
+          />
         </Route>
 
         <Route exact path="/">
@@ -116,24 +138,42 @@ function App() {
                 className="site-layout-background siderConteiner siderPosition"
               >
                 <div className="siderWrapper">
-                  <ShowSidebar isUserLoggedIn={USER_LOGGED_IN} currentUserUid={currentUserId}/>
+                  <ShowSidebar
+                    isUserLoggedIn={USER_LOGGED_IN}
+                    currentUserUid={currentUserId}
+                  />
                 </div>
               </Sider>
               <Layout style={{ padding: "0 24px 24px" }}>
                 <Content className="site-layout-background contentContainer">
-                  {filtered.map(({ url, numOfLikes, numOfComments, title, addedDate, caption, videoId }, index) => {
-                    return <Card
-                      USER_LOGGED_IN={USER_LOGGED_IN}
-                      key={videoId}
-                      videoUrl={url}
-                      likes={numOfLikes}
-                      comments={numOfComments}
-                      title={title}
-                      videoId={videoId}
-                      date={addedDate}
-                      caption={caption} />;
-
-                  })}
+                  {filtered.map(
+                    (
+                      {
+                        url,
+                        numOfLikes,
+                        numOfComments,
+                        title,
+                        addedDate,
+                        caption,
+                        videoId,
+                      },
+                      index
+                    ) => {
+                      return (
+                        <Card
+                          USER_LOGGED_IN={USER_LOGGED_IN}
+                          key={videoId}
+                          videoUrl={url}
+                          likes={numOfLikes}
+                          comments={numOfComments}
+                          title={title}
+                          videoId={videoId}
+                          date={addedDate}
+                          caption={caption}
+                        />
+                      );
+                    }
+                  )}
                 </Content>
               </Layout>
             </Layout>
@@ -145,4 +185,3 @@ function App() {
 }
 
 export default App;
-

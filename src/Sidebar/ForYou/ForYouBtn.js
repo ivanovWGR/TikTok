@@ -6,7 +6,7 @@ export function ForYouBtnUnactive({ img, description, onClick }) {
     <Link to = {'/ForYouPage'}>
       <button id={styles.button} onClick={onClick}>
         <img className={styles.img} src={img} alt={description}></img>
-        <h2 className={styles.h2Unactive}>{description}</h2>
+        <h2 className={styles.h2Active}>{description}</h2>
       </button>
     </Link>
   );
@@ -16,7 +16,7 @@ export function ForYouBtnActive({ img, description, onClick }) {
     <Link to = {'/ForYouPage'}>
       <button id={styles.button} onClick={onClick}>
         <img className={styles.img} src={img} alt={description}></img>
-        <h2 className={styles.h2Active}>{description}</h2>
+        <h2 className={styles.h2Unactive}>{description}</h2>
       </button>
     </Link>
   );
