@@ -64,7 +64,7 @@ const UserPage = ({ currentUserId, isUserLoggedIn, currentUserUid }) => {
                     <Sider width={250} className="site-layout-background ">
                         <div className="siderWrapper">
 
-                            <Sidebar isUserLoggedIn = {isUserLoggedIn} currentUserUid = {currentUserId}/>                            
+                            <Sidebar isUserLoggedIn = {isUserLoggedIn} currentUserUid = {currentUserUid}/>                            
 
                         </div>
                     </Sider>

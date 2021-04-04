@@ -1,8 +1,5 @@
-
-
 import { useState, useEffect, useMemo } from 'react'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-
 import HeaderComp from "./HeaderComponents/HeaderComp";
 import "antd/dist/antd.css";
 import "./App.css";
@@ -15,13 +12,11 @@ import ViewFullScreenVideo from "./VideoFullscreenPage/ViewFullScreenVideo";
 import UserPage from "./ProfilePage/UserProfile";
 import SelectedUser from "./SelectedUser/selectedUser";
 import ShowForYouPage from './ForYouPage/ForYouPage'
+import ShowFollowingPage from './FollowingPage/FollowingPage'
 const { Content, Sider } = Layout;
 
 function App() {
-
-
   const [USER_LOGGED_IN, isUserLoggedIn] = useState(false);//for test only, change the value will change the header header
-
   const [videos, setVideos] = useState([]);
   const [loadedVideosCount, setLoadedVideosCount] = useState(40);
   const [filtered, setFiltered] = useState([]);
@@ -42,7 +37,6 @@ function App() {
     });
 
   }, [currentUserId]);
-
 
   useEffect(() => {
     const tempVideos = []
@@ -93,13 +87,14 @@ function App() {
   return (
     <Router>
       <HeaderComp isUserLoggedIn={USER_LOGGED_IN} getInput={searchByName} />
+      
       <Switch>
         <Route path="/viewVideo/:videoId">
           <ViewFullScreenVideo currentUserId={currentUserId} />
         </Route>
         <Route path="/upload">
 
-          {USER_LOGGED_IN ? <Upload /> : <Redirect to="/" />}
+          {USER_LOGGED_IN ? <Upload currentUserId={currentUserId}/> : <Redirect to="/" />}
         </Route>
 
         <Route path="/userprofile">
@@ -107,7 +102,10 @@ function App() {
         </Route>
         <Route path="/ForYouPage">
           <ShowForYouPage USER_LOGGED_IN={USER_LOGGED_IN} currentUserUid = {currentUserId}/>
-        </Route>    
+        </Route>   
+        <Route path="/FollowingPage">
+          <ShowFollowingPage USER_LOGGED_IN={USER_LOGGED_IN} currentUserUid = {currentUserId}/>
+        </Route>  
        <Route path="/userprofile">
           <UserPage currentUserId={currentUserId} />
         </Route>
@@ -128,18 +126,18 @@ function App() {
               </Sider>
               <Layout style={{ padding: "0 24px 24px" }}>
                 <Content className="site-layout-background contentContainer">
-                  {filtered.map(({ url, numOfLikes, numOfComments, title, addedDate, caption, videoId }, index) => {
+                  {filtered.map(({url, numOfLikes, numOfComments, title, caption, videoId, displayName, photoUrl }, index) => {
                     return <Card
                       USER_LOGGED_IN={USER_LOGGED_IN}
                       key={videoId}
-                      videoUrl={url}
+                      url={url}
                       likes={numOfLikes}
                       comments={numOfComments}
                       title={title}
-                      videoId={videoId}
-                      date={addedDate}
-                      caption={caption} />;
-
+                      videoId={videoId}                      
+                      caption={caption}
+                      photoUrl= {photoUrl}
+                      displayName = {displayName} />;
                   })}
                 </Content>
               </Layout>

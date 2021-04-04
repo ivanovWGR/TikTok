@@ -22,6 +22,7 @@ function UploadForm() {
     const [alert, setAlert] = useState("");
     const [file, setFile] = useState(null);
     const [progressAnt, setProgressAnt] = useState(0);
+    const [user, setUser] = useState([])
     useEffect(() => {
         if (progressAnt === 100) {
             setTimeout(() => {
@@ -32,8 +33,25 @@ function UploadForm() {
     }, [progressAnt])
     const [videoUrl, setVideoUrl] = useState(null);
     // take current user
-    const user = firebase.auth().currentUser;
 
+    const currentUser = firebase.auth().currentUser.uid;
+    console.log(currentUser)
+    useEffect(() => {
+        DataBase.collection("users")
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            if (doc.id === currentUser) {
+              let res = doc.data()
+              setUser(res)
+              console.log("current account", res)
+            }
+          });
+        })
+        .catch((error) => {
+          console.log("Error getting document:", error);
+        });
+    },[currentUser]);
 
     const openNotification = (message) => {
         const key = `open${Date.now()}`;
@@ -97,20 +115,23 @@ function UploadForm() {
                 openNotification(error)
             },
             () => {
+                console.log(user)
                 uploadTask.snapshot.ref.getDownloadURL()
+               
                     .then(downloadUrl => {
                         setVideoUrl(downloadUrl)
                         DataBase.collection('videos').doc().set({
                             title: title,
                             caption: description,
                             url: downloadUrl,
-                            addBy: user.uid,
+                            addBy: currentUser,
                             addedDate: Date.now(),
                             likedBy: [],
                             numOfComments: 0,
                             numOfLikes: 0,
-                            displayName: user.displayName,
-                            photoUrl: user.photoUrl
+                            displayName:user.displayName,
+                            photoUrl:user.photoUrl
+
                         })
                     })
                     .then(() => {
@@ -118,9 +139,7 @@ function UploadForm() {
                     })
                     .catch(err => openNotification(err.message));
             })
-
     }
-
     const clearFile = () => {
         setFile(null);
         setTitle("")
@@ -238,5 +257,4 @@ function UploadForm() {
         </form>
     )
 }
-
 export default UploadForm;

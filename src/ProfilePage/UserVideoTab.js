@@ -17,7 +17,7 @@ const UserVideoTab = ({userVideos, likedVideos}) => {
             <TabPane tab="Videos" key="Videos">
                 <div className={styles.videosCont}>
                     {userVideos.map(video => (
-                       <Link to='/viewVideo'> <Video url={video.url} /></Link>
+                       <Link to={`/viewVideo/${video.videoId}`}> <Video url={video.url} /></Link>
                     ))}
                 </div>
             </TabPane>
@@ -26,7 +26,7 @@ const UserVideoTab = ({userVideos, likedVideos}) => {
                 <div className={styles.videosCont}>
                     {/* testing only four videos */}
                     {likedVideos.map(video => (
-                       <Link to='/viewVideo'> <Video url={video.url} /></Link>
+                       <Link to={`/viewVideo/${video.videoId}`}> <Video url={video.url} /></Link>
                     ))}
                 </div>
             </TabPane>
