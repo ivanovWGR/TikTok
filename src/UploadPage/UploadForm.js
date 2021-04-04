@@ -131,7 +131,6 @@ function UploadForm() {
                             numOfLikes: 0,
                             displayName:user.displayName,
                             photoUrl:user.photoUrl
-
                         })
                     })
                     .then(() => {

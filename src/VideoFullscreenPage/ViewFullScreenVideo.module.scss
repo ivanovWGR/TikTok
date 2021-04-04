@@ -4,29 +4,66 @@
     height : auto;
 
     // border: 1px solid palegreen;
-    .closeBtn {
-        position        : absolute;
-        margin-left     : 8px;
-        margin-top      : 8px;
-        border-radius   : 25px;
-        width           : 36px;
-        height          : 36px;
-        outline         : none;
-        background-color: grey;
 
-        svg {
-            width : 20px;
-            height: 20px;
-        }
-    }
+
+
 
 
     .CarouselWrapper {
+        position: relative;
         text-align      : center;
         display         : inline-block;
         width           : 60%;
         max-height      : 800px;
         background-color: black;
+
+        .closeBtn {
+            position        : absolute;
+            left: 15px;
+            top     : 15px;
+            border-radius   : 25px;
+            width           : 36px;
+            height          : 36px;
+            outline         : none;
+            background-color: grey;
+
+            svg {
+                width : 20px;
+                height: 20px;
+            }
+        }
+
+        .nextVideoBtn {
+            position: absolute;
+            right   : 15px;
+            top     : 400px;
+            border-radius   : 25px;
+            width           : 36px;
+            height          : 36px;
+            outline         : none;
+            background-color: grey;
+
+            svg {
+                width : 20px;
+                height: 20px;
+            }
+        }
+
+        .previousVideoBtn {
+            position        : absolute;
+            left           : 15px;
+            top             : 400px;
+            border-radius   : 25px;
+            width           : 36px;
+            height          : 36px;
+            outline         : none;
+            background-color: grey;
+
+            svg {
+                width : 20px;
+                height: 20px;
+            }
+        }
 
         video {
             margin: 0 auto;

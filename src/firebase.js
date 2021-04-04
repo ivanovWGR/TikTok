@@ -13,6 +13,18 @@ import firebase from 'firebase';
 
 //Georgi
 
+
+//ORIGIN DATABASE
+// const firebaseConfig = {
+//   apiKey: "AIzaSyBhmeauIX75GPOpZOry14DQNGPIKzVpRIY",
+//   authDomain: "tiktokclonetrainingproject.firebaseapp.com",
+//   projectId: "tiktokclonetrainingproject",
+//   storageBucket: "tiktokclonetrainingproject.appspot.com",
+//   messagingSenderId: "469574152133",
+//   appId: "1:469574152133:web:16c8832d479d60aff625ac",
+//   measurementId: "G-RXX2642PWD"
+// };
+
 const firebaseConfig = {
   apiKey: "AIzaSyBk3OZuWowO1SzTAcd-hSozByzvNN6D3jE",
   authDomain: "tiktok-clone-278e0.firebaseapp.com",
@@ -26,9 +38,9 @@ const firebaseConfig = {
 
 
 firebase.initializeApp(firebaseConfig);
-  const DataBase = firebase.firestore();
-  
+const DataBase = firebase.firestore();
 
-  export default firebase;
-  export {DataBase};
-  export const storage = firebase.storage();
+
+export default firebase;
+export { DataBase };
+export const storage = firebase.storage();

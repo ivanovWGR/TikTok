@@ -43,6 +43,7 @@ function App() {
     const tempVideos = []
     // Asynch operation
     DataBase.collection("videos").get().then((querySnapshot) => {
+      console.log('Shouts once!')
       querySnapshot.forEach((doc) => {
         let video = { ...doc.data() }
         video.videoId = doc.id;
@@ -83,12 +84,13 @@ function App() {
 
 
   return (
-    <Router>
-
-      <HeaderComp isUserLoggedIn={USER_LOGGED_IN} onTitleInputChange={(value)=>setSearchValue(value)} searchValue={searchValue} />
-
+    <Router>    
       
+
+
+      <HeaderComp isUserLoggedIn={USER_LOGGED_IN} onTitleInputChange={(value)=>setSearchValue(value)} searchValue={searchValue} />    
       
+
 
       <Switch>
         <Route path="/viewVideo/:videoId">
@@ -102,17 +104,18 @@ function App() {
         <Route path="/userprofile">
           {USER_LOGGED_IN ? <UserPage currentUserId={currentUserId} isUserLoggedIn={USER_LOGGED_IN} /> : <Redirect to="/" />}
         </Route>
-        <Route path="/ForYouPage">
+        <Route path="/ForYouPage">         
+
 
           <ShowForYouPage USER_LOGGED_IN={USER_LOGGED_IN} currentUserUid = {currentUserId}/>
         </Route>   
         <Route path="/FollowingPage">
           <ShowFollowingPage USER_LOGGED_IN={USER_LOGGED_IN} currentUserUid = {currentUserId}/>
         </Route>  
-       <Route path="/userprofile">
+       
 
-          <UserPage currentUserId={currentUserId} />
-        </Route>
+
+         
         <Route path="/user/:id">
           <SelectedUser isUserLoggedIn={USER_LOGGED_IN} currentUserUid={currentUserId} />
         </Route>
@@ -129,9 +132,12 @@ function App() {
                 </div>
               </Sider>
               <Layout style={{ padding: "0 24px 24px" }}>
-                <Content className="site-layout-background contentContainer">
+                {/* Кард контаинер */}
+                <Content className="site-layout-background contentContainer">               
+
 
                   {filteredvideos.map(({ url, numOfLikes, numOfComments, title, caption, videoId,photoUrl, displayName }, index) => {                 
+
 
                     return <Card
                       USER_LOGGED_IN={USER_LOGGED_IN}
