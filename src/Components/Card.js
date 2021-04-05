@@ -16,9 +16,7 @@ import { Link } from 'react-router-dom';
                     setFollowing('Follow')
                 }
             }
-            
         }
-
         return (
             <div className="card">
                 <div className="break" />

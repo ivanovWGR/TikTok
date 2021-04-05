@@ -6,12 +6,14 @@ import { useEffect, useState } from 'react';
 import firebase,{ DataBase } from '../firebase'
 import { RiCreativeCommonsZeroLine } from 'react-icons/ri';
 
-const UserInfo = ({ selectedUserId }) => {
+const UserInfo = ({ selectedUserId, isUserLoggedIn }) => {
     // console.log(selectedUserId)
     const [userObj, setUserObj] = useState({})
-    const currentUser = firebase.auth().currentUser.uid;
-
-    
+    let currentUser = "";
+    if(isUserLoggedIn) {
+        currentUser = firebase.auth().currentUser.uid;
+    }
+       
     useEffect(() => {
         let user = {}
         DataBase.collection('users').doc(selectedUserId).get()

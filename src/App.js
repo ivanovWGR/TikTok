@@ -45,14 +45,23 @@ function App() {
     DataBase.collection("videos").get().then((querySnapshot) => {
       console.log('Shouts once!')
       querySnapshot.forEach((doc) => {
+        if(currentUserId) {
+          if (currentUserId !== doc.data().addBy){
+            let video = { ...doc.data() }
+            video.videoId = doc.id;
+            tempVideos.push(video)
+          }
+        } else {
         let video = { ...doc.data() }
         video.videoId = doc.id;
         tempVideos.push(video)
+        }
+        console.log("home page: ", doc.data().addBy)
       });
       setVideos(tempVideos);
       setFiltered(tempVideos);
     });
-  }, [])
+  }, [currentUserId])
   const searchByName = (input) => {
     const temp = videos.filter(video => video.addBy.toLowerCase().includes(input.toLowerCase()));
     setFiltered(temp);
@@ -69,19 +78,14 @@ function App() {
 
   const filteredvideos = filtered.filter(video => video.caption.includes(searchValue))
 
-
   const chunkedVideos = useMemo(() => {
     let chunkVideos = [];
-
     for (let i = 0; i < loadedVideosCount; i++) {
       chunkVideos.push(videos[i]);
     }
 
     return chunkVideos;
   }, [videos, loadedVideosCount])
-
-
-
 
   return (
     
