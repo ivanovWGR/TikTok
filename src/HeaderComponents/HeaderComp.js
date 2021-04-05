@@ -5,19 +5,25 @@ import { Link } from "react-router-dom"
 import HeaderRightDivUserNot from "./HeaderRightDivUserNot"
 import HeaderRightDivUserYes from "./HeaderRightDivUserYes"
 import styles from './Header.module.scss'
-import { Input, Space } from 'antd';
+import { Input, Space, notification, Button } from 'antd';
 import { debounce } from 'lodash';
+
 
 const { Search } = Input;
 
 export default function HeaderComp({ isUserLoggedIn, onTitleInputChange }) {
+
 
     const deb = useCallback(
         debounce((text) => onTitleInputChange(text), 1000)
         , [])
 
     const handleText = (text) => {
-        deb(text)
+        text = text.trim()
+        if (text.length) {
+            deb(text)
+        }
+
     }
 
     return (
@@ -32,10 +38,11 @@ export default function HeaderComp({ isUserLoggedIn, onTitleInputChange }) {
                 <Space direction="vertical">
                     <Search className={styles.searchInputContainer}
                         id={styles.searchInput}
-                        placeholder="Search accounts"
+                        placeholder="Search accounts or videos by key word"
                         onChange={(e) => handleText(e.target.value)}
                         allowClear
                         bordered={false}
+                        
                     />
                 </Space>
             </form>

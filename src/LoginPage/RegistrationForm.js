@@ -45,8 +45,8 @@ export default function RegistrationForm({ destroyModal }) {
         <>
             <LoginHeader title="Sign up to TikTok" paragraph="Email and Password" />
             <Form form={form} name="register" onFinish={onFinish} >
-                <Form.Item name= "firstName" rules={[{required: true, message: 'Please enter your first name'}]}>
-                <Input placeholder="First name" />
+                <Form.Item name= "firstName" rules={[{required: true, message: 'Please enter your first name and/or last name'}]}>
+                <Input placeholder="Desired display name" />
                 </Form.Item>
                 {/* <Form.Item name= "lastName">
                 <Input placeholder="Last name" rules={[{required: true, message: 'Please enter your last name'}]}/>

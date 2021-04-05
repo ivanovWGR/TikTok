@@ -6,7 +6,7 @@ import "./App.css";
 import firebase, { DataBase } from "./firebase";
 import Card from "./Components/Card";
 import ShowSidebar from "./Sidebar/Sidebar";
-import { Layout } from "antd";
+import { Layout, notification, Button } from "antd";
 import Upload from "./UploadPage/Upload";
 import ViewFullScreenVideo from "./VideoFullscreenPage/ViewFullScreenVideo";
 import UserPage from "./ProfilePage/UserProfile";
@@ -21,11 +21,12 @@ function App() {
   const [loadedVideosCount, setLoadedVideosCount] = useState(40);
   const [filtered, setFiltered] = useState([]);
   const [currentUserId, setCurrentUserId] = useState("");
-  const [currentUserVideos, setCurrenUserVideos] = useState([]);//IT IS NOT USED AT THE MOMENT?!?
+  const [filteredvideos, setFilteredVideos] = useState([]);//IT IS NOT USED AT THE MOMENT?!?
   const [searchValue, setSearchValue] = useState("");
   const onNext = () => {
     setLoadedVideosCount(loadedVideosCount + 20);
   }
+  console.log('App js rerenders')
   useEffect(() => {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
@@ -51,23 +52,57 @@ function App() {
       });
       setVideos(tempVideos);
       setFiltered(tempVideos);
+      console.log('request!')
     });
   }, [])
   const searchByName = (input) => {
     const temp = videos.filter(video => video.addBy.toLowerCase().includes(input.toLowerCase()));
     setFiltered(temp);
   }
-  // useEffect(()=>{
-  //   const user = firebase.auth().currentUserId
-  //   if(user){
-  //     isUserLoggedIn(true)
-  //     console.log('User ', user)
-  //   }else{
-  //     isUserLoggedIn(false);
-  //   }
-  // },[])
+  const openNotification = (message) => {
+    const key = `open${Date.now()}`;
+    const btn = (
+      <Button type="primary" size="small" onClick={() => {
+        setSearchValue("");
+        notification.close(key)
+      }}>
+        Confirm
+      </Button>
+    );
+    notification.open({
+      message: 'Search notification',
+      description: message,
+      btn,
+      key,
+    });
+  };
+  const searchValidation = (arr, input) => {
+    if (input) {
+      if (input.length > 20) {
+        return (openNotification('Inavalid Search value. Max 20 letters. Clear the input and try again'), arr)
+      }
+      console.log(input)
+      return arr.filter((el) => {
+        return el.caption.toLowerCase().includes(input.trim().toLowerCase())
+          ||
+          el.displayName.toLowerCase().includes(input.toLowerCase())
+      })
+    }
+    console.log('Search Arr',arr)
+    return arr
+  }
 
-  const filteredvideos = filtered.filter(video => video.caption.includes(searchValue))
+
+  useEffect(() => {
+    console.log('use effect search videos')
+    let result = searchValidation(filtered, searchValue)
+    console.log(result)
+    setFilteredVideos([...result])
+  }, [searchValue, filtered])
+
+  console.log('FilteredVideos', filteredvideos)
+
+  // const filteredvideos = filtered.filter(video => video.caption.toLowerCase().includes(searchValue.toLowerCase()))
 
 
   const chunkedVideos = useMemo(() => {
@@ -82,10 +117,10 @@ function App() {
 
 
   return (
-    <Router>    
-    
-      <HeaderComp isUserLoggedIn={USER_LOGGED_IN} onTitleInputChange={(value)=>setSearchValue(value)} searchValue={searchValue} />    
-      
+    <Router>
+
+      <HeaderComp isUserLoggedIn={USER_LOGGED_IN} onTitleInputChange={(value) => setSearchValue(value)} searchValue={searchValue} />
+
       <Switch>
         <Route path="/viewVideo/:videoId">
           <ViewFullScreenVideo currentUserId={currentUserId} />
@@ -100,9 +135,9 @@ function App() {
           <ShowForYouPage USER_LOGGED_IN={USER_LOGGED_IN} loggedInUserId={currentUserId} />
         </Route>
         <Route path="/FollowingPage">
-          <ShowFollowingPage USER_LOGGED_IN={USER_LOGGED_IN} currentUserUid = {currentUserId}/>
-        </Route>  
-       
+          <ShowFollowingPage USER_LOGGED_IN={USER_LOGGED_IN} currentUserUid={currentUserId} />
+        </Route>
+
         <Route path="/user/:id">
           <SelectedUser isUserLoggedIn={USER_LOGGED_IN} loggedInUserId={currentUserId} />
         </Route>
