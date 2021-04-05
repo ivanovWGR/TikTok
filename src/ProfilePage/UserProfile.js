@@ -13,15 +13,15 @@ const { Content, Sider } = Layout;
 
 
 
-const UserPage = ({ currentUserId, isUserLoggedIn, currentUserUid }) => {
-    console.log('profile page ', currentUserId);
+const UserPage = ({ selectedUserId, isUserLoggedIn, loggedInUserId }) => {
+    console.log('profile page ', selectedUserId);
     const [userVideos, setUserVideos] = useState([]);
     const [likedVideos, setLikedVideos] = useState([]);
     //ASYNC
     useEffect(() => {
         const fetchedVideos = [];
         const fetchedLikedVideos = [];
-        DataBase.collection("videos").where("addBy", "==", currentUserId)
+        DataBase.collection("videos").where("addBy", "==", selectedUserId)
             .get()
             .then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
@@ -30,16 +30,17 @@ const UserPage = ({ currentUserId, isUserLoggedIn, currentUserUid }) => {
                     fetchedVideos.push(video)
                 });
                 setUserVideos(fetchedVideos);
+                console.log('fetch in user profile')
             })
             .catch((error) => {
                 console.log("Error getting documents: ", error);
             });
 
-    }, [currentUserId])
+    }, [selectedUserId])
 
     useEffect(() => {
-        const fetchedLikedVideos = [];  
-      DataBase.collection("videos").where("likedBy", "==", currentUserId)
+        const fetchedLikedVideos = [];
+        DataBase.collection("videos").where("likedBy", "==", selectedUserId)
             .get()
             .then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
@@ -48,13 +49,14 @@ const UserPage = ({ currentUserId, isUserLoggedIn, currentUserUid }) => {
                     fetchedLikedVideos.push(doc.data())
                 });
                 setLikedVideos(fetchedLikedVideos)
-                console.log('fetchedLikedVideos ', fetchedLikedVideos)
-                console.log('likedVideos ', likedVideos)
+                // console.log('fetchedLikedVideos ', fetchedLikedVideos)
+                // console.log('likedVideos ', likedVideos)
+                console.log('fetch 2 in user profile ')
             })
             .catch((error) => {
                 console.log("Error getting documents: ", error);
             });
-    }, [currentUserId])
+    }, [selectedUserId])
 
 
     return (
@@ -63,16 +65,13 @@ const UserPage = ({ currentUserId, isUserLoggedIn, currentUserUid }) => {
                 <Layout>
                     <Sider width={250} className="site-layout-background ">
                         <div className="siderWrapper">
-
-                            <Sidebar isUserLoggedIn = {isUserLoggedIn} currentUserUid = {currentUserUid}/>                            
-
+                            <Sidebar isUserLoggedIn={isUserLoggedIn} loggedInUserId={loggedInUserId} />
                         </div>
                     </Sider>
                     <Layout style={{ padding: "0 24px 24px" }}>
                         <Content className="site-layout-background userPageContent">
-                            <UserInfo currentUserId ={currentUserId}/>                       
-                           
-                            <UserVideoTab currentUserId={currentUserId} userVideos={userVideos} likedVideos={likedVideos} />
+                            <UserInfo selectedUserId={selectedUserId} />
+                            <UserVideoTab selectedUserId={selectedUserId} userVideos={userVideos} likedVideos={likedVideos} />
                         </Content>
                     </Layout>
                 </Layout>
