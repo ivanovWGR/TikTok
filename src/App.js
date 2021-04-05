@@ -12,7 +12,7 @@ import ViewFullScreenVideo from "./VideoFullscreenPage/ViewFullScreenVideo";
 import UserPage from "./ProfilePage/UserProfile";
 import SelectedUser from "./SelectedUser/selectedUser";
 import ShowForYouPage from './ForYouPage/ForYouPage'
-import ShowFollowingPage from './FollowingPage/FollowingPage'
+import ShowFollowingPage from './FollowingPage/FollowingPage';
 const { Content, Sider } = Layout;
 
 function App() {
@@ -81,17 +81,11 @@ function App() {
   }, [videos, loadedVideosCount])
 
 
-
-
   return (
     <Router>    
-      
-
-
+    
       <HeaderComp isUserLoggedIn={USER_LOGGED_IN} onTitleInputChange={(value)=>setSearchValue(value)} searchValue={searchValue} />    
       
-
-
       <Switch>
         <Route path="/viewVideo/:videoId">
           <ViewFullScreenVideo currentUserId={currentUserId} />
@@ -113,9 +107,6 @@ function App() {
           <ShowFollowingPage USER_LOGGED_IN={USER_LOGGED_IN} currentUserUid = {currentUserId}/>
         </Route>  
        
-
-
-         
         <Route path="/user/:id">
           <SelectedUser isUserLoggedIn={USER_LOGGED_IN} currentUserUid={currentUserId} />
         </Route>
