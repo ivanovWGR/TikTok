@@ -23,6 +23,7 @@ function App() {
   const [currentUserId, setCurrentUserId] = useState("");
   const [filteredvideos, setFilteredVideos] = useState([]);//IT IS NOT USED AT THE MOMENT?!?
   const [searchValue, setSearchValue] = useState("");
+  const [currentAccount, setCurrentAccount] = useState([]);
   const onNext = () => {
     setLoadedVideosCount(loadedVideosCount + 20);
   }
@@ -41,20 +42,46 @@ function App() {
   }, [currentUserId]);
 
   useEffect(() => {
+    DataBase.collection("users")
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        if (doc.id === currentUserId) {
+          let res = {...doc.data()}
+          setCurrentAccount([...res.following])
+          console.log("current account", res)
+        }
+      });
+    })
+    .catch((error) => {
+      console.log("Error getting document:", error);
+    });
+  },[currentUserId]);
+
+  useEffect(() => {
     const tempVideos = []
     // Asynch operation
     DataBase.collection("videos").get().then((querySnapshot) => {
       console.log('Shouts once!')
       querySnapshot.forEach((doc) => {
+        if(currentUserId) {
+          console.log(currentAccount)
+          if (currentUserId !== doc.data().addBy && !currentAccount.includes(doc.data().addBy)){
+            let video = { ...doc.data() }
+            video.videoId = doc.id;
+            tempVideos.push(video)
+          }
+        } else {
         let video = { ...doc.data() }
         video.videoId = doc.id;
         tempVideos.push(video)
+        }
       });
       setVideos(tempVideos);
       setFiltered(tempVideos);
       console.log('request!')
     });
-  }, [])
+  }, [currentUserId, currentAccount])
   const searchByName = (input) => {
     const temp = videos.filter(video => video.addBy.toLowerCase().includes(input.toLowerCase()));
     setFiltered(temp);
@@ -104,10 +131,8 @@ function App() {
 
   // const filteredvideos = filtered.filter(video => video.caption.toLowerCase().includes(searchValue.toLowerCase()))
 
-
   const chunkedVideos = useMemo(() => {
     let chunkVideos = [];
-
     for (let i = 0; i < loadedVideosCount; i++) {
       chunkVideos.push(videos[i]);
     }
@@ -123,13 +148,13 @@ function App() {
 
       <Switch>
         <Route path="/viewVideo/:videoId">
-          <ViewFullScreenVideo currentUserId={currentUserId} />
+          <ViewFullScreenVideo currentUserId={currentUserId} USER_LOGGED_IN = {USER_LOGGED_IN}/>
         </Route>
         <Route path="/upload">
           {USER_LOGGED_IN ? <Upload currentUserId={currentUserId} /> : <Redirect to="/" />}
         </Route>
         <Route path="/userprofile">
-          {USER_LOGGED_IN ? <UserPage selectedUserId={currentUserId} isUserLoggedIn={USER_LOGGED_IN} /> : <Redirect to="/" />}
+          {USER_LOGGED_IN ? <UserPage loggedInUserId={currentUserId} isUserLoggedIn={USER_LOGGED_IN} /> : <Redirect to="/" />}
         </Route>
         <Route path="/ForYouPage">
           <ShowForYouPage USER_LOGGED_IN={USER_LOGGED_IN} loggedInUserId={currentUserId} />
@@ -155,7 +180,8 @@ function App() {
               <Layout style={{ padding: "0 24px 24px" }}>
                 {/* Кард контаинер */}
                 <Content className="site-layout-background contentContainer">
-                  {filteredvideos.map(({ url, numOfLikes, numOfComments, title, caption, videoId, photoUrl, displayName }, index) => {
+                  
+                  {filteredvideos.map(({addBy, url, numOfLikes, numOfComments, title, caption, videoId, photoUrl, displayName }, index) => {
                     return <Card
                       USER_LOGGED_IN={USER_LOGGED_IN}
                       key={videoId}
@@ -166,7 +192,8 @@ function App() {
                       videoId={videoId}
                       caption={caption}
                       photoUrl={photoUrl}
-                      displayName={displayName} />;
+                      displayName={displayName}
+                      addBy={addBy} />;
                   })}
                 </Content>
               </Layout>

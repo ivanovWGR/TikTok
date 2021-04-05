@@ -1,40 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaCommentDots, FaShare, FaHeart, FaBuromobelexperte } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import FollowButton from './FollowButton'
 
-
-
-    const Card = ({ url, likes, comments, title, caption, displayName, videoId, photoUrl, USER_LOGGED_IN }) => {
-        const [toggle, setToggle] = useState(false);
-        const [following, setFollowing] = useState('Follow')
-        const toogleClick = () => {
-            if(USER_LOGGED_IN){
-                setToggle(!toggle)
-                if (!toggle) {
-                    setFollowing('Following')
-                } else {
-                    setFollowing('Follow')
-                }
-            }
-            
-        }
-
-        return (
+    const Card = ({addBy, url, likes, comments, title, caption, displayName, videoId, photoUrl, USER_LOGGED_IN }) => {
+         return (
             <div className="card">
                 <div className="break" />
                 <div className="section">
+
+                    <Link to = {`/user/${addBy}`}>                       
+
                     <div className="user-info">
                         <img className="user-avatar" src={photoUrl} width={'100%'} alt='username' />
                         <div>
                             <div className="section">
                                 <h3 className="bold">{displayName}</h3>
                                 <p className="username">{title}</p>
+
                             </div>
-                            <p>{caption}</p>
+                              <p>{caption}</p>
+                          </div>
                         </div>
-                    </div>
+                    </Link>
                     <div className='card-button-wrapper'>
-                        <button className={toggle ? 'following-button' : 'follow-button'} onClick={toogleClick}>{following}</button>
+                        <FollowButton addBy = {addBy} USER_LOGGED_IN ={USER_LOGGED_IN}/>
                     </div>
                 </div>
 
@@ -50,9 +40,7 @@ import { Link } from 'react-router-dom';
                         </Link> :
                             <FaCommentDots className="icons" />
                         }
-
                     </div>
-
                     <div className="social-tag"><span>{comments}</span></div>
                     <div className='icon-wrapper'>
 

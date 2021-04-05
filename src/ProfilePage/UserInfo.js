@@ -6,13 +6,24 @@ import { useEffect, useState } from 'react';
 import firebase,{ DataBase } from '../firebase'
 import { RiCreativeCommonsZeroLine } from 'react-icons/ri';
 
-const UserInfo = ({ selectedUserId }) => {
+
+const UserInfo = ({ selectedUserId, isUserLoggedIn }) => {
+    // console.log(selectedUserId)
     const [userObj, setUserObj] = useState({})
-    const currentUser = firebase.auth().currentUser.uid;
-    const [toggle,setToggle] = useState(true);
-    const [buttonTxt,setButtonTxt] = useState('Follow');
+    let currentUser = "";
+    if(isUserLoggedIn) {
+        currentUser = firebase.auth().currentUser.uid;
+    }
+       
+
+// const UserInfo = ({ selectedUserId }) => {
+//     const [userObj, setUserObj] = useState({})
+//     const currentUser = firebase.auth().currentUser.uid;
+//     const [toggle,setToggle] = useState(true);
+//     const [buttonTxt,setButtonTxt] = useState('Follow');
 
     
+
     useEffect(() => {
         let user = {}
         DataBase.collection('users').doc(selectedUserId).get()

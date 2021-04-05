@@ -7,12 +7,13 @@ import { FaCommentDots, FaHeart, FaMusic, FaArrowRight, FaArrowLeft } from "reac
 import { GrClose } from 'react-icons/gr'
 import { DataBase } from "../firebase";
 import CommentDiv from './CommentDiv';
+import FollowButton from '../Components/FollowButton'
 let nextVideoBtnPressed = false;
 
 let nextVideoIndex = 0;
 
 // TO DO VALIDATION UP TO 200 letters for comment, enter to triger uploading. Styling.
-export default function VideoFullScreen({ currentUserId }) {
+export default function VideoFullScreen({ currentUserId, USER_LOGGED_IN}) {
     const { videoId } = useParams();
     const [user, setUser] = useState();
     const [currentVideo, takeCurrentVideo] = useState({})
@@ -189,7 +190,7 @@ export default function VideoFullScreen({ currentUserId }) {
                     <h1 className={viewPageStyles.uploaderInfo}>
                         <img src={currentVideo.photoUrl} alt="pic" className={viewPageStyles.uploaderPic} />
                         {currentVideo.displayName}</h1>
-                    <button className={`follow-button ${viewPageStyles.followBtn}`}>Follow</button>
+                    <FollowButton addBy = {uploaderId} USER_LOGGED_IN = {USER_LOGGED_IN}/>
                 </div>
                 <div className={viewPageStyles.commentsWrapper}>
                     <div className={viewPageStyles.videoInfo}>
