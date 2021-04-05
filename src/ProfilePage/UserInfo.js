@@ -7,9 +7,10 @@ import firebase,{ DataBase } from '../firebase'
 import { RiCreativeCommonsZeroLine } from 'react-icons/ri';
 
 const UserInfo = ({ selectedUserId }) => {
-    // console.log(selectedUserId)
     const [userObj, setUserObj] = useState({})
     const currentUser = firebase.auth().currentUser.uid;
+    const [toggle,setToggle] = useState(true);
+    const [buttonTxt,setButtonTxt] = useState('Follow');
 
     
     useEffect(() => {
@@ -25,7 +26,15 @@ const UserInfo = ({ selectedUserId }) => {
             });
 
     }, [selectedUserId]);
-    // console.log(userObj)
+   
+    const toggleClick = () => {
+        setToggle(!toggle)
+        if(!toggle){
+         setButtonTxt('Follow')
+        }else {
+            setButtonTxt('Following')
+        }
+    }
     return (
         <div className={styles.infoWrapper}>
             <div className={styles.userInfo}>
@@ -36,7 +45,7 @@ const UserInfo = ({ selectedUserId }) => {
                     <h2 className={styles.username}>{userObj.nickName}</h2>
                     <h1 className={styles.description}>{userObj.displayName}</h1>
                     <div>
-                        {currentUser === selectedUserId ? null : <button className={styles.userPageBtn}>Follow</button>}
+                        {currentUser === selectedUserId ? null : <button className={toggle?styles.userPageBtn:styles.followingButton} onClick={toggleClick}>{buttonTxt}</button>}
                     </div>
                 </div>
             </div>

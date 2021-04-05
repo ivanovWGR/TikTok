@@ -85,8 +85,16 @@
 }
 
 .social-tag {
-  margin: 0 20px 0 5px;
+margin-right: 54px;
+text-size-adjust: 100%;
+color: rgba(22, 24, 35, 0.75);
+font-weight: 600 !important;
+font-size: 15px !important;
+line-height: 17px !important;
+display: inline-block;
+text-align: center;
 }
+
 .share{
    font-size: 25px;
 }
@@ -138,16 +146,16 @@
   background-color: white;
 }
 .icons {
-  font-size: 21px;
-  height: 24px;
-  width: 24px;
+  font-size: 20px;
+  height: 21px;
+  width: 21px;
 }
 
 .icons-conteiner {
     position: absolute;
-    top:285px;
+    top:296px;
     bottom: 0px;
-    left:265px;
+    left:261px;
     display: flex;
     flex-direction: column;
     z-index: 1;

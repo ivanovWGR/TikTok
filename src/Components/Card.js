@@ -27,8 +27,8 @@ import { Link } from 'react-router-dom';
                         <img className="user-avatar" src={photoUrl} width={'100%'} alt='username' />
                         <div>
                             <div className="section">
-                                <h3 className="bold">{title}</h3>
-                                <p className="username">{displayName}</p>
+                                <h3 className="bold">{displayName}</h3>
+                                <p className="username">{title}</p>
                             </div>
                             <p>{caption}</p>
                         </div>
@@ -58,7 +58,7 @@ import { Link } from 'react-router-dom';
 
                         <FaShare className="share" />
                     </div>
-                    <div className="social-tag"><span>Share</span></div>
+                    <div className="social-tag"><span>0</span></div>
                 </div>
             </div>
         )
