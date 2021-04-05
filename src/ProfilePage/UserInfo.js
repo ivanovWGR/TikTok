@@ -5,6 +5,7 @@ import { UserOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
 import firebase,{ DataBase } from '../firebase'
 import { RiCreativeCommonsZeroLine } from 'react-icons/ri';
+import EditProfile from './EditDetails';
 
 const UserInfo = ({ selectedUserId }) => {
     const [userObj, setUserObj] = useState({})

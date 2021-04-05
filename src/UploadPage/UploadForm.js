@@ -44,7 +44,6 @@ function UploadForm() {
             if (doc.id === currentUser) {
               let res = doc.data()
               setUser(res)
-              console.log("current account", res)
             }
           });
         })
@@ -70,7 +69,6 @@ function UploadForm() {
 
 
     const onDrop = useCallback(acceptedFiles => {
-        console.log(acceptedFiles[0])
         setFile(acceptedFiles[0]);
 
     }, [])
@@ -185,10 +183,12 @@ function UploadForm() {
                                     </div>
                                 </div>}
                                 {isDragReject && "File type not accepted"}
-                            </div>
+                            </div> 
                         )}
-                        {/* {videoUrl && <video src={videoUrl} /> } */}
                     </Dropzone>
+                    <div>
+                    {/* <video  controls src={videoUrl}/> */}
+                    </div>
                     {file ?
                         <ul className={styles.fileInformation}>
                             <li>File: {file.name}</li>
