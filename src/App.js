@@ -56,7 +56,6 @@ function App() {
         video.videoId = doc.id;
         tempVideos.push(video)
         }
-        console.log("home page: ", doc.data().addBy)
       });
       setVideos(tempVideos);
       setFiltered(tempVideos);
@@ -86,6 +85,7 @@ function App() {
 
     return chunkVideos;
   }, [videos, loadedVideosCount])
+  console.log(filteredvideos)
 
   return (
     
@@ -126,7 +126,8 @@ function App() {
               <Layout style={{ padding: "0 24px 24px" }}>
                 {/* Кард контаинер */}
                 <Content className="site-layout-background contentContainer">
-                  {filteredvideos.map(({ url, numOfLikes, numOfComments, title, caption, videoId, photoUrl, displayName }, index) => {
+                  
+                  {filteredvideos.map(({addBy, url, numOfLikes, numOfComments, title, caption, videoId, photoUrl, displayName }, index) => {
                     return <Card
                       USER_LOGGED_IN={USER_LOGGED_IN}
                       key={videoId}
@@ -137,7 +138,8 @@ function App() {
                       videoId={videoId}
                       caption={caption}
                       photoUrl={photoUrl}
-                      displayName={displayName} />;
+                      displayName={displayName}
+                      addBy={addBy} />;
                   })}
                 </Content>
               </Layout>

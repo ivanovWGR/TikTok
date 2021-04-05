@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 
 
-    const Card = ({ url, likes, comments, title, caption, displayName, videoId, photoUrl, USER_LOGGED_IN }) => {
+    const Card = ({addBy, url, likes, comments, title, caption, displayName, videoId, photoUrl, USER_LOGGED_IN }) => {
         const [toggle, setToggle] = useState(false);
         const [following, setFollowing] = useState('Follow')
         const toogleClick = () => {
@@ -18,19 +18,22 @@ import { Link } from 'react-router-dom';
             }
         }
         return (
+
             <div className="card">
                 <div className="break" />
                 <div className="section">
-                    <div className="user-info">
-                        <img className="user-avatar" src={photoUrl} width={'100%'} alt='username' />
-                        <div>
-                            <div className="section">
-                                <h3 className="bold">{title}</h3>
-                                <p className="username">{displayName}</p>
+                    <Link to = {`/user/${addBy}`}>
+                        <div className="user-info">
+                            <img className="user-avatar" src={photoUrl} width={'100%'} alt='username' />
+                            <div>
+                                <div className="section">
+                                    <h3 className="bold">{title}</h3>
+                                    <p className="username">{displayName}</p>
+                                </div>
+                                <p>{caption}</p>
                             </div>
-                            <p>{caption}</p>
                         </div>
-                    </div>
+                    </Link>
                     <div className='card-button-wrapper'>
                         <button className={toggle ? 'following-button' : 'follow-button'} onClick={toogleClick}>{following}</button>
                     </div>
