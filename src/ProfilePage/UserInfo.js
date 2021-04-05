@@ -3,36 +3,49 @@ import styles from './UserProfile.module.scss';
 import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
-import { DataBase } from '../firebase' 
+import firebase,{ DataBase } from '../firebase'
 import { RiCreativeCommonsZeroLine } from 'react-icons/ri';
 
-const UserInfo = ({currentUserId}) => {
-    console.log(currentUserId)
+const UserInfo = ({ selectedUserId }) => {
     const [userObj, setUserObj] = useState({})
-    let user = {}
+    const currentUser = firebase.auth().currentUser.uid;
+    const [toggle,setToggle] = useState(true);
+    const [buttonTxt,setButtonTxt] = useState('Follow');
+
+    
     useEffect(() => {
-        DataBase.collection('users').doc(currentUserId).get()
-          .then((res) => {
-            user = {...res.data()}
-            setUserObj(user)
-          })
-          .catch((error) => {
-            console.log("Error getting document:", error);
-          });
-     
-    },[currentUserId]);
-    console.log(userObj)
+        let user = {}
+        DataBase.collection('users').doc(selectedUserId).get()
+            .then((res) => {
+                user = { ...res.data() }
+                setUserObj(user)
+                console.log('fetch in user info')
+            })
+            .catch((error) => {
+                console.log("Error getting document:", error);
+            });
+
+    }, [selectedUserId]);
+   
+    const toggleClick = () => {
+        setToggle(!toggle)
+        if(!toggle){
+         setButtonTxt('Follow')
+        }else {
+            setButtonTxt('Following')
+        }
+    }
     return (
         <div className={styles.infoWrapper}>
             <div className={styles.userInfo}>
                 <div>
-                    <Avatar size={120} icon={<UserOutlined />} src = {userObj.photoURL} alt= {userObj.nickName} />
+                    <Avatar size={120} icon={<UserOutlined />} src={userObj.photoUrl} alt={userObj.nickName} />
                 </div>
                 <div className={styles.infoCont}>
                     <h2 className={styles.username}>{userObj.nickName}</h2>
                     <h1 className={styles.description}>{userObj.displayName}</h1>
                     <div>
-                        <button className={styles.userPageBtn}>Follow</button>
+                        {currentUser === selectedUserId ? null : <button className={toggle?styles.userPageBtn:styles.followingButton} onClick={toggleClick}>{buttonTxt}</button>}
                     </div>
                 </div>
             </div>

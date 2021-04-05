@@ -194,6 +194,23 @@ input:focus {
     border-radius   : 2px;
 }
 
+.discardButtonActive {
+ margin-right: 5px;
+background-color: black;
+font-weight: 400;
+font-size: 15px;
+line-height: 18px;
+cursor: pointer;
+color:white;
+position: relative;
+outline: none;
+border-width: 1px;
+border-style: solid;
+border-color: transparent;
+border-radius: 2px;
+padding: 10px;
+width: 120px;
+}
 
 /* Drag and drop style */
 .headerDrag {
@@ -242,4 +259,50 @@ input:focus {
 
 .ulDiv {
     padding-left: 27px;
+}
+
+.progressCont {
+    margin-top: 20px;
+    margin-left:70px;
+}
+
+.afterUpload {
+    font-size: 20px;
+    margin-right: 40px;
+    color: black;
+    text-align: center;
+}
+
+.afterUpload:hover{
+    color: #F34955;
+}
+
+:global(.ant-modal-body){
+    text-align: center;
+}
+
+:global(.ant-modal-footer){
+    display: none;
+}
+
+:global(.ant-modal-content){
+    border-radius: 25px;
+}
+
+.fileInformation{
+    list-style: none;
+    margin-top: 8px;
+    position: relative;
+    left:-40px;
+}
+
+.uploadAnother {
+    border:none;
+    background-color: #F34955;
+    color: white;
+    width: 350px;
+    border-radius: 8px;
+    padding:6px;
+    font-weight: bold;
+    margin-right: 18px;
 }

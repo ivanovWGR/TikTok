@@ -3,7 +3,7 @@ import SeeAllButton from "../seeAllButton/SeeAllButton";
 import SeeLessButton from "../seeLessButton/SeeLessButton";
 import UserItem from "../UserItem/UserItem";
 
-export default function YourTopAccounts({topAcc, cuurentUser}) {
+export default function YourTopAccounts({topAcc, loggedInUserId}) {
   
   const [isShowAll, showAll] = useState(true);
   function showAllUsers() {
@@ -19,7 +19,7 @@ export default function YourTopAccounts({topAcc, cuurentUser}) {
     userOne = topAcc;
   }
 
-  if (!cuurentUser || topAcc.length < 0) {
+  if (!loggedInUserId || topAcc.length < 0) {
     return(
       <div>
         <p>here you can see yours top accounts</p>
@@ -33,7 +33,7 @@ export default function YourTopAccounts({topAcc, cuurentUser}) {
       {
         <div>
           {userOne.map((el) => (
-            <UserItem key = {el.id} id = {el.id} img={el.photoURL} userName={el.nickName} name={el.displayName} />
+            <UserItem key = {el.id} id = {el.id} img={el.photoUrl} userName={el.nickName} name={el.displayName} />
           ))}
         </div>
       }

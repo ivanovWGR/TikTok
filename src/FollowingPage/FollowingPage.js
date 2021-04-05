@@ -5,11 +5,10 @@ import { Layout } from "antd";
 import { DataBase } from "../firebase";
 const { Content, Sider } = Layout;
 
-export default function ShowForYouPage ({USER_LOGGED_IN, loggedInUserId}) {
+export default function ShowFollowingPage ({USER_LOGGED_IN, loggedInUserId}) {
     const [currentAccount, setCurrentAccount] = useState([]);
     const [allVideos, setAllVideos] = useState([]);
     const [videos, setVideos] = useState([]);
-
     
     useEffect(() => {
         DataBase.collection("users")
@@ -19,6 +18,7 @@ export default function ShowForYouPage ({USER_LOGGED_IN, loggedInUserId}) {
             if (doc.id === loggedInUserId) {
               let res = {...doc.data()}
               setCurrentAccount([...res.following])
+              console.log("current account", res)
             }
           });
         })
@@ -26,28 +26,6 @@ export default function ShowForYouPage ({USER_LOGGED_IN, loggedInUserId}) {
           console.log("Error getting document:", error);
         });
     },[loggedInUserId]);
-
-    // useEffect(() => {
-    //     const users = [];
-    //     const suggestedAcc = [];
-    //     DataBase.collection("users")
-    //       .get()
-    //       .then((querySnapshot) => {
-    //         querySnapshot.forEach((doc) => {
-    //           let user = { ...doc.data() };
-    //           user.id = doc.id;
-    //             if (!currentAccount.includes(doc.id) && doc.id !== currentUserUid) {
-    //                     suggestedAcc.push(user)
-    //             } 
-    //           users.push(user);
-    //         });
-    //         SetSuggestedAccounts(suggestedAcc)
-    //         setAllUsers(users)
-    //       })
-    //       .catch((error) => {
-    //         console.log("Error getting document:", error);
-    //       });
-    //   },[currentAccount]);
 
     useEffect(() => {
         const tempVideos = [];
@@ -58,11 +36,12 @@ export default function ShowForYouPage ({USER_LOGGED_IN, loggedInUserId}) {
             querySnapshot.forEach((doc) => {
               let chunkVideoObj = {...doc.data()}
               chunkVideoObj.videoId = doc.id
-              if (!currentAccount.includes(chunkVideoObj.addBy) && loggedInUserId !== chunkVideoObj.addBy){                
+              if (currentAccount.includes(chunkVideoObj.addBy) && loggedInUserId !== chunkVideoObj.addBy){                
                 tempVideos.push(chunkVideoObj);
               }
               videos.push(chunkVideoObj)
-            });            
+            }); 
+                       
             setVideos(tempVideos)
             setAllVideos(videos)
           });
@@ -70,7 +49,7 @@ export default function ShowForYouPage ({USER_LOGGED_IN, loggedInUserId}) {
 
     return (
         <div>
-            <Layout className= 'layout'>
+            <Layout className='layout'>
             <Layout>
               <Sider
                 width={250}
@@ -107,6 +86,7 @@ export default function ShowForYouPage ({USER_LOGGED_IN, loggedInUserId}) {
                       photoUrl= {photoUrl}
                       displayName = {displayName} />;
                   })}
+
                 </Content>
               </Layout>
             </Layout>

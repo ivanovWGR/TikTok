@@ -3,7 +3,7 @@ import SeeAllButton from "../seeAllButton/SeeAllButton";
 import SeeLessButton from "../seeLessButton/SeeLessButton";
 import UserItem from "../UserItem/UserItem";
 
-export default function SuggestionAccounts({suggestedAcc, allUsers, cuurentUser}) {
+export default function SuggestionAccounts({suggestedAcc, allUsers, loggedInUserId}) {
 
   const [isShowAll, showAll] = useState(true);
   function showAllUsers() {
@@ -12,15 +12,15 @@ export default function SuggestionAccounts({suggestedAcc, allUsers, cuurentUser}
 
   const numOfFirstUsersShow = 5;
   let userOne = [];
-  if (!cuurentUser) {
+  if (!loggedInUserId) {
     userOne.push(allUsers)
   } 
 
   if (isShowAll) {
-    cuurentUser? userOne = suggestedAcc.slice(0, numOfFirstUsersShow): userOne = allUsers.slice(0, numOfFirstUsersShow)    
+    loggedInUserId? userOne = suggestedAcc.slice(0, numOfFirstUsersShow): userOne = allUsers.slice(0, numOfFirstUsersShow)    
  
   } else {
-    cuurentUser? userOne = suggestedAcc: userOne = allUsers
+    loggedInUserId? userOne = suggestedAcc: userOne = allUsers
   }
  
   return (
@@ -29,7 +29,7 @@ export default function SuggestionAccounts({suggestedAcc, allUsers, cuurentUser}
       {
         <div>
           {userOne.map((el) => (
-            <UserItem key = {el.id} id = {el.id} img={el.photoURL} userName={el.nickName} name={el.displayName} />
+            <UserItem key = {el.id} id = {el.id} img={el.photoUrl} userName={el.nickName} name={el.displayName} />
           ))}
         </div>
       }

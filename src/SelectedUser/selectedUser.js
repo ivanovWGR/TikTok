@@ -1,11 +1,12 @@
 import { useParams } from "react-router";
 import UserPage from "../ProfilePage/UserProfile";
 
-export default function SelectedUser({isUserLoggedIn, currentUserUid}) {
+export default function SelectedUser({isUserLoggedIn, loggedInUserId}) {
   const { id } = useParams();
   return (
+    //NEW VALUE OF SELECTED_USER_ID !!!!!
     <div>
-      <UserPage currentUserId={id} isUserLoggedIn = {isUserLoggedIn} currentUserUid = {currentUserUid}/>
+      <UserPage selectedUserId={id} isUserLoggedIn = {isUserLoggedIn} loggedInUserId = {loggedInUserId}/>
     </div>
   );
 }
