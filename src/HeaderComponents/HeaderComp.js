@@ -10,23 +10,7 @@ import { debounce } from 'lodash';
 
 const { Search } = Input;
 
-export default function HeaderComp({ isUserLoggedIn, onTitleInputChange, searchValue }) {
-
-    // const debounce = (func) => {
-    //     let timer ;
-    //     return function(...args){
-    //         const context = this;
-    //         if (timer){
-    //             clearTimeout(timer)
-    //         }
-    //         timer = setTimeout(()=>{
-    //             timer = null;
-    //             func.apply(context,...args)
-    //         },1000)
-    //     }
-    // }
-
-    // const optimizeVersion = debounce(inputTittleChange)
+export default function HeaderComp({ isUserLoggedIn, onTitleInputChange }) {
 
     const deb = useCallback(
         debounce((text) => onTitleInputChange(text), 1000)
