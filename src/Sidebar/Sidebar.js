@@ -41,20 +41,7 @@ export default function ShowSidebar({ isUserLoggedIn, loggedInUserId }) {
   // }
   //get current user obj
   useEffect(() => {
-      DataBase.collection("users")
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          if (doc.id === loggedInUserId) {
-            let res = {...doc.data()}
-            setCurrentAccount([...res.following])
-            console.log("current account", res)
-          }
-        });
-      })
-      .catch((error) => {
-        console.log("Error getting document:", error);
-      });
+ 
   },[loggedInUserId]);
 
   useEffect(() => {

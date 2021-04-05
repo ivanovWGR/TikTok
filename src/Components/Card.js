@@ -1,14 +1,47 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaCommentDots, FaShare, FaHeart, FaBuromobelexperte } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import firebase, { DataBase } from '../firebase'
 
 
 
     const Card = ({addBy, url, likes, comments, title, caption, displayName, videoId, photoUrl, USER_LOGGED_IN }) => {
         const [toggle, setToggle] = useState(false);
         const [following, setFollowing] = useState('Follow')
+        const [currentAccount, setCurrentAccount] = useState([]);
+
+        let currentUser = "";
+        if(USER_LOGGED_IN) {
+            currentUser = firebase.auth().currentUser.uid;
+        }
+        useEffect(() => {
+            DataBase.collection("users")
+            .get()
+            .then((querySnapshot) => {
+              querySnapshot.forEach((doc) => {
+                if (doc.id === currentUser) {
+                  let res = {...doc.data()}
+                  setCurrentAccount([...res.following])
+                }
+              });
+            })
+            .catch((error) => {
+              console.log("Error getting document:", error);
+            });
+
+        },[USER_LOGGED_IN, currentUser])
+
+          
         const toogleClick = () => {
+            setToggle(!toggle)
             if(USER_LOGGED_IN){
+                console.log(currentAccount)
+                if (currentAccount.includes(addBy)) {
+                    setFollowing('Follow')
+                }else {
+                    setFollowing('Following')
+                }
+
                 setToggle(!toggle)
                 if (!toggle) {
                     setFollowing('Following')
@@ -17,8 +50,8 @@ import { Link } from 'react-router-dom';
                 }
             }
         }
-        return (
 
+        return (
             <div className="card">
                 <div className="break" />
                 <div className="section">
@@ -35,7 +68,8 @@ import { Link } from 'react-router-dom';
                         </div>
                     </Link>
                     <div className='card-button-wrapper'>
-                        <button className={toggle ? 'following-button' : 'follow-button'} onClick={toogleClick}>{following}</button>
+                        {currentAccount.includes(addBy) && USER_LOGGED_IN ? <button className={'following-button'} onClick={toogleClick}>Following</button>:
+                        <button className={'follow-button'} onClick={toogleClick}>Follow</button>}
                     </div>
                 </div>
 
@@ -51,9 +85,7 @@ import { Link } from 'react-router-dom';
                         </Link> :
                             <FaCommentDots className="icons" />
                         }
-
                     </div>
-
                     <div className="social-tag"><span>{comments}</span></div>
                     <div className='icon-wrapper'>
 

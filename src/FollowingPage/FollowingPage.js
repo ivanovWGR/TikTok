@@ -61,7 +61,7 @@ export default function ShowFollowingPage ({USER_LOGGED_IN, loggedInUserId}) {
               </Sider>
               <Layout style={{ padding: "0 24px 24px" }}>
                 <Content className="site-layout-background contentContainer">
-                {USER_LOGGED_IN? videos.map(({url, numOfLikes, numOfComments, title, caption, videoId, displayName, photoUrl }, index) => {
+                {USER_LOGGED_IN? videos.map(({addBy, url, numOfLikes, numOfComments, title, caption, videoId, displayName, photoUrl }, index) => {
                     return <Card
                       USER_LOGGED_IN={USER_LOGGED_IN}
                       key={videoId}
@@ -72,8 +72,9 @@ export default function ShowFollowingPage ({USER_LOGGED_IN, loggedInUserId}) {
                       videoId={videoId}                      
                       caption={caption}
                       photoUrl= {photoUrl}
-                      displayName = {displayName} />;
-                  }): allVideos.map(({url, numOfLikes, numOfComments, title, caption, videoId, displayName, photoUrl }, index) => {
+                      displayName = {displayName}
+                      addBy={addBy} />;
+                  }): allVideos.map(({addBy, url, numOfLikes, numOfComments, title, caption, videoId, displayName, photoUrl }, index) => {
                     return <Card
                       USER_LOGGED_IN={USER_LOGGED_IN}
                       key={videoId}
@@ -84,7 +85,8 @@ export default function ShowFollowingPage ({USER_LOGGED_IN, loggedInUserId}) {
                       videoId={videoId}                      
                       caption={caption}
                       photoUrl= {photoUrl}
-                      displayName = {displayName} />;
+                      displayName = {displayName}
+                      addBy={addBy} />;
                   })}
 
                 </Content>
