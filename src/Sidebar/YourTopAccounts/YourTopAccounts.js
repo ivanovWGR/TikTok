@@ -1,30 +1,29 @@
-import React, {useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DataBase } from "../../firebase";
 import SeeAllButton from "../seeAllButton/SeeAllButton";
 import SeeLessButton from "../seeLessButton/SeeLessButton";
 import UserItem from "../UserItem/UserItem";
 
-export default function YourTopAccounts({isUserLoggedIn, loggedInUserId}) {
+export default function YourTopAccounts({ isUserLoggedIn, loggedInUserId }) {
   const [currentAccount, setCurrentAccount] = useState([]);
   const [yourTopAccounts, setYourTopAccounts] = useState([]);
 
-
   useEffect(() => {
     DataBase.collection("users")
-    .get()
-    .then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        if (doc.id === loggedInUserId) {
-          let res = {...doc.data()}
-          setCurrentAccount([...res.following])
-          console.log("current account", res)
-        }
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          if (doc.id === loggedInUserId) {
+            let res = { ...doc.data() };
+            setCurrentAccount([...res.following]);
+            console.log("current account", res);
+          }
+        });
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
       });
-    })
-    .catch((error) => {
-      console.log("Error getting document:", error);
-    });
-  },[loggedInUserId]);
+  }, [loggedInUserId]);
 
   useEffect(() => {
     const topAccount = [];
@@ -34,20 +33,17 @@ export default function YourTopAccounts({isUserLoggedIn, loggedInUserId}) {
         querySnapshot.forEach((doc) => {
           let user = { ...doc.data() };
           user.id = doc.id;
-            if (currentAccount.includes(doc.id)) {
-              topAccount.push(user)
-            } 
+          if (currentAccount.includes(doc.id)) {
+            topAccount.push(user);
+          }
         });
-        setYourTopAccounts(topAccount)
+        setYourTopAccounts(topAccount);
       })
       .catch((error) => {
         console.log("Error getting document:", error);
       });
-  },[currentAccount, loggedInUserId]);
+  }, [currentAccount, loggedInUserId]);
 
-
-
-  
   const [isShowAll, showAll] = useState(true);
   function showAllUsers() {
     showAll(!isShowAll);
@@ -61,22 +57,26 @@ export default function YourTopAccounts({isUserLoggedIn, loggedInUserId}) {
   } else {
     userOne = yourTopAccounts;
   }
-  if (!loggedInUserId || yourTopAccounts.length < 1) {
-    return(
+  if (!isUserLoggedIn || yourTopAccounts.length < 1) {
+    return (
       <div>
         <p>here you can see yours top accounts</p>
       </div>
-    )
+    );
   }
-
-  console.log(userOne)
-   return (
+  return (
     <div>
       <p>Your top accounts</p>
       {
         <div>
           {userOne.map((el) => (
-            <UserItem key = {el.id} id = {el.id} img={el.photoUrl} userName={el.nickName} name={el.displayName} />
+            <UserItem
+              key={el.id}
+              id={el.id}
+              img={el.photoUrl}
+              userName={el.nickName}
+              name={el.displayName}
+            />
           ))}
         </div>
       }

@@ -23,6 +23,7 @@ function App() {
   const [currentUserId, setCurrentUserId] = useState("");
   const [currentUserVideos, setCurrenUserVideos] = useState([]);//IT IS NOT USED AT THE MOMENT?!?
   const [searchValue, setSearchValue] = useState("");
+  const [currentAccount, setCurrentAccount] = useState([]);
   const onNext = () => {
     setLoadedVideosCount(loadedVideosCount + 20);
   }
@@ -40,13 +41,31 @@ function App() {
   }, [currentUserId]);
 
   useEffect(() => {
+    DataBase.collection("users")
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        if (doc.id === currentUserId) {
+          let res = {...doc.data()}
+          setCurrentAccount([...res.following])
+          console.log("current account", res)
+        }
+      });
+    })
+    .catch((error) => {
+      console.log("Error getting document:", error);
+    });
+  },[currentUserId]);
+
+  useEffect(() => {
     const tempVideos = []
     // Asynch operation
     DataBase.collection("videos").get().then((querySnapshot) => {
       console.log('Shouts once!')
       querySnapshot.forEach((doc) => {
         if(currentUserId) {
-          if (currentUserId !== doc.data().addBy){
+          console.log(currentAccount)
+          if (currentUserId !== doc.data().addBy && !currentAccount.includes(doc.data().addBy)){
             let video = { ...doc.data() }
             video.videoId = doc.id;
             tempVideos.push(video)
@@ -60,7 +79,7 @@ function App() {
       setVideos(tempVideos);
       setFiltered(tempVideos);
     });
-  }, [currentUserId])
+  }, [currentUserId, currentAccount])
   const searchByName = (input) => {
     const temp = videos.filter(video => video.addBy.toLowerCase().includes(input.toLowerCase()));
     setFiltered(temp);
