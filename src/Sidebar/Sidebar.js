@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {FollowingBtnUnactive} from "./Following/FollowingBtn";
 import {FollowingBtnActive} from "./Following/FollowingBtn";
 import {ForYouBtnActive} from "./ForYou/ForYouBtn";
@@ -12,67 +12,10 @@ import followUnactive from "../date/img/followUnactive.png";
 import followActive from "../date/img/followActive.png";
 import forYouActive from "../date/img/forYouActive.png";
 import forYouUnactive from "../date/img/forYouUnactive.png";
-import { DataBase } from "../firebase";
 import {useLocation} from 'react-router-dom'
 
-
-
 export default function ShowSidebar({ isUserLoggedIn, loggedInUserId }) {
-  const [currentAccount, setCurrentAccount] = useState([]);
-  const [yourTopAccounts, setYourTopAccounts] = useState([]);
-  const [suggestedAccounts, SetSuggestedAccounts] = useState([]);
-  const [allUsers, setAllUsers] = useState([]);
   const location = useLocation();
-
-  // const [isActiveForYou, activeForYou] = useState(true);
-  // const [isActiveFollowing, activeFollowing] = useState(true);
-
-  // function changeButtonStylesForYou() {
-  //   if (isActiveForYou) {
-  //   activeForYou(!isActiveForYou);
-  //   activeFollowing(isActiveForYou);
-  //   }
-  // }
-  // function changeButtonStylesFollowing() {
-  //   if(isActiveFollowing) {
-  //     activeForYou(isActiveFollowing);
-  //     activeFollowing(!isActiveFollowing);
-  //   }
-  // }
-  //get current user obj
-  useEffect(() => {
- 
-  },[loggedInUserId]);
-
-  useEffect(() => {
-    const users = [];
-    const topAccount = [];
-    const suggestedAcc = [];
-    DataBase.collection("users")
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          let user = { ...doc.data() };
-          user.id = doc.id;
-            if (currentAccount.includes(doc.id)) {
-              topAccount.push(user)
-             
-            } else {
-              if (doc.id !== loggedInUserId) {
-                suggestedAcc.push(user)
-              }
-            }
-          users.push(user);
-        });
-        setYourTopAccounts(topAccount)
-        SetSuggestedAccounts(suggestedAcc)
-        setAllUsers(users)
-      })
-      .catch((error) => {
-        console.log("Error getting document:", error);
-      });
-  },[currentAccount, loggedInUserId]);
-
   return (
     <div id={styles.siderDiv}>
       <div>
@@ -109,10 +52,10 @@ export default function ShowSidebar({ isUserLoggedIn, loggedInUserId }) {
         <div>{!isUserLoggedIn && <SidebarLoginBtutton />  }</div>
       </div>
       <div className={styles.suggestedAccounts}>
-        <SuggestionAccounts suggestedAcc={suggestedAccounts} allUsers = {allUsers} loggedInUserId = {loggedInUserId}/>
+        <SuggestionAccounts isUserLoggedIn={isUserLoggedIn} loggedInUserId = {loggedInUserId}/>
       </div>
       <div className={styles.yourTopAccounts}>
-        <YourTopAccounts topAcc={yourTopAccounts} loggedInUserId = {loggedInUserId}/>
+        <YourTopAccounts isUserLoggedIn={isUserLoggedIn} loggedInUserId = {loggedInUserId}/>
       </div>
       <div>
         <SidebarFooter />

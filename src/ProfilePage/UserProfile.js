@@ -5,19 +5,16 @@ import styles from './UserProfile.module.scss';
 import Sidebar from '../Sidebar/Sidebar'
 import UserInfo from './UserInfo';
 import UserVideoTab from './UserVideoTab'
-
 import { Layout } from "antd";
 
 const { Content, Sider } = Layout;
-
-
-
-
-const UserPage = ({ selectedUserId, isUserLoggedIn, loggedInUserId }) => {
-    console.log('profile page ', selectedUserId);
+const UserPage = ({ selectedUserId, isUserLoggedIn, loggedInUserId}) => {
     const [userVideos, setUserVideos] = useState([]);
     const [likedVideos, setLikedVideos] = useState([]);
     //ASYNC
+    if (!selectedUserId) {
+        selectedUserId = loggedInUserId;
+    }
     useEffect(() => {
         const fetchedVideos = [];
         const fetchedLikedVideos = [];
@@ -80,6 +77,4 @@ const UserPage = ({ selectedUserId, isUserLoggedIn, loggedInUserId }) => {
 
     )
 }
-
-
 export default UserPage;

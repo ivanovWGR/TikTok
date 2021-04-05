@@ -1,57 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { FaCommentDots, FaShare, FaHeart, FaBuromobelexperte } from "react-icons/fa";
 import { Link } from 'react-router-dom';
-import firebase, { DataBase } from '../firebase'
-
-
+import FollowButton from './FollowButton'
 
     const Card = ({addBy, url, likes, comments, title, caption, displayName, videoId, photoUrl, USER_LOGGED_IN }) => {
-        const [toggle, setToggle] = useState(false);
-        const [following, setFollowing] = useState('Follow')
-        const [currentAccount, setCurrentAccount] = useState([]);
-
-        let currentUser = "";
-        if(USER_LOGGED_IN) {
-            currentUser = firebase.auth().currentUser.uid;
-        }
-        useEffect(() => {
-            DataBase.collection("users")
-            .get()
-            .then((querySnapshot) => {
-              querySnapshot.forEach((doc) => {
-                if (doc.id === currentUser) {
-                  let res = {...doc.data()}
-                  setCurrentAccount([...res.following])
-                }
-              });
-            })
-            .catch((error) => {
-              console.log("Error getting document:", error);
-            });
-
-        },[USER_LOGGED_IN, currentUser])
-
-          
-        const toogleClick = () => {
-            setToggle(!toggle)
-            if(USER_LOGGED_IN){
-                console.log(currentAccount)
-                if (currentAccount.includes(addBy)) {
-                    setFollowing('Follow')
-                }else {
-                    setFollowing('Following')
-                }
-
-                setToggle(!toggle)
-                if (!toggle) {
-                    setFollowing('Following')
-                } else {
-                    setFollowing('Follow')
-                }
-            }
-        }
-
-        return (
+         return (
             <div className="card">
                 <div className="break" />
                 <div className="section">
@@ -68,8 +21,7 @@ import firebase, { DataBase } from '../firebase'
                         </div>
                     </Link>
                     <div className='card-button-wrapper'>
-                        {currentAccount.includes(addBy) && USER_LOGGED_IN ? <button className={'following-button'} onClick={toogleClick}>Following</button>:
-                        <button className={'follow-button'} onClick={toogleClick}>Follow</button>}
+                        <FollowButton addBy = {addBy} USER_LOGGED_IN ={USER_LOGGED_IN}/>
                     </div>
                 </div>
 

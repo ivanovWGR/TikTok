@@ -95,13 +95,13 @@ function App() {
       <HeaderComp  isUserLoggedIn={USER_LOGGED_IN} onTitleInputChange={(value) => setSearchValue(value)} searchValue={searchValue} />
       <Switch>
         <Route path="/viewVideo/:videoId">
-          <ViewFullScreenVideo currentUserId={currentUserId} />
+          <ViewFullScreenVideo currentUserId={currentUserId} USER_LOGGED_IN = {USER_LOGGED_IN}/>
         </Route>
         <Route path="/upload">
           {USER_LOGGED_IN ? <Upload currentUserId={currentUserId} /> : <Redirect to="/" />}
         </Route>
         <Route path="/userprofile">
-          {USER_LOGGED_IN ? <UserPage selectedUserId={currentUserId} isUserLoggedIn={USER_LOGGED_IN} /> : <Redirect to="/" />}
+          {USER_LOGGED_IN ? <UserPage loggedInUserId={currentUserId} isUserLoggedIn={USER_LOGGED_IN} /> : <Redirect to="/" />}
         </Route>
         <Route path="/ForYouPage">
           <ShowForYouPage USER_LOGGED_IN={USER_LOGGED_IN} loggedInUserId={currentUserId} />

@@ -1,0 +1,24 @@
+.followButton {
+    border          : 1px solid #fe2c55;
+    border-radius   : 4px;
+    width           : 89px;
+    height          : 30px;
+    color           : #fe2c55;
+    font-weight     : 600;
+    padding         : 2px 0 3px;
+    text-align      : center;
+    font-size       : 14px;
+    background-color: white;
+}
+.followingButton {
+    border          : 0.5px solid rgb(221, 196, 196);
+    border-radius   : 4px;
+    width           : 89px;
+    height          : 30px;
+    color           : black;
+    font-weight     : 600;
+    padding         : 2px 0 3px;
+    text-align      : center;
+    font-size       : 14px;
+    background-color: white;
+}

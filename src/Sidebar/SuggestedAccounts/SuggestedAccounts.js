@@ -1,9 +1,53 @@
-import React, { useState } from "react";
+import React, {useEffect, useState } from "react";
+import { DataBase } from "../../firebase";
 import SeeAllButton from "../seeAllButton/SeeAllButton";
 import SeeLessButton from "../seeLessButton/SeeLessButton";
 import UserItem from "../UserItem/UserItem";
 
-export default function SuggestionAccounts({suggestedAcc, allUsers, loggedInUserId}) {
+export default function SuggestionAccounts({isUserLoggedIn, loggedInUserId}) {
+  const [currentAccount, setCurrentAccount] = useState([]);
+  const [suggestedAccounts, SetSuggestedAccounts] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
+
+  useEffect(() => {
+    DataBase.collection("users")
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        if (doc.id === loggedInUserId) {
+          let res = {...doc.data()}
+          setCurrentAccount([...res.following])
+          console.log("current account", res)
+        }
+      });
+    })
+    .catch((error) => {
+      console.log("Error getting document:", error);
+    });
+  },[loggedInUserId]);
+
+  useEffect(() => {
+    const users = [];
+    const suggestedAcc = [];
+    DataBase.collection("users")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          let user = { ...doc.data() };
+          user.id = doc.id;
+            if (!currentAccount.includes(doc.id) && doc.id !== loggedInUserId) {
+              suggestedAcc.push(user)
+            } 
+          
+          users.push(user);
+        });
+        SetSuggestedAccounts(suggestedAcc)
+        setAllUsers(users)
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+  },[currentAccount, loggedInUserId]);
 
   const [isShowAll, showAll] = useState(true);
   function showAllUsers() {
@@ -12,15 +56,15 @@ export default function SuggestionAccounts({suggestedAcc, allUsers, loggedInUser
 
   const numOfFirstUsersShow = 5;
   let userOne = [];
-  if (!loggedInUserId) {
+  if (!isUserLoggedIn) {
     userOne.push(allUsers)
   } 
 
   if (isShowAll) {
-    loggedInUserId? userOne = suggestedAcc.slice(0, numOfFirstUsersShow): userOne = allUsers.slice(0, numOfFirstUsersShow)    
+    loggedInUserId? userOne = suggestedAccounts.slice(0, numOfFirstUsersShow): userOne = allUsers.slice(0, numOfFirstUsersShow)    
  
   } else {
-    loggedInUserId? userOne = suggestedAcc: userOne = allUsers
+    loggedInUserId? userOne = suggestedAccounts: userOne = allUsers
   }
  
   return (
