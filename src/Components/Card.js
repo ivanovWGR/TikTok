@@ -8,16 +8,19 @@ import FollowButton from './FollowButton'
             <div className="card">
                 <div className="break" />
                 <div className="section">
-                    <Link to = {`/user/${addBy}`}>
-                        <div className="user-info">
-                            <img className="user-avatar" src={photoUrl} width={'100%'} alt='username' />
-                            <div>
-                                <div className="section">
-                                    <h3 className="bold">{title}</h3>
-                                    <p className="username">{displayName}</p>
-                                </div>
-                                <p>{caption}</p>
+
+                    <Link to = {`/user/${addBy}`}>                       
+
+                    <div className="user-info">
+                        <img className="user-avatar" src={photoUrl} width={'100%'} alt='username' />
+                        <div>
+                            <div className="section">
+                                <h3 className="bold">{displayName}</h3>
+                                <p className="username">{title}</p>
+
                             </div>
+                              <p>{caption}</p>
+                          </div>
                         </div>
                     </Link>
                     <div className='card-button-wrapper'>
@@ -43,7 +46,7 @@ import FollowButton from './FollowButton'
 
                         <FaShare className="share" />
                     </div>
-                    <div className="social-tag"><span>Share</span></div>
+                    <div className="social-tag"><span>0</span></div>
                 </div>
             </div>
         )

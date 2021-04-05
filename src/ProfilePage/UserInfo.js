@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import firebase,{ DataBase } from '../firebase'
 import { RiCreativeCommonsZeroLine } from 'react-icons/ri';
 
+
 const UserInfo = ({ selectedUserId, isUserLoggedIn }) => {
     // console.log(selectedUserId)
     const [userObj, setUserObj] = useState({})
@@ -14,6 +15,15 @@ const UserInfo = ({ selectedUserId, isUserLoggedIn }) => {
         currentUser = firebase.auth().currentUser.uid;
     }
        
+
+// const UserInfo = ({ selectedUserId }) => {
+//     const [userObj, setUserObj] = useState({})
+//     const currentUser = firebase.auth().currentUser.uid;
+//     const [toggle,setToggle] = useState(true);
+//     const [buttonTxt,setButtonTxt] = useState('Follow');
+
+    
+
     useEffect(() => {
         let user = {}
         DataBase.collection('users').doc(selectedUserId).get()
@@ -27,7 +37,15 @@ const UserInfo = ({ selectedUserId, isUserLoggedIn }) => {
             });
 
     }, [selectedUserId]);
-    // console.log(userObj)
+   
+    const toggleClick = () => {
+        setToggle(!toggle)
+        if(!toggle){
+         setButtonTxt('Follow')
+        }else {
+            setButtonTxt('Following')
+        }
+    }
     return (
         <div className={styles.infoWrapper}>
             <div className={styles.userInfo}>
@@ -38,7 +56,7 @@ const UserInfo = ({ selectedUserId, isUserLoggedIn }) => {
                     <h2 className={styles.username}>{userObj.nickName}</h2>
                     <h1 className={styles.description}>{userObj.displayName}</h1>
                     <div>
-                        {currentUser === selectedUserId ? null : <button className={styles.userPageBtn}>Follow</button>}
+                        {currentUser === selectedUserId ? null : <button className={toggle?styles.userPageBtn:styles.followingButton} onClick={toggleClick}>{buttonTxt}</button>}
                     </div>
                 </div>
             </div>

@@ -54,6 +54,23 @@
                 min-width       : 220px;
             }
 
+            .followingButton{
+                border:0.5px solid rgb(221, 196, 196);
+                border-radius: 4px;
+                width: 220px;
+                height: 36px;
+                color:black;
+                font-weight: 600;
+                padding:1px 6px;
+                line-height: 22px;
+                text-align: center;
+                font-size: 14px;
+                background-color: white;
+                cursor: pointer;
+                font-weight: 700;
+                font-size: 16px;
+              }
+
         }
 
 
