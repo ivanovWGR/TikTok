@@ -211,7 +211,7 @@ export default function VideoFullScreen({ currentUserId, USER_LOGGED_IN }) {
                 </div>
                 <div className={viewPageStyles.commentsWrapper}>
                     <div className={viewPageStyles.videoInfo}>
-                        <h1>{currentVideo.title}</h1>
+                        <h1 className={viewPageStyles.currentVideoTit}>{currentVideo.title}</h1>
                         <p className={viewPageStyles.caption}><FaMusic />{currentVideo.caption}</p>
                         <div className={viewPageStyles.iconsDiv}>
                             <span><FaHeart className={viewPageStyles.icons} /></span><span>{numOfLikes}</span>
@@ -219,7 +219,7 @@ export default function VideoFullScreen({ currentUserId, USER_LOGGED_IN }) {
                         </div>
 
                         <div className={viewPageStyles.adressDiv}>
-                            <p>{videoSrc}</p>
+                            <p>{videoSrc}</p>  
                         </div>
                     </div>
                     {comments.map((el, index) => {
