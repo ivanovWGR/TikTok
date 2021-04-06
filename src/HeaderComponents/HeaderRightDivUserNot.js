@@ -13,7 +13,6 @@ function HeaderRightDivUserNot() {
     function closeModal() {
         showModal(false)
     }
-console.log(LoginPage)
     return (
         <div id={styles.headerRightWrapper}>
             <button id={styles.upload} onClick={bringModal} >

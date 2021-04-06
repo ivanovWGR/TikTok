@@ -11,12 +11,13 @@ const Card = ({ addBy, url, comments, title, caption, displayName, videoId, phot
 
 
     useEffect(() => {
+        let mounted = true;
         if (!USER_LOGGED_IN && !currentUserId) {
             setIsVideoLiked(false)
         } else {
             DataBase.collection('videos').doc(videoId).get()
                 .then((video) => {
-                    if (video.exists) {
+                    if (video.exists && mounted) {
                         let arr = [...video.data().likedBy]
                         arr.includes(currentUserId) ? setIsVideoLiked(true) : setIsVideoLiked(false)
                         setLikes(arr.length)
@@ -24,6 +25,7 @@ const Card = ({ addBy, url, comments, title, caption, displayName, videoId, phot
                     }
                 })
         }
+        return () => mounted = false;//changedMouted
     }, [])
 
 

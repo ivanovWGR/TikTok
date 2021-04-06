@@ -17,22 +17,25 @@ export default function FollowButton({ addBy, USER_LOGGED_IN, currentUserId }) {
 
 
     useEffect(() => {
+        let mounted = true;
         if (currentUserId) {
             DataBase.collection("users")
                 .get()
                 .then((querySnapshot) => {
-                    querySnapshot.forEach((doc) => {
-                        if (doc.id === currentUserId) {
-                            let res = { ...doc.data() }
-                            setCurrentAccount([...res.following])
-                        }
-                    });
+                    if (mounted) {
+                        querySnapshot.forEach((doc) => {
+                            if (doc.id === currentUserId) {
+                                let res = { ...doc.data() }
+                                setCurrentAccount([...res.following])
+                            }
+                        });
+                    }
                 })
                 .catch((error) => {
                     console.log("Error getting document:", error);
                 });
         }
-
+        return () => mounted = false;
     }, [USER_LOGGED_IN])
 
     const toogleClick = () => {
@@ -63,7 +66,7 @@ export default function FollowButton({ addBy, USER_LOGGED_IN, currentUserId }) {
             </>
         );
     }
-    if (!USER_LOGGED_IN || !currentAccount.includes(addBy)) {        
+    if (!USER_LOGGED_IN || !currentAccount.includes(addBy)) {
         return (
             <Link to={"/FollowingPage"}>
                 <button className={styles.followButton} onClick={toogleClick}>

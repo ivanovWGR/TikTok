@@ -29,14 +29,14 @@ function App() {
   const onNext = () => {
     setLoadedVideosCount(loadedVideosCount + 20);
   }
-  console.log('App js rerenders')
+  
   useEffect(() => {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
-        console.log('Rerender!')
+        
         setCurrentUserId(user.uid);
         isUserLoggedIn(true);
-        console.log('History', history)
+        
         
       } else {
         isUserLoggedIn(false);
@@ -68,7 +68,7 @@ function App() {
     DataBase.collection("videos").get().then((querySnapshot) => {      
       querySnapshot.forEach((doc) => {
         if (currentUserId) {
-          console.log(currentAccount)
+          // console.log(currentAccount)
           if (currentUserId !== doc.data().addBy && !currentAccount.includes(doc.data().addBy)) {
             let video = { ...doc.data() }
             video.videoId = doc.id;
@@ -120,8 +120,7 @@ function App() {
 
   //USEEFFECT HOOK FOR TRIGGERING SEARCH RESULTS DISPLAY
   useEffect(() => {    
-    let result = searchValidation(filtered, searchValue)
-    console.log(result)
+    let result = searchValidation(filtered, searchValue)    
     setFilteredVideos([...result])
   }, [searchValue, filtered])  
 

@@ -30,11 +30,13 @@ export default function ShowForYouPage({ USER_LOGGED_IN, loggedInUserId }) {
 
 
   useEffect(() => {
+    let mounted = true;
     const tempVideos = [];
     const videos = [];
     DataBase.collection("videos")
-      .get()
+      .get()      
       .then((querySnapshot) => {
+        if(mounted){
         querySnapshot.forEach((doc) => {
           let chunkVideoObj = { ...doc.data() }
           chunkVideoObj.videoId = doc.id
@@ -45,7 +47,8 @@ export default function ShowForYouPage({ USER_LOGGED_IN, loggedInUserId }) {
         });
         setVideos(tempVideos)
         setAllVideos(videos)
-      });
+      }});
+      return() => mounted = false;//chnaged!!
   }, [loggedInUserId, currentAccount]);
 
 
