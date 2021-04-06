@@ -8,15 +8,15 @@ import FollowButtonUserProfile from '../Components/followButtonUserProfile'
 import { RiCreativeCommonsZeroLine } from 'react-icons/ri';
 
 
-const UserInfo = ({ selectedUserId, isUserLoggedIn }) => {
+const UserInfo = ({ selectedUserId, isUserLoggedIn, currentUserId }) => {
     // const [currentAccount, setCurrentAccount] = useState([]);
     const [userObj, setUserObj] = useState({})
     // const [toggle,setToggle] = useState(true);
     // const [buttonTxt,setButtonTxt] = useState('Follow');
-    let currentUser = "";
-    if(isUserLoggedIn) {
-        currentUser = firebase.auth().currentUser.uid;
-    }
+    // let currentUser = "";
+    // if(isUserLoggedIn) {
+    //     currentUser = firebase.auth().currentUser.uid;
+    // }
        
 
 
@@ -43,7 +43,8 @@ const UserInfo = ({ selectedUserId, isUserLoggedIn }) => {
                     <h2 className={styles.username}>{userObj.nickName}</h2>
                     <h1 className={styles.description}>{userObj.displayName}</h1>
                     <div>
-                        {currentUser === selectedUserId ? null : <FollowButtonUserProfile selectedUserId = {selectedUserId} isUserLoggedIn={isUserLoggedIn}/>}
+                        {currentUserId === selectedUserId ? null : <FollowButtonUserProfile selectedUserId = {selectedUserId} isUserLoggedIn={isUserLoggedIn}
+                        currentUserId = {currentUserId} />}
                     </div>
                 </div>
             </div>

@@ -3,16 +3,16 @@ import { FaCommentDots, FaShare, FaHeart, FaBuromobelexperte } from "react-icons
 import { Link } from 'react-router-dom';
 import FollowButton from './FollowButton'
 import { DataBase } from '../firebase'
-import {useLocation} from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 
 
 
 
-const Card = ({ addBy, url,  comments, title, caption, displayName, videoId, photoUrl, USER_LOGGED_IN, currentUserId, }) => {
+const Card = ({ addBy, url, comments, title, caption, displayName, videoId, photoUrl, USER_LOGGED_IN, currentUserId, }) => {
     const [videoIsLiked, setIsVideoLiked] = useState(false);
     const [videoLikeByArr, setVideoLikedByArr] = useState([]);
-    const [likes,setLikes] = useState(0);
+    const [likes, setLikes] = useState(0);
     const location = useLocation();
     // console.log('Card rerrendered ', videoIsLiked)
     // console.log('Location ', location)
@@ -22,7 +22,7 @@ const Card = ({ addBy, url,  comments, title, caption, displayName, videoId, pho
         if (!USER_LOGGED_IN && !currentUserId) {
             setIsVideoLiked(false)
             console.log('Inside set likes first effetc NO user and no user id')
-        }else{
+        } else {
             DataBase.collection('videos').doc(videoId).get()
                 .then((video) => {
                     if (video.exists) {
@@ -31,7 +31,7 @@ const Card = ({ addBy, url,  comments, title, caption, displayName, videoId, pho
                         let arr = [...video.data().likedBy]
                         arr.includes(currentUserId) ? setIsVideoLiked(true) : setIsVideoLiked(false)
                         setLikes(arr.length)
-                        setVideoLikedByArr([...arr])                        
+                        setVideoLikedByArr([...arr])
                     }
                 })
         }
@@ -50,7 +50,7 @@ const Card = ({ addBy, url,  comments, title, caption, displayName, videoId, pho
     //             })
     //     }
     // }, [])
-    
+
 
     const addToLiked = () => {
         if (!USER_LOGGED_IN) return
@@ -84,7 +84,7 @@ const Card = ({ addBy, url,  comments, title, caption, displayName, videoId, pho
                         console.log('exit')
                         let index = currentLikedByArr.indexOf(currentUserId)
                         currentLikedByArr.splice(index, 1);
-                        
+
                         return DataBase.collection('videos').doc(videoId).update({
                             likedBy: [...currentLikedByArr],
                             numOfLikes: currentLikedByArr.length
@@ -110,22 +110,22 @@ const Card = ({ addBy, url,  comments, title, caption, displayName, videoId, pho
     return (
         <div className="card">
             <div className="break" />
-            <div className="section">             
-                   <div className="user-info">
-                        <img className="user-avatar" src={photoUrl} width={'100%'} alt={displayName} />
-                        <div>
-                            <div className="section">
-                            <Link to = {`/user/${addBy}`}> 
+            <div className="section">
+                <div className="user-info">
+                    <img className="user-avatar" src={photoUrl} width={'100%'} alt={displayName} />
+                    <div>
+                        <div className="section">
+                            <Link to={`/user/${addBy}`}>
                                 <h3 className="bold">{displayName}</h3>
-                                </Link>
-                                <p className="username">{title}</p>
-                            </div>
-                            <p>{caption}</p>
+                            </Link>
+                            <p className="username">{title}</p>
                         </div>
-               <div/>
-
+                        <p>{caption}</p>
+                    </div>
+                    <div />
+                </div>
                 <div className='card-button-wrapper'>
-                    <FollowButton addBy={addBy} USER_LOGGED_IN={USER_LOGGED_IN} currentUserId={currentUserId}/>
+                    <FollowButton addBy={addBy} USER_LOGGED_IN={USER_LOGGED_IN} currentUserId={currentUserId} />
                 </div>
             </div>
 

@@ -25,6 +25,7 @@ export default function VideoFullScreen({ currentUserId, USER_LOGGED_IN}) {
     const [comments, setComments] = useState([])
     const [isLoading, setIsLoading] = useState(false);
     const history = useHistory();
+    const [numOfLikes, setNumOfLikes] =useState(0)
     // console.log(videoId)
 
     useEffect(() => {
@@ -35,6 +36,7 @@ export default function VideoFullScreen({ currentUserId, USER_LOGGED_IN}) {
                 console.log(video.data())
                 let src = video.data().url;
                 let temp = { ...video.data() }
+                setNumOfLikes(temp.likedBy.length)
                 setUploaderId(temp.addBy)
                 setVideoSrc(src)
                 takeCurrentVideo(temp)
@@ -197,7 +199,7 @@ export default function VideoFullScreen({ currentUserId, USER_LOGGED_IN}) {
                         <h1>{currentVideo.title}</h1>
                         <p className={viewPageStyles.caption}><FaMusic />{currentVideo.caption}</p>
                         <div className={viewPageStyles.iconsDiv}>
-                            <span><FaHeart className={viewPageStyles.icons} /></span><span>Num of likes</span>
+                            <span><FaHeart className={viewPageStyles.icons} /></span><span>{numOfLikes}</span>
                             <span><FaCommentDots className={viewPageStyles.icons} /></span><span>{numOfComments}</span>
                         </div>
 

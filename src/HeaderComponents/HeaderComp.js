@@ -20,9 +20,7 @@ export default function HeaderComp({ isUserLoggedIn, onTitleInputChange }) {
 
     const handleText = (text) => {
         text = text.trim()
-        if (text.length) {
-            deb(text)
-        }
+        deb(text)      
 
     }
 

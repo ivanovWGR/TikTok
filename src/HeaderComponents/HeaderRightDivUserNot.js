@@ -18,7 +18,7 @@ function HeaderRightDivUserNot() {
 console.log(LoginPage)
     return (
         <div id={styles.headerRightWrapper}>
-            <button id={styles.upload} >
+            <button id={styles.upload} onClick={bringModal} >
                 <span>Upload</span></button>
             <button id={styles.loginBtn} onClick={bringModal}>Log in</button>
             <LoginBtnsModal closeModal = { closeModal } isModalShown ={isModalShown} onCancel={closeModal}/>
