@@ -57,7 +57,7 @@ export default function YourTopAccounts({ isUserLoggedIn, loggedInUserId }) {
   } else {
     userOne = yourTopAccounts;
   }
-  if (!isUserLoggedIn || yourTopAccounts.length < 1) {
+  if (!loggedInUserId || yourTopAccounts.length < 1) {
     return (
       <div>
         <p>here you can see yours top accounts</p>

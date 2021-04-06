@@ -49,48 +49,48 @@ export default function ShowForYouPage({ USER_LOGGED_IN, loggedInUserId }) {
   }, [loggedInUserId, currentAccount]);
 
 
-  return (
-    <div>
-      <Layout className='layout'>
-        <Layout>
-          <Sider
-            width={250}
-            className="site-layout-background siderConteiner siderPosition"
-          >
-            <div className="siderWrapper">
-              <ShowSidebar isUserLoggedIn={USER_LOGGED_IN} loggedInUserId={loggedInUserId} />
-            </div>
-          </Sider>
-          <Layout style={{ padding: "0 24px 24px" }}>
-            <Content className="site-layout-background contentContainer">
-              {USER_LOGGED_IN ? videos.map(({ url, numOfLikes, numOfComments, title, caption, videoId, displayName, photoUrl }, index) => {
-                return <Card
-                  USER_LOGGED_IN={USER_LOGGED_IN}
-                  key={videoId}
-                  url={url}
-                  likes={numOfLikes}
-                  comments={numOfComments}
-                  title={title}
-                  videoId={videoId}
-                  caption={caption}
-                  photoUrl={photoUrl}
-                  displayName={displayName}
-                  currentUserId = {loggedInUserId} />;
-              }) : allVideos.map(({ url, numOfLikes, numOfComments, title, caption, videoId, displayName, photoUrl }, index) => {
-                return <Card
-                  USER_LOGGED_IN={USER_LOGGED_IN}
-                  key={videoId}
-                  url={url}
-                  likes={numOfLikes}
-                  comments={numOfComments}
-                  title={title}
-                  videoId={videoId}
-                  caption={caption}
-                  photoUrl={photoUrl}
-                  displayName={displayName}
-                  currentUserId = {loggedInUserId} />;
-              })}
-            </Content>
+    return (
+        <div>
+            <Layout className= 'layout'>
+            <Layout>
+              <Sider
+                width={250}
+                className="site-layout-background siderConteiner siderPosition"
+              >
+                <div className="siderWrapper">
+                  <ShowSidebar isUserLoggedIn={USER_LOGGED_IN} loggedInUserId={loggedInUserId}/>
+                </div>
+              </Sider>
+              <Layout style={{ padding: "0 24px 24px" }}>
+                <Content className="site-layout-background contentContainer">
+                {USER_LOGGED_IN? videos.map(({url, numOfLikes, numOfComments, title, caption, videoId, displayName, photoUrl }, index) => {
+                    return <Card
+                      USER_LOGGED_IN={USER_LOGGED_IN}
+                      key={videoId}
+                      url={url}
+                      likes={numOfLikes}
+                      comments={numOfComments}
+                      title={title}
+                      videoId={videoId}                      
+                      caption={caption}
+                      photoUrl= {photoUrl}
+                      displayName = {displayName}
+                      currentUserId = {loggedInUserId} />;
+                  }): allVideos.map(({url, numOfLikes, numOfComments, title, caption, videoId, displayName, photoUrl }, index) => {
+                    return <Card
+                      USER_LOGGED_IN={USER_LOGGED_IN}
+                      key={videoId}
+                      url={url}
+                      likes={numOfLikes}
+                      comments={numOfComments}
+                      title={title}
+                      videoId={videoId}                      
+                      caption={caption}
+                      photoUrl= {photoUrl}
+                      displayName = {displayName}
+                      currentUserId = {loggedInUserId}/>;
+                  })}
+                </Content>            
           </Layout>
         </Layout>
       </Layout>

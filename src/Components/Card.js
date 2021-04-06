@@ -8,6 +8,7 @@ import {useLocation} from 'react-router-dom'
 
 
 
+
 const Card = ({ addBy, url,  comments, title, caption, displayName, videoId, photoUrl, USER_LOGGED_IN, currentUserId, }) => {
     const [videoIsLiked, setIsVideoLiked] = useState(false);
     const [videoLikeByArr, setVideoLikedByArr] = useState([]);
@@ -109,21 +110,20 @@ const Card = ({ addBy, url,  comments, title, caption, displayName, videoId, pho
     return (
         <div className="card">
             <div className="break" />
-            <div className="section">
-
-                <Link to={`/user/${addBy}`}>
-
-                    <div className="user-info">
-                        <img className="user-avatar" src={photoUrl} width={'100%'} alt='username' />
+            <div className="section">             
+                   <div className="user-info">
+                        <img className="user-avatar" src={photoUrl} width={'100%'} alt={displayName} />
                         <div>
                             <div className="section">
+                            <Link to = {`/user/${addBy}`}> 
                                 <h3 className="bold">{displayName}</h3>
+                                </Link>
                                 <p className="username">{title}</p>
                             </div>
                             <p>{caption}</p>
                         </div>
-                    </div>
-                </Link>
+               <div/>
+
                 <div className='card-button-wrapper'>
                     <FollowButton addBy={addBy} USER_LOGGED_IN={USER_LOGGED_IN} currentUserId={currentUserId}/>
                 </div>

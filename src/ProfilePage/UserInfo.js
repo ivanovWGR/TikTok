@@ -4,25 +4,21 @@ import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
 import firebase,{ DataBase } from '../firebase'
+import FollowButtonUserProfile from '../Components/followButtonUserProfile'
 import { RiCreativeCommonsZeroLine } from 'react-icons/ri';
 
 
 const UserInfo = ({ selectedUserId, isUserLoggedIn }) => {
-    // console.log(selectedUserId)
+    // const [currentAccount, setCurrentAccount] = useState([]);
     const [userObj, setUserObj] = useState({})
+    // const [toggle,setToggle] = useState(true);
+    // const [buttonTxt,setButtonTxt] = useState('Follow');
     let currentUser = "";
     if(isUserLoggedIn) {
         currentUser = firebase.auth().currentUser.uid;
     }
        
 
-// const UserInfo = ({ selectedUserId }) => {
-//     const [userObj, setUserObj] = useState({})
-//     const currentUser = firebase.auth().currentUser.uid;
-//     const [toggle,setToggle] = useState(true);
-//     const [buttonTxt,setButtonTxt] = useState('Follow');
-
-    
 
     useEffect(() => {
         let user = {}
@@ -35,17 +31,8 @@ const UserInfo = ({ selectedUserId, isUserLoggedIn }) => {
             .catch((error) => {
                 console.log("Error getting document:", error);
             });
-
     }, [selectedUserId]);
-   
-    // const toggleClick = () => {
-    //     setToggle(!toggle)
-    //     if(!toggle){
-    //      setButtonTxt('Follow')
-    //     }else {
-    //         setButtonTxt('Following')
-    //     }
-    // }
+
     return (
         <div className={styles.infoWrapper}>
             <div className={styles.userInfo}>
@@ -56,8 +43,7 @@ const UserInfo = ({ selectedUserId, isUserLoggedIn }) => {
                     <h2 className={styles.username}>{userObj.nickName}</h2>
                     <h1 className={styles.description}>{userObj.displayName}</h1>
                     <div>
-                    {currentUser === selectedUserId ? null : <button className={styles.userPageBtn}>Follow</button>}
-                        {/* {currentUser === selectedUserId ? null : <button className={toggle?styles.userPageBtn:styles.followingButton} onClick={toggleClick}>{buttonTxt}</button>} */}
+                        {currentUser === selectedUserId ? null : <FollowButtonUserProfile selectedUserId = {selectedUserId} isUserLoggedIn={isUserLoggedIn}/>}
                     </div>
                 </div>
             </div>

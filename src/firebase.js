@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+
 //TikTok3 back up
 const firebaseConfig = {
   apiKey: "AIzaSyDnmVrgRKxs61PmbkpHr3B76VnUT9wsWEU",
@@ -8,12 +9,7 @@ const firebaseConfig = {
   messagingSenderId: "663064326882",
   appId: "1:663064326882:web:aa803a539044284051a4bb"
 };
-
-
-//Georgi
-
-
-// ORIGIN DATABASE
+//ORIGINAL
 // const firebaseConfig = {
 //   apiKey: "AIzaSyBhmeauIX75GPOpZOry14DQNGPIKzVpRIY",
 //   authDomain: "tiktokclonetrainingproject.firebaseapp.com",
@@ -24,6 +20,7 @@ const firebaseConfig = {
 //   measurementId: "G-RXX2642PWD"
 // };
 
+//GEORGI
 // const firebaseConfig = {
 //   apiKey: "AIzaSyBk3OZuWowO1SzTAcd-hSozByzvNN6D3jE",
 //   authDomain: "tiktok-clone-278e0.firebaseapp.com",
