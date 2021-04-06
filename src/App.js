@@ -179,10 +179,11 @@ function App() {
                 {/* Кард контаинер */}
                 <Content className="site-layout-background contentContainer">
                   
-                  {filteredvideos.map(({addBy, url, numOfLikes, numOfComments, title, caption, videoId, photoUrl, displayName }, index) => {
+                  {filteredvideos.map(({addBy, url, numOfLikes, numOfComments, title, caption, videoId, photoUrl, displayName, currentUserId }, index) => {
                     console.log(photoUrl)
                     return <Card
                       USER_LOGGED_IN={USER_LOGGED_IN}
+                      currentUserId = {currentUserId}
                       key={videoId}
                       url={url}
                       likes={numOfLikes}

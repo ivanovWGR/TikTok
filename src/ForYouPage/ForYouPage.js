@@ -93,7 +93,8 @@ export default function ShowForYouPage ({USER_LOGGED_IN, loggedInUserId}) {
                       videoId={videoId}                      
                       caption={caption}
                       photoUrl= {photoUrl}
-                      displayName = {displayName} />;
+                      displayName = {displayName}
+                      currentUserId = {loggedInUserId} />;
                   }): allVideos.map(({url, numOfLikes, numOfComments, title, caption, videoId, displayName, photoUrl }, index) => {
                     return <Card
                       USER_LOGGED_IN={USER_LOGGED_IN}
@@ -105,7 +106,8 @@ export default function ShowForYouPage ({USER_LOGGED_IN, loggedInUserId}) {
                       videoId={videoId}                      
                       caption={caption}
                       photoUrl= {photoUrl}
-                      displayName = {displayName} />;
+                      displayName = {displayName}
+                      currentUserId = {loggedInUserId}/>;
                   })}
                 </Content>
               </Layout>

@@ -123,6 +123,7 @@ export default function ShowFollowingPage({ USER_LOGGED_IN, loggedInUserId }) {
                             photoUrl={photoUrl}
                             displayName={displayName}
                             addBy={addBy}
+                            currentUserId = {loggedInUserId}
                           />
                         );
                       }
@@ -155,6 +156,7 @@ export default function ShowFollowingPage({ USER_LOGGED_IN, loggedInUserId }) {
                             photoUrl={photoUrl}
                             displayName={displayName}
                             addBy={addBy}
+                            currentUserId = {loggedInUserId}
                           />
                         );
                       }

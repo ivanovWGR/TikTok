@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import styles from "./FollowButtonUserProfile.module.scss";
 import firebase, { DataBase } from "../firebase";
+import { Modal } from "antd";
+import LoginPage from "../LoginPage/LoginPage";
 
-export default function FollowButtonUserProfile ({ selectedUserId, isUserLoggedIn }) {
+export default function FollowButtonUserProfile ({ selectedUserId, isUserLoggedIn}) {
   const [currentAccount, setCurrentAccount] = useState([]);
 
   let currentUser = "";
@@ -27,6 +30,7 @@ export default function FollowButtonUserProfile ({ selectedUserId, isUserLoggedI
   }, [isUserLoggedIn, currentUser]);
 
   const toogleClick = () => {
+    if(isUserLoggedIn){
       if (!currentAccount.includes(selectedUserId)) {
         DataBase.collection("users")
           .doc(currentUser)
@@ -41,19 +45,24 @@ export default function FollowButtonUserProfile ({ selectedUserId, isUserLoggedI
             following: firebase.firestore.FieldValue.arrayRemove(selectedUserId),
           });
       }
+    }
   };
 
   if (!isUserLoggedIn || !currentAccount.includes(selectedUserId)) {
-    return (
-      <button className={styles.userPageBtn} onClick={toogleClick}>
-        Follow
-      </button>
-    );
+      return (
+        <Link to = {"/"}>
+         <button className={styles.userPageBtn} onClick={toogleClick}>
+          Follow
+        </button>
+        </Link>
+      );
   } else {
     return (
+      <Link to = {"/"}>
       <button className={styles.followingButton} onClick={toogleClick}>
         Following
       </button>
+      </Link>
     );
   }
 }

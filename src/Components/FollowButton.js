@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import styles from "./FollowButton.module.scss";
 import firebase, { DataBase } from "../firebase";
 
@@ -27,13 +28,13 @@ export default function FollowButton({ addBy, USER_LOGGED_IN }) {
   }, [USER_LOGGED_IN, currentUser]);
 
   const toogleClick = () => {
+    if (USER_LOGGED_IN) {
       if (!currentAccount.includes(addBy)) {
         DataBase.collection("users")
           .doc(currentUser)
           .update({
             following: firebase.firestore.FieldValue.arrayUnion(addBy),
           });
-        
       } else {
         DataBase.collection("users")
           .doc(currentUser)
@@ -41,20 +42,25 @@ export default function FollowButton({ addBy, USER_LOGGED_IN }) {
             following: firebase.firestore.FieldValue.arrayRemove(addBy),
           });
       }
-   
+    }
   };
 
   if (!USER_LOGGED_IN || !currentAccount.includes(addBy)) {
+    console.log("follow")
     return (
-      <button className={styles.followButton} onClick={toogleClick}>
-        Follow
-      </button>
+      <Link to={"/FollowingPage"}>
+        <button className={styles.followButton} onClick={toogleClick}>
+          Follow
+        </button>
+      </Link>
     );
   } else {
     return (
-      <button className={styles.followingButton} onClick={toogleClick}>
-        Following
-      </button>
+      <Link to={"/ForYouPage"}>
+        <button className={styles.followingButton} onClick={toogleClick}>
+          Following
+        </button>
+      </Link>
     );
   }
 }

@@ -5,7 +5,7 @@ import LoginPage from "../../LoginPage/LoginPage";
 
 
 
-export default function SidebarLoginBtutton ({onClick}) {
+export default function SidebarLoginBtutton () {
 
     const [isModalShown, showModal] = useState(false)
     function bringModal() {
@@ -34,11 +34,8 @@ export default function SidebarLoginBtutton ({onClick}) {
                     height: "700px",
                     resize: "none"
                 }}
-                
             >                
                 <LoginPage destroyModal = {closeModal} />              
-               
-                
             </Modal>
         </div>
     )

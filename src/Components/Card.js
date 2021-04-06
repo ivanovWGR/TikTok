@@ -3,8 +3,7 @@ import { FaCommentDots, FaShare, FaHeart, FaBuromobelexperte } from "react-icons
 import { Link } from 'react-router-dom';
 import FollowButton from './FollowButton'
 
-    const Card = ({addBy, url, likes, comments, title, caption, displayName, videoId, photoUrl, USER_LOGGED_IN }) => {
-        console.log(photoUrl)
+    const Card = ({addBy, url, likes, comments, title, caption, displayName, videoId, photoUrl, USER_LOGGED_IN, currentUserId}) => {
          return (
             <div className="card">
                 <div className="break" />
