@@ -8,12 +8,13 @@ import { GrClose } from 'react-icons/gr'
 import { DataBase } from "../firebase";
 import CommentDiv from './CommentDiv';
 import FollowButton from '../Components/FollowButton'
+import { notification, Button } from "antd";
 let nextVideoBtnPressed = false;
 
 let nextVideoIndex = 0;
 
 // TO DO VALIDATION UP TO 200 letters for comment, enter to triger uploading. Styling.
-export default function VideoFullScreen({ currentUserId, USER_LOGGED_IN}) {
+export default function VideoFullScreen({ currentUserId, USER_LOGGED_IN }) {
     const { videoId } = useParams();
     const [user, setUser] = useState();
     const [currentVideo, takeCurrentVideo] = useState({})
@@ -25,7 +26,7 @@ export default function VideoFullScreen({ currentUserId, USER_LOGGED_IN}) {
     const [comments, setComments] = useState([])
     const [isLoading, setIsLoading] = useState(false);
     const history = useHistory();
-    const [numOfLikes, setNumOfLikes] =useState(0)
+    const [numOfLikes, setNumOfLikes] = useState(0)
     // console.log(videoId)
 
     useEffect(() => {
@@ -96,9 +97,25 @@ export default function VideoFullScreen({ currentUserId, USER_LOGGED_IN}) {
                 setUser(res.data())
             })
     }, [currentUserId])
+    const openNotification = (ev) => {
+        ev.preventDefault()
+        const key = `open${Date.now()}`;
+        const btn = (
+            <Button type="primary" size="small" onClick={() => {
+                notification.close(key)
+            }}>
+                Confirm
+            </Button>
+        );
+        notification.open({
+            message: 'Search notification',
+            description: 'Please log in first.',
+            btn,
+            key,
+        });
+    };
 
-
-    const uploadComment = (ev) => {
+    const uploadComment = (ev) => {        
         ev.preventDefault()
         console.log("event :", ev)
         if (input.trim().length < 200) {
@@ -192,7 +209,7 @@ export default function VideoFullScreen({ currentUserId, USER_LOGGED_IN}) {
                     <h1 className={viewPageStyles.uploaderInfo}>
                         <img src={currentVideo.photoUrl} alt="pic" className={viewPageStyles.uploaderPic} />
                         {currentVideo.displayName}</h1>
-                    <FollowButton addBy = {uploaderId} USER_LOGGED_IN = {USER_LOGGED_IN}/>
+                    <FollowButton addBy={uploaderId} USER_LOGGED_IN={USER_LOGGED_IN} />
                 </div>
                 <div className={viewPageStyles.commentsWrapper}>
                     <div className={viewPageStyles.videoInfo}>
@@ -222,11 +239,11 @@ export default function VideoFullScreen({ currentUserId, USER_LOGGED_IN}) {
                     <form className={viewPageStyles.form}>
                         <input placeholder="Add comment" value={input} className={viewPageStyles.postInput}
                             onInput={(ev) => {
-                                setInput(ev.target.value)                                
+                                setInput(ev.target.value)
                             }
                             }
                         ></input>
-                        <button type="submit" onClick={uploadComment}> Post</button>
+                        <button type="submit" onClick={USER_LOGGED_IN ? uploadComment : openNotification}> Post</button>
                     </form>
                 </div>
             </div>

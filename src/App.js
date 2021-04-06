@@ -92,7 +92,7 @@ function App() {
   //   setFiltered(temp);
   // }
   //NOTIFICATION FUNCTION FOR SEARCH
-  const openNotification = (message, title) => {
+  const openNotification = (message) => {
     const key = `open${Date.now()}`;
     const btn = (
       <Button type="primary" size="small" onClick={() => {
