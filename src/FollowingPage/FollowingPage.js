@@ -17,8 +17,7 @@ export default function ShowFollowingPage({ USER_LOGGED_IN, loggedInUserId }) {
         querySnapshot.forEach((doc) => {
           if (doc.id === loggedInUserId) {
             let res = { ...doc.data() };
-            setCurrentAccount([...res.following]);
-            console.log("current account", res);
+            setCurrentAccount([...res.following]);            
           }
         });
       })

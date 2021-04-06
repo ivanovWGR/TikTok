@@ -8,17 +8,13 @@ import LoginBtnsModal from '../LoginBtnsModal'
 export default function FollowButtonUserProfile ({ selectedUserId, isUserLoggedIn, currentUserId}) {
   const [currentAccount, setCurrentAccount] = useState([]);
   const [isModalShown, showModal] = useState(false)
+  //BRING MODAL FUNCS
     function bringModal() {
         showModal(true)
     }
     function closeModal() {
         showModal(false)
-    }
-
-  // let currentUser = "";
-  // if (isUserLoggedIn) {
-  //   currentUser = firebase.auth().currentUser.uid;
-  // }
+    }  
 
   useEffect(() => {
     if(currentUserId){
@@ -80,7 +76,7 @@ export default function FollowButtonUserProfile ({ selectedUserId, isUserLoggedI
     return (
       <Link to = {"/"}>
       <button className={styles.followingButton} onClick={toogleClick}>
-        Following
+        Unfollow
       </button>
       </Link>
     );

@@ -3,30 +3,20 @@ import styles from './UserProfile.module.scss';
 import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
-import firebase,{ DataBase } from '../firebase'
+import firebase, { DataBase } from '../firebase'
 import FollowButtonUserProfile from '../Components/followButtonUserProfile'
-import { RiCreativeCommonsZeroLine } from 'react-icons/ri';
+
 
 
 const UserInfo = ({ selectedUserId, isUserLoggedIn, currentUserId }) => {
-    // const [currentAccount, setCurrentAccount] = useState([]);
     const [userObj, setUserObj] = useState({})
-    // const [toggle,setToggle] = useState(true);
-    // const [buttonTxt,setButtonTxt] = useState('Follow');
-    // let currentUser = "";
-    // if(isUserLoggedIn) {
-    //     currentUser = firebase.auth().currentUser.uid;
-    // }
-       
-
 
     useEffect(() => {
         let user = {}
         DataBase.collection('users').doc(selectedUserId).get()
             .then((res) => {
                 user = { ...res.data() }
-                setUserObj(user)
-                console.log('fetch in user info')
+                setUserObj(user)                
             })
             .catch((error) => {
                 console.log("Error getting document:", error);
@@ -43,8 +33,8 @@ const UserInfo = ({ selectedUserId, isUserLoggedIn, currentUserId }) => {
                     <h2 className={styles.username}>{userObj.nickName}</h2>
                     <h1 className={styles.description}>{userObj.displayName}</h1>
                     <div>
-                        {currentUserId === selectedUserId ? null : <FollowButtonUserProfile selectedUserId = {selectedUserId} isUserLoggedIn={isUserLoggedIn}
-                        currentUserId = {currentUserId} />}
+                        {currentUserId === selectedUserId ? null : <FollowButtonUserProfile selectedUserId={selectedUserId} isUserLoggedIn={isUserLoggedIn}
+                            currentUserId={currentUserId} />}
                     </div>
                 </div>
             </div>

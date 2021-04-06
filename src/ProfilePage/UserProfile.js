@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import firebase, { DataBase } from '../firebase'
 import "antd/dist/antd.css";
-import styles from './UserProfile.module.scss';
+
 import Sidebar from '../Sidebar/Sidebar'
 import UserInfo from './UserInfo';
 import UserVideoTab from './UserVideoTab'
 import { Layout } from "antd";
 
 const { Content, Sider } = Layout;
-const UserPage = ({ selectedUserId, isUserLoggedIn, loggedInUserId}) => {
+const UserPage = ({ selectedUserId, isUserLoggedIn, loggedInUserId }) => {
     const [userVideos, setUserVideos] = useState([]);
     const [likedVideos, setLikedVideos] = useState([]);
     //ASYNC
@@ -17,7 +17,6 @@ const UserPage = ({ selectedUserId, isUserLoggedIn, loggedInUserId}) => {
     }
     useEffect(() => {
         const fetchedVideos = [];
-        const fetchedLikedVideos = [];
         DataBase.collection("videos").where("addBy", "==", selectedUserId)
             .get()
             .then((querySnapshot) => {
@@ -27,7 +26,6 @@ const UserPage = ({ selectedUserId, isUserLoggedIn, loggedInUserId}) => {
                     fetchedVideos.push(video)
                 });
                 setUserVideos(fetchedVideos);
-                console.log('fetch in user profile')
             })
             .catch((error) => {
                 console.log("Error getting documents: ", error);
@@ -41,14 +39,9 @@ const UserPage = ({ selectedUserId, isUserLoggedIn, loggedInUserId}) => {
             .get()
             .then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
-                    // doc.data() is never undefined for query doc snapshots
-                    // console.log(doc.id, " => ", doc.data());
                     fetchedLikedVideos.push(doc.data())
                 });
                 setLikedVideos(fetchedLikedVideos)
-                // console.log('fetchedLikedVideos ', fetchedLikedVideos)
-                // console.log('likedVideos ', likedVideos)
-                console.log('fetch 2 in user profile ')
             })
             .catch((error) => {
                 console.log("Error getting documents: ", error);
@@ -67,7 +60,7 @@ const UserPage = ({ selectedUserId, isUserLoggedIn, loggedInUserId}) => {
                     </Sider>
                     <Layout style={{ padding: "0 24px 24px" }}>
                         <Content className="site-layout-background userPageContent">
-                            <UserInfo isUserLoggedIn = {isUserLoggedIn} selectedUserId={selectedUserId} currentUserId ={loggedInUserId} />
+                            <UserInfo isUserLoggedIn={isUserLoggedIn} selectedUserId={selectedUserId} currentUserId={loggedInUserId} />
                             <UserVideoTab selectedUserId={selectedUserId} userVideos={userVideos} likedVideos={likedVideos} />
                         </Content>
                     </Layout>

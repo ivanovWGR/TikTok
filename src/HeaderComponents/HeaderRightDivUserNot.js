@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
-// import { Modal } from 'antd'
 import LoginPage from "../LoginPage/LoginPage"
 import styles from './Header.module.scss'
-import { HiOutlineDotsVertical } from "react-icons/hi";
 import LoginBtnsModal from '../LoginBtnsModal'
 
 
@@ -21,24 +19,7 @@ console.log(LoginPage)
             <button id={styles.upload} onClick={bringModal} >
                 <span>Upload</span></button>
             <button id={styles.loginBtn} onClick={bringModal}>Log in</button>
-            <LoginBtnsModal closeModal = { closeModal } isModalShown ={isModalShown} onCancel={closeModal}/>
-            {/* <Modal
-                // title="Basic Modal"
-                visible={isModalShown}
-                onCancel={closeModal}
-                okButtonProps={{ disabled: false }}
-                cancelButtonProps={{ disabled: false }}
-                footer ={null}
-                // className = {styles.loginPageRooter}
-                mask={true}
-                width= "600px"
-                bodyStyle ={{
-                    height: "700px",
-                    resize: "none"
-                }}>
-
-                <LoginPage />            
-               </Modal> */}
+            <LoginBtnsModal closeModal = { closeModal } isModalShown ={isModalShown} onCancel={closeModal}/>           
             
         </div>
     )

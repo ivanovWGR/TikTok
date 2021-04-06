@@ -16,7 +16,6 @@ export default function YourTopAccounts({ isUserLoggedIn, loggedInUserId }) {
           if (doc.id === loggedInUserId) {
             let res = { ...doc.data() };
             setCurrentAccount([...res.following]);
-            console.log("current account", res);
           }
         });
       })
@@ -60,13 +59,13 @@ export default function YourTopAccounts({ isUserLoggedIn, loggedInUserId }) {
   if (!loggedInUserId || yourTopAccounts.length < 1) {
     return (
       <div>
-        <p>here you can see yours top accounts</p>
+        <p>here you can see your following accounts</p>
       </div>
     );
   }
   return (
     <div>
-      <p>Your top accounts</p>
+      <p>Your following accounts</p>
       {
         <div>
           {userOne.map((el) => (

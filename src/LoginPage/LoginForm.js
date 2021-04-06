@@ -3,35 +3,30 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import firebase from '../firebase'
 import LoginHeader from "./commonComponents/LoginHeader"
 import styles from "./Login.module.css"
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 export default function LoginForm({ destroyModal }) {
     const close = destroyModal;
-    const history = useHistory();
     const onFinish = (values) => {
-        console.log('Received values of form: ', values);
         firebase.auth().signInWithEmailAndPassword(values.username.trim(), values.password)
             .then((userCredential) => {
-                console.log('user credential ', userCredential);                // Signed in
-
+                // Signed in
                 const user = firebase.auth().currentUser;
                 if (user) {
                     const name = user.displayName;
                     const email = user.email;
                     const photoUrl = user.photoURL;
                     const uid = user.uid;
-                    // history.push('/')
-                    console.log('User ', user)
-                    // console.log(`Name ${name}, Email ${email}, UID ${uid}`)
+                    // console.log('User ', user)                    
                     close()
                 } else {
                     throw new Error('Wrong email or password!')
-                }                
-            })            
-            .catch((error) => {               
+                }
+            })
+            .catch((error) => {
                 alert("Wrong email or password!")
-                
-            });        
+
+            });
     };
 
     return (

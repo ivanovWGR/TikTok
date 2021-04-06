@@ -63,8 +63,7 @@ export default function FollowButton({ addBy, USER_LOGGED_IN, currentUserId }) {
             </>
         );
     }
-    if (!USER_LOGGED_IN || !currentAccount.includes(addBy)) {
-        console.log("follow")
+    if (!USER_LOGGED_IN || !currentAccount.includes(addBy)) {        
         return (
             <Link to={"/FollowingPage"}>
                 <button className={styles.followButton} onClick={toogleClick}>
@@ -76,7 +75,7 @@ export default function FollowButton({ addBy, USER_LOGGED_IN, currentUserId }) {
         return (
             <Link to={"/ForYouPage"}>
                 <button className={styles.followingButton} onClick={toogleClick}>
-                    Following
+                    Unfollow
         </button>
             </Link>
         );

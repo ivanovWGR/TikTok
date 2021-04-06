@@ -132,7 +132,7 @@ export default function VideoFullScreen({ currentUserId, USER_LOGGED_IN }) {
             }
             DataBase.collection("comments").doc().set(commentObj)
                 .then(() => {
-                    console.log("Document successfully written!");
+                    // console.log("Document successfully written!");
                     setInput("")
                 })
                 .catch((error) => {
@@ -144,8 +144,8 @@ export default function VideoFullScreen({ currentUserId, USER_LOGGED_IN }) {
 
             })
                 .then(() => {
-                    console.log('Comments length: ', comments.length)
-                    console.log("num of comments updated")
+                    // console.log('Comments length: ', comments.length)
+                    // console.log("num of comments updated")
                 })
 
         } else {
@@ -183,12 +183,10 @@ export default function VideoFullScreen({ currentUserId, USER_LOGGED_IN }) {
     const onErrorLoadingVideo = () => {
 
         if (nextVideoBtnPressed && ((nextVideoIndex + 2) < thisUserVideosIds.length)) {
-            nextVideoIndex += 1;
-            console.log('In IF')
+            nextVideoIndex += 1;            
             nextVideo();
         } else {
-            nextVideoIndex -= 1;
-            console.log('Else')
+            nextVideoIndex -= 1;            
             previousVideo();
         }
     }

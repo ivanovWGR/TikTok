@@ -13,9 +13,7 @@ export default function SidebarLoginBtutton () {
     }
     function closeModal() {
         showModal(false)
-    }
-    // const modal = Modal.info()
-    // console.log(modal)
+    }    
     return (
         <div id = {styles.sidebarLoginBtn}>
             <div><span className = {styles.span}>Log in to follow creators, like videos, and view comments.</span></div>
@@ -26,8 +24,7 @@ export default function SidebarLoginBtutton () {
                 onCancel={closeModal}
                 okButtonProps={{ disabled: false }}
                 cancelButtonProps={{ disabled: false }}
-                footer ={null}
-                // className = {styles.loginPageRooter}
+                footer ={null}                
                 mask={true}
                 width= "600px"
                 bodyStyle ={{

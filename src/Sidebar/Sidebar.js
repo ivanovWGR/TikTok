@@ -24,13 +24,11 @@ export default function ShowSidebar({ isUserLoggedIn, loggedInUserId }) {
             <ForYouBtnUnactive
               img={forYouActive}
               description={"For You"}
-              // onClick={changeButtonStylesForYou}
             />
           ) : (
             <ForYouBtnActive
               img={forYouUnactive}
               description={"For You"}
-              // onClick={changeButtonStylesForYou}
             />
           )}
 
@@ -38,13 +36,11 @@ export default function ShowSidebar({ isUserLoggedIn, loggedInUserId }) {
             <FollowingBtnActive
               img={followActive}
               description={"Following"}
-              // onClick={changeButtonStylesForYou}
             />
           ) : (
             <FollowingBtnUnactive
               img={followUnactive}
               description={"Following"}
-              // onClick={changeButtonStylesForYou}
             />
           )}
         </div>

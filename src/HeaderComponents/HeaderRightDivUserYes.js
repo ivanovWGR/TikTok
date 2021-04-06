@@ -6,23 +6,15 @@ import { RiUploadCloudLine, RiSettings5Line } from "react-icons/ri"
 import { BiMessageAltMinus, BiUser, BiHelpCircle } from "react-icons/bi"
 import { CgProfile } from "react-icons/cg"
 import { FiLogIn } from "react-icons/fi"
-import { GrLanguage } from "react-icons/gr"
 import { Tooltip } from "antd"
-import { formatCountdown } from 'antd/lib/statistic/utils';
-
-
 import styles from './Header.module.scss'
-
-
-
 
 function HeaderRightDivUserYes() {
     const [isShown, setIsShown] = useState(false);
     const history = useHistory()
     const logOut = () => {
         firebase.auth().signOut().then(() => {
-            history.push('/');
-            console.log('Logout success!')
+            history.push('/');            
         }).catch((error) => {
             console.log('logout err', error)
         });

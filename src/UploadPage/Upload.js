@@ -4,11 +4,7 @@ import UploadHeader from './UploadHeader';
 import UploadForm from './UploadForm';
 import Footer from '../Footer/Footer'
 
-
-
-
 function Upload() {
-
     return (
         <div className={styles.uploadpage}>
             <div>
@@ -16,9 +12,9 @@ function Upload() {
             </div>
 
             <div className={styles.container}>
-               <UploadForm/>
+                <UploadForm />
             </div>
-          <Footer/>
+            <Footer />
         </div>
     )
 }

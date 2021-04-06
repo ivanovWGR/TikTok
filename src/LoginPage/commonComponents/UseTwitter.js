@@ -11,12 +11,10 @@ export default function UseTwitter({ text, shouldLogin, hideModal }) {
             .then((result) => {
                 /** @type {firebase.auth.OAuthCredential} */
                 var credential = result.credential;
-
                 // This gives you a the Twitter OAuth 1.0 Access Token and Secret.
                 // You can use these server side with your app's credentials to access the Twitter API.
                 var token = credential.accessToken;
                 var secret = credential.secret;
-
                 // The signed-in user info.
                 var user = result.user;
                 // ...
@@ -30,14 +28,10 @@ export default function UseTwitter({ text, shouldLogin, hideModal }) {
                 var credential = error.credential;
                 // ...
             });
-
-
-
         // Close the modal here....
     }
 
-    const onLoginUser = () => {
-        // logvash go
+    const onLoginUser = () => {       // logvash go
 
         // close the modal here as well.... hideModal()
     }

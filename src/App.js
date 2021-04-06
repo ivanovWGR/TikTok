@@ -53,8 +53,7 @@ function App() {
         querySnapshot.forEach((doc) => {
           if (doc.id === currentUserId) {
             let res = { ...doc.data() }
-            setCurrentAccount([...res.following])
-            console.log("current account", res)
+            setCurrentAccount([...res.following])            
           }
         });
       })
@@ -66,8 +65,7 @@ function App() {
   useEffect(() => {
     const tempVideos = []
     // Asynch operation
-    DataBase.collection("videos").get().then((querySnapshot) => {
-      console.log('Shouts once!')
+    DataBase.collection("videos").get().then((querySnapshot) => {      
       querySnapshot.forEach((doc) => {
         if (currentUserId) {
           console.log(currentAccount)
@@ -83,14 +81,9 @@ function App() {
         }
       });
       setVideos(tempVideos);
-      setFiltered(tempVideos);
-      console.log('request!')
+      setFiltered(tempVideos);     
     });
-  }, [currentUserId, currentAccount])
-  // const searchByName = (input) => {
-  //   const temp = videos.filter(video => video.addBy.toLowerCase().includes(input.toLowerCase()));
-  //   setFiltered(temp);
-  // }
+  }, [currentUserId, currentAccount])  
   //NOTIFICATION FUNCTION FOR SEARCH
   const openNotification = (message) => {
     const key = `open${Date.now()}`;
@@ -121,22 +114,16 @@ function App() {
           ||
           el.displayName.toLowerCase().includes(input.toLowerCase())
       })
-    }
-    console.log('Search Arr', arr)
+    }   
     return arr
   }
 
   //USEEFFECT HOOK FOR TRIGGERING SEARCH RESULTS DISPLAY
-  useEffect(() => {
-    console.log('use effect search videos')
+  useEffect(() => {    
     let result = searchValidation(filtered, searchValue)
     console.log(result)
     setFilteredVideos([...result])
-  }, [searchValue, filtered])
-
-  console.log('FilteredVideos', filteredvideos)
-
-  // const filteredvideos = filtered.filter(video => video.caption.toLowerCase().includes(searchValue.toLowerCase()))
+  }, [searchValue, filtered])  
 
   const chunkedVideos = useMemo(() => {
     let chunkVideos = [];

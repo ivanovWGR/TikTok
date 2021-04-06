@@ -13,18 +13,14 @@ console.log(destroyModal);
             .then((result) => {
                 /** @type {firebase.auth.OAuthCredential} */
                 const credential = result.credential;
-
                 // This gives you a Google Access Token. You can use it to access the Google API.
                 const token = credential.accessToken;
                 // The signed-in user info.
                 const user = result.user;
-                console.log("User: ", user)
-
+                // console.log("User: ", user)
                 DataBase.collection('users').doc(user.uid).get().then(res => {
                     let result = res.data();
-
-                    console.log('Result: ', result);
-
+                    // console.log('Result: ', result);
                     if(!result) {
                         // createUserInDatabase({user.displayName, avatar: user.image});
                         createUserInDatabase(user.uid, user.displayName, user.photoURL)
@@ -41,9 +37,6 @@ console.log(destroyModal);
                 var credential = error.credential;
                 // ...
             });
-
-
-
         // Close the modal here....
         colapseModal()
     }

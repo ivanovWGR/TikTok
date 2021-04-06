@@ -17,7 +17,6 @@ export default function SuggestionAccounts({ isUserLoggedIn, loggedInUserId }) {
           if (doc.id === loggedInUserId) {
             let res = { ...doc.data() };
             setCurrentAccount([...res.following]);
-            console.log("current account", res);
           }
         });
       })
@@ -38,7 +37,6 @@ export default function SuggestionAccounts({ isUserLoggedIn, loggedInUserId }) {
           if (!currentAccount.includes(doc.id) && doc.id !== loggedInUserId) {
             suggestedAcc.push(user);
           }
-
           users.push(user);
         });
         SetSuggestedAccounts(suggestedAcc);
