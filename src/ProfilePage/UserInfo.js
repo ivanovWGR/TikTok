@@ -4,14 +4,15 @@ import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
 import firebase,{ DataBase } from '../firebase'
+import FollowButtonUserProfile from '../Components/followButtonUserProfile'
 import { RiCreativeCommonsZeroLine } from 'react-icons/ri';
 
 
 const UserInfo = ({ selectedUserId, isUserLoggedIn }) => {
-    const [currentAccount, setCurrentAccount] = useState([]);
+    // const [currentAccount, setCurrentAccount] = useState([]);
     const [userObj, setUserObj] = useState({})
-    const [toggle,setToggle] = useState(true);
-    const [buttonTxt,setButtonTxt] = useState('Follow');
+    // const [toggle,setToggle] = useState(true);
+    // const [buttonTxt,setButtonTxt] = useState('Follow');
     let currentUser = "";
     if(isUserLoggedIn) {
         currentUser = firebase.auth().currentUser.uid;
@@ -33,40 +34,46 @@ const UserInfo = ({ selectedUserId, isUserLoggedIn }) => {
     }, [selectedUserId]);
 
 
+        // useEffect(() => {
+        //     DataBase.collection("users")
+        //     .get()
+        //     .then((querySnapshot) => {
+        //       querySnapshot.forEach((doc) => {
+        //         if (doc.id === currentUser) {
+        //           let res = {...doc.data()}
+        //           setCurrentAccount([...res.following])
+        //           console.log("current account", res)
+        //         }
+        //       });
+        //     })
+        //     .catch((error) => {
+        //       console.log("Error getting document:", error);
+        //     });
+        // },[isUserLoggedIn]);
 
-
-        useEffect(() => {
-            DataBase.collection("users")
-            .get()
-            .then((querySnapshot) => {
-              querySnapshot.forEach((doc) => {
-                if (doc.id === currentUser) {
-                  let res = {...doc.data()}
-                  setCurrentAccount([...res.following])
-                  console.log("current account", res)
-                }
-              });
-            })
-            .catch((error) => {
-              console.log("Error getting document:", error);
-            });
-        },[isUserLoggedIn]);
-    
+    // if (!currentAccount.includes(selectedUserId)) {
+    //     setButtonTxt('Follow')
+    //     setToggle(true)
+    // } else {
+    //     setButtonTxt('Following')
+    //     setToggle(false)
+    // }
+ 
   
-    const toggleClick = () => {
-        if (!currentAccount.includes(selectedUserId)){
-            DataBase.collection('users').doc(currentUser).update({
-                following : firebase.firestore.FieldValue.arrayUnion(selectedUserId)
-            })
-            setButtonTxt('Following')
-        }else {
-            DataBase.collection('users').doc(currentUser).update({
-                following : firebase.firestore.FieldValue.arrayRemove(selectedUserId)
-            })
-            setButtonTxt('Follow')
-        }
-        setToggle(!toggle)
-    }
+    // const toggleClick = () => {
+    //     if (!currentAccount.includes(selectedUserId)){
+    //         DataBase.collection('users').doc(currentUser).update({
+    //             following : firebase.firestore.FieldValue.arrayUnion(selectedUserId)
+    //         })
+    //         setButtonTxt('Following')
+    //     }else {
+    //         DataBase.collection('users').doc(currentUser).update({
+    //             following : firebase.firestore.FieldValue.arrayRemove(selectedUserId)
+    //         })
+    //         setButtonTxt('Follow')
+    //     }
+    //     setToggle(!toggle)
+    // }
 
 
     return (
@@ -79,7 +86,7 @@ const UserInfo = ({ selectedUserId, isUserLoggedIn }) => {
                     <h2 className={styles.username}>{userObj.nickName}</h2>
                     <h1 className={styles.description}>{userObj.displayName}</h1>
                     <div>
-                        {currentUser === selectedUserId ? null : <button className={toggle?styles.userPageBtn:styles.followingButton} onClick={toggleClick}>{buttonTxt}</button>}
+                        {currentUser === selectedUserId ? null : <FollowButtonUserProfile selectedUserId = {selectedUserId} isUserLoggedIn={isUserLoggedIn}/>}
                     </div>
                 </div>
             </div>

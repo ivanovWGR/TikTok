@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import styles from "./FollowButton.module.scss";
+import styles from "./FollowButtonUserProfile.module.scss";
 import firebase, { DataBase } from "../firebase";
 
-export default function FollowButton({ addBy, USER_LOGGED_IN }) {
+export default function FollowButtonUserProfile ({ selectedUserId, isUserLoggedIn }) {
   const [currentAccount, setCurrentAccount] = useState([]);
 
   let currentUser = "";
-  if (USER_LOGGED_IN) {
+  if (isUserLoggedIn) {
     currentUser = firebase.auth().currentUser.uid;
   }
 
@@ -24,29 +24,28 @@ export default function FollowButton({ addBy, USER_LOGGED_IN }) {
       .catch((error) => {
         console.log("Error getting document:", error);
       });
-  }, [USER_LOGGED_IN, currentUser]);
+  }, [isUserLoggedIn, currentUser]);
 
   const toogleClick = () => {
-      if (!currentAccount.includes(addBy)) {
+      if (!currentAccount.includes(selectedUserId)) {
         DataBase.collection("users")
           .doc(currentUser)
           .update({
-            following: firebase.firestore.FieldValue.arrayUnion(addBy),
+            following: firebase.firestore.FieldValue.arrayUnion(selectedUserId),
           });
         
       } else {
         DataBase.collection("users")
           .doc(currentUser)
           .update({
-            following: firebase.firestore.FieldValue.arrayRemove(addBy),
+            following: firebase.firestore.FieldValue.arrayRemove(selectedUserId),
           });
       }
-   
   };
 
-  if (!USER_LOGGED_IN || !currentAccount.includes(addBy)) {
+  if (!isUserLoggedIn || !currentAccount.includes(selectedUserId)) {
     return (
-      <button className={styles.followButton} onClick={toogleClick}>
+      <button className={styles.userPageBtn} onClick={toogleClick}>
         Follow
       </button>
     );
