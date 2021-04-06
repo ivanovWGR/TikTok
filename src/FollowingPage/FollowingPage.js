@@ -26,7 +26,6 @@ export default function ShowFollowingPage({ USER_LOGGED_IN, loggedInUserId }) {
         console.log("Error getting document:", error);
       });
   }, [loggedInUserId]);
-
   useEffect(() => {
     const tempVideos = [];
     const videos = [];

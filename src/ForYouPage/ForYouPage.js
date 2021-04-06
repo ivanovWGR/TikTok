@@ -82,7 +82,7 @@ export default function ShowForYouPage ({USER_LOGGED_IN, loggedInUserId}) {
               </Sider>
               <Layout style={{ padding: "0 24px 24px" }}>
                 <Content className="site-layout-background contentContainer">
-                {USER_LOGGED_IN? videos.map(({url, numOfLikes, numOfComments, title, caption, videoId, displayName, photoUrl }, index) => {
+                {USER_LOGGED_IN? videos.map(({url, addBy, numOfLikes, numOfComments, title, caption, videoId, displayName, photoUrl }, index) => {
                     return <Card
                       USER_LOGGED_IN={USER_LOGGED_IN}
                       key={videoId}
@@ -94,8 +94,9 @@ export default function ShowForYouPage ({USER_LOGGED_IN, loggedInUserId}) {
                       caption={caption}
                       photoUrl= {photoUrl}
                       displayName = {displayName}
-                      currentUserId = {loggedInUserId} />;
-                  }): allVideos.map(({url, numOfLikes, numOfComments, title, caption, videoId, displayName, photoUrl }, index) => {
+                      currentUserId = {loggedInUserId}
+                      addBy={addBy} />;
+                  }): allVideos.map(({url, addBy, numOfLikes, numOfComments, title, caption, videoId, displayName, photoUrl }, index) => {
                     return <Card
                       USER_LOGGED_IN={USER_LOGGED_IN}
                       key={videoId}
@@ -107,7 +108,8 @@ export default function ShowForYouPage ({USER_LOGGED_IN, loggedInUserId}) {
                       caption={caption}
                       photoUrl= {photoUrl}
                       displayName = {displayName}
-                      currentUserId = {loggedInUserId}/>;
+                      currentUserId = {loggedInUserId}
+                      addBy={addBy}/>;
                   })}
                 </Content>
               </Layout>

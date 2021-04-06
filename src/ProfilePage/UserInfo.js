@@ -17,9 +17,6 @@ const UserInfo = ({ selectedUserId, isUserLoggedIn }) => {
     if(isUserLoggedIn) {
         currentUser = firebase.auth().currentUser.uid;
     }
-       
-
-
     useEffect(() => {
         let user = {}
         DataBase.collection('users').doc(selectedUserId).get()

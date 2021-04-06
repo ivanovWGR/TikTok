@@ -1,6 +1,5 @@
 import firebase from 'firebase';
 
-//Georgi
 //ORIGIN DATABASE
 // const firebaseConfig = {
 //   apiKey: "AIzaSyBhmeauIX75GPOpZOry14DQNGPIKzVpRIY",
@@ -11,6 +10,7 @@ import firebase from 'firebase';
 //   appId: "1:469574152133:web:16c8832d479d60aff625ac",
 //   measurementId: "G-RXX2642PWD"
 // };
+
 
 // const firebaseConfig = {
 //   apiKey: "AIzaSyBk3OZuWowO1SzTAcd-hSozByzvNN6D3jE",

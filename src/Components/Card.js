@@ -12,18 +12,17 @@ import FollowButton from './FollowButton'
                         <img className="user-avatar" src={photoUrl} width={'100%'} alt={displayName} />
                         <div>
                             <div className="section">
-                            <Link to = {`/user/${addBy}`}> 
+                               <Link to = {`/user/${addBy}`}> 
                                 <h3 className="bold">{displayName}</h3>
                                 </Link>
                                 <p className="username">{title}</p>
 
                             </div>
-                              <p>{caption}</p>
-                          </div>
+                                <p>{caption}</p>
                         </div>
-              
+                    </div>
                     <div className='card-button-wrapper'>
-                        <FollowButton addBy = {addBy} USER_LOGGED_IN ={USER_LOGGED_IN}/>
+                        <FollowButton addBy = {addBy} USER_LOGGED_IN ={USER_LOGGED_IN} currentUserId= {currentUserId}/>
                     </div>
                 </div>
 

@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./FollowButtonUserProfile.module.scss";
 import firebase, { DataBase } from "../firebase";
-import { Modal } from "antd";
-import LoginPage from "../LoginPage/LoginPage";
+
 
 export default function FollowButtonUserProfile ({ selectedUserId, isUserLoggedIn}) {
   const [currentAccount, setCurrentAccount] = useState([]);
