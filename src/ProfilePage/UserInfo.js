@@ -38,14 +38,14 @@ const UserInfo = ({ selectedUserId, isUserLoggedIn }) => {
 
     }, [selectedUserId]);
    
-    const toggleClick = () => {
-        setToggle(!toggle)
-        if(!toggle){
-         setButtonTxt('Follow')
-        }else {
-            setButtonTxt('Following')
-        }
-    }
+    // const toggleClick = () => {
+    //     setToggle(!toggle)
+    //     if(!toggle){
+    //      setButtonTxt('Follow')
+    //     }else {
+    //         setButtonTxt('Following')
+    //     }
+    // }
     return (
         <div className={styles.infoWrapper}>
             <div className={styles.userInfo}>
@@ -56,7 +56,8 @@ const UserInfo = ({ selectedUserId, isUserLoggedIn }) => {
                     <h2 className={styles.username}>{userObj.nickName}</h2>
                     <h1 className={styles.description}>{userObj.displayName}</h1>
                     <div>
-                        {currentUser === selectedUserId ? null : <button className={toggle?styles.userPageBtn:styles.followingButton} onClick={toggleClick}>{buttonTxt}</button>}
+                    {currentUser === selectedUserId ? null : <button className={styles.userPageBtn}>Follow</button>}
+                        {/* {currentUser === selectedUserId ? null : <button className={toggle?styles.userPageBtn:styles.followingButton} onClick={toggleClick}>{buttonTxt}</button>} */}
                     </div>
                 </div>
             </div>

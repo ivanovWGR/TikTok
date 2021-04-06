@@ -150,6 +150,12 @@ text-align: center;
   height: 21px;
   width: 21px;
 }
+.iconsLiked{
+  font-size: 20px;
+  height: 21px;
+  width: 21px;
+  fill: red;
+}
 
 .icons-conteiner {
     position: absolute;

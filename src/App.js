@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect, useHistory } from 'react-router-dom';
 import HeaderComp from "./HeaderComponents/HeaderComp";
 import "antd/dist/antd.css";
 import "./App.css";
@@ -24,6 +24,8 @@ function App() {
   const [filteredvideos, setFilteredVideos] = useState([]);//IT IS NOT USED AT THE MOMENT?!?
   const [searchValue, setSearchValue] = useState("");
   const [currentAccount, setCurrentAccount] = useState([]);
+  const history = useHistory();
+
   const onNext = () => {
     setLoadedVideosCount(loadedVideosCount + 20);
   }
@@ -31,8 +33,11 @@ function App() {
   useEffect(() => {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
+        console.log('Rerender!')
         setCurrentUserId(user.uid);
         isUserLoggedIn(true);
+        console.log('History', history)
+        
       } else {
         isUserLoggedIn(false);
         setCurrentUserId("");
@@ -43,20 +48,20 @@ function App() {
 
   useEffect(() => {
     DataBase.collection("users")
-    .get()
-    .then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        if (doc.id === currentUserId) {
-          let res = {...doc.data()}
-          setCurrentAccount([...res.following])
-          console.log("current account", res)
-        }
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          if (doc.id === currentUserId) {
+            let res = { ...doc.data() }
+            setCurrentAccount([...res.following])
+            console.log("current account", res)
+          }
+        });
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
       });
-    })
-    .catch((error) => {
-      console.log("Error getting document:", error);
-    });
-  },[currentUserId]);
+  }, [currentUserId]);
 
   useEffect(() => {
     const tempVideos = []
@@ -64,17 +69,17 @@ function App() {
     DataBase.collection("videos").get().then((querySnapshot) => {
       console.log('Shouts once!')
       querySnapshot.forEach((doc) => {
-        if(currentUserId) {
+        if (currentUserId) {
           console.log(currentAccount)
-          if (currentUserId !== doc.data().addBy && !currentAccount.includes(doc.data().addBy)){
+          if (currentUserId !== doc.data().addBy && !currentAccount.includes(doc.data().addBy)) {
             let video = { ...doc.data() }
             video.videoId = doc.id;
             tempVideos.push(video)
           }
         } else {
-        let video = { ...doc.data() }
-        video.videoId = doc.id;
-        tempVideos.push(video)
+          let video = { ...doc.data() }
+          video.videoId = doc.id;
+          tempVideos.push(video)
         }
       });
       setVideos(tempVideos);
@@ -82,11 +87,12 @@ function App() {
       console.log('request!')
     });
   }, [currentUserId, currentAccount])
-  const searchByName = (input) => {
-    const temp = videos.filter(video => video.addBy.toLowerCase().includes(input.toLowerCase()));
-    setFiltered(temp);
-  }
-  const openNotification = (message) => {
+  // const searchByName = (input) => {
+  //   const temp = videos.filter(video => video.addBy.toLowerCase().includes(input.toLowerCase()));
+  //   setFiltered(temp);
+  // }
+  //NOTIFICATION FUNCTION FOR SEARCH
+  const openNotification = (message, title) => {
     const key = `open${Date.now()}`;
     const btn = (
       <Button type="primary" size="small" onClick={() => {
@@ -103,6 +109,7 @@ function App() {
       key,
     });
   };
+  //VALIDATION FUNCTION FOR SEARCH
   const searchValidation = (arr, input) => {
     if (input) {
       if (input.length > 20) {
@@ -115,11 +122,11 @@ function App() {
           el.displayName.toLowerCase().includes(input.toLowerCase())
       })
     }
-    console.log('Search Arr',arr)
+    console.log('Search Arr', arr)
     return arr
   }
 
-
+  //USEEFFECT HOOK FOR TRIGGERING SEARCH RESULTS DISPLAY
   useEffect(() => {
     console.log('use effect search videos')
     let result = searchValidation(filtered, searchValue)
@@ -148,7 +155,7 @@ function App() {
 
       <Switch>
         <Route path="/viewVideo/:videoId">
-          <ViewFullScreenVideo currentUserId={currentUserId} USER_LOGGED_IN = {USER_LOGGED_IN}/>
+          <ViewFullScreenVideo currentUserId={currentUserId} USER_LOGGED_IN={USER_LOGGED_IN} />
         </Route>
         <Route path="/upload">
           {USER_LOGGED_IN ? <Upload currentUserId={currentUserId} /> : <Redirect to="/" />}
@@ -180,13 +187,15 @@ function App() {
               <Layout style={{ padding: "0 24px 24px" }}>
                 {/* Кард контаинер */}
                 <Content className="site-layout-background contentContainer">
-                  
-                  {filteredvideos.map(({addBy, url, numOfLikes, numOfComments, title, caption, videoId, photoUrl, displayName }, index) => {
+
+                  {filteredvideos.map(({ addBy, url, numOfLikes, numOfComments, title, caption, videoId, photoUrl, displayName, likedBy }, index) => {
                     return <Card
+                      numOfLikes = {0}
+                      currentUserId={currentUserId}
                       USER_LOGGED_IN={USER_LOGGED_IN}
                       key={videoId}
                       url={url}
-                      likes={numOfLikes}
+                      // likes={numOfLikes}
                       comments={numOfComments}
                       title={title}
                       videoId={videoId}

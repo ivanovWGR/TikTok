@@ -37,7 +37,7 @@ const UserPage = ({ selectedUserId, isUserLoggedIn, loggedInUserId}) => {
 
     useEffect(() => {
         const fetchedLikedVideos = [];
-        DataBase.collection("videos").where("likedBy", "==", selectedUserId)
+        DataBase.collection("videos").where("likedBy", "array-contains", selectedUserId)
             .get()
             .then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {

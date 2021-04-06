@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import firebase from '../firebase'
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 
 import { RiUploadCloudLine, RiSettings5Line } from "react-icons/ri"
 import { BiMessageAltMinus, BiUser, BiHelpCircle } from "react-icons/bi"
@@ -18,8 +18,10 @@ import styles from './Header.module.scss'
 
 function HeaderRightDivUserYes() {
     const [isShown, setIsShown] = useState(false);
+    const history = useHistory()
     const logOut = () => {
         firebase.auth().signOut().then(() => {
+            history.push('/');
             console.log('Logout success!')
         }).catch((error) => {
             console.log('logout err', error)
@@ -58,9 +60,9 @@ function HeaderRightDivUserYes() {
                 onMouseLeave={() => setIsShown(false)}
             >
                 <div><Link to='/userprofile'><span> <BiUser /> </span> <span>View profile</span></Link> </div>
-                <div><a href="#"> <span> <RiSettings5Line /></span> Settings</a></div>
+                {/* <div><a href="#"> <span> <RiSettings5Line /></span> Settings</a></div>
                 <div><a href="#"><span> <GrLanguage /></span> Language</a></div>
-                <div><a href="#"> <span> <BiHelpCircle /></span> Feeback and help</a></div>
+                <div><a href="#"> <span> <BiHelpCircle /></span> Feeback and help</a></div> */}
                 <div id="logOutDiv" onClick={logOut}><a href="#"><span> <FiLogIn /></span> Log out </a></div>
             </div>}
 
