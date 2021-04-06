@@ -143,9 +143,7 @@ function App() {
 
   return (
     <Router>
-
       <HeaderComp isUserLoggedIn={USER_LOGGED_IN} onTitleInputChange={(value) => setSearchValue(value)} searchValue={searchValue} />
-
       <Switch>
         <Route path="/viewVideo/:videoId">
           <ViewFullScreenVideo currentUserId={currentUserId} USER_LOGGED_IN = {USER_LOGGED_IN}/>
@@ -160,7 +158,7 @@ function App() {
           <ShowForYouPage USER_LOGGED_IN={USER_LOGGED_IN} loggedInUserId={currentUserId} />
         </Route>
         <Route path="/FollowingPage">
-          <ShowFollowingPage USER_LOGGED_IN={USER_LOGGED_IN} currentUserUid={currentUserId} />
+          <ShowFollowingPage USER_LOGGED_IN={USER_LOGGED_IN} loggedInUserId={currentUserId} />
         </Route>
 
         <Route path="/user/:id">
@@ -182,6 +180,7 @@ function App() {
                 <Content className="site-layout-background contentContainer">
                   
                   {filteredvideos.map(({addBy, url, numOfLikes, numOfComments, title, caption, videoId, photoUrl, displayName }, index) => {
+                    console.log(photoUrl)
                     return <Card
                       USER_LOGGED_IN={USER_LOGGED_IN}
                       key={videoId}

@@ -4,25 +4,25 @@ import { Link } from 'react-router-dom';
 import FollowButton from './FollowButton'
 
     const Card = ({addBy, url, likes, comments, title, caption, displayName, videoId, photoUrl, USER_LOGGED_IN }) => {
+        console.log(photoUrl)
          return (
             <div className="card">
                 <div className="break" />
                 <div className="section">
-
-                    <Link to = {`/user/${addBy}`}>                       
-
                     <div className="user-info">
-                        <img className="user-avatar" src={photoUrl} width={'100%'} alt='username' />
+                        <img className="user-avatar" src={photoUrl} width={'100%'} alt={displayName} />
                         <div>
                             <div className="section">
+                            <Link to = {`/user/${addBy}`}> 
                                 <h3 className="bold">{displayName}</h3>
+                                </Link>
                                 <p className="username">{title}</p>
 
                             </div>
                               <p>{caption}</p>
                           </div>
                         </div>
-                    </Link>
+              
                     <div className='card-button-wrapper'>
                         <FollowButton addBy = {addBy} USER_LOGGED_IN ={USER_LOGGED_IN}/>
                     </div>

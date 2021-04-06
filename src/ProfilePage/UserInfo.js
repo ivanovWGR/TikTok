@@ -8,21 +8,16 @@ import { RiCreativeCommonsZeroLine } from 'react-icons/ri';
 
 
 const UserInfo = ({ selectedUserId, isUserLoggedIn }) => {
-    // console.log(selectedUserId)
+    const [currentAccount, setCurrentAccount] = useState([]);
     const [userObj, setUserObj] = useState({})
+    const [toggle,setToggle] = useState(true);
+    const [buttonTxt,setButtonTxt] = useState('Follow');
     let currentUser = "";
     if(isUserLoggedIn) {
         currentUser = firebase.auth().currentUser.uid;
     }
        
 
-// const UserInfo = ({ selectedUserId }) => {
-//     const [userObj, setUserObj] = useState({})
-//     const currentUser = firebase.auth().currentUser.uid;
-//     const [toggle,setToggle] = useState(true);
-//     const [buttonTxt,setButtonTxt] = useState('Follow');
-
-    
 
     useEffect(() => {
         let user = {}
@@ -35,17 +30,45 @@ const UserInfo = ({ selectedUserId, isUserLoggedIn }) => {
             .catch((error) => {
                 console.log("Error getting document:", error);
             });
-
     }, [selectedUserId]);
-   
+
+
+
+
+        useEffect(() => {
+            DataBase.collection("users")
+            .get()
+            .then((querySnapshot) => {
+              querySnapshot.forEach((doc) => {
+                if (doc.id === currentUser) {
+                  let res = {...doc.data()}
+                  setCurrentAccount([...res.following])
+                  console.log("current account", res)
+                }
+              });
+            })
+            .catch((error) => {
+              console.log("Error getting document:", error);
+            });
+        },[isUserLoggedIn]);
+    
+  
     const toggleClick = () => {
-        setToggle(!toggle)
-        if(!toggle){
-         setButtonTxt('Follow')
-        }else {
+        if (!currentAccount.includes(selectedUserId)){
+            DataBase.collection('users').doc(currentUser).update({
+                following : firebase.firestore.FieldValue.arrayUnion(selectedUserId)
+            })
             setButtonTxt('Following')
+        }else {
+            DataBase.collection('users').doc(currentUser).update({
+                following : firebase.firestore.FieldValue.arrayRemove(selectedUserId)
+            })
+            setButtonTxt('Follow')
         }
+        setToggle(!toggle)
     }
+
+
     return (
         <div className={styles.infoWrapper}>
             <div className={styles.userInfo}>
