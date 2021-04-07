@@ -2,51 +2,31 @@ import React, { useState } from 'react';
 import { Form, Input, Select, Button } from 'antd';
 import LoginHeader from "./commonComponents/LoginHeader"
 import registerWithEmailAndPass from './utilRegFunctions/registerWithEmailAndPass'
-import firebase, {DataBase} from '../firebase'
+import firebase, { DataBase } from '../firebase'
 
-import styles from "./Login.module.css"
+
 
 const { Option } = Select;
 
-// const formItemLayout = {
-//     labelCol: {
-//         xs: {
-//             span: 24,
-//         },
-//         sm: {
-//             span: 8,
-//         },
-//     },
-//     wrapperCol: {
-//         xs: {
-//             span: 24,
-//         },
-//         sm: {
-//             span: 16,
-//         },
-//     },
-// };
+
 
 
 export default function RegistrationForm({ destroyModal }) {
     const [form] = Form.useForm();
 
     const close = destroyModal
-    const onFinish = ({email, password, firstName, lastName, nickName}) => {
-        console.log('Received values of form: ', `firstName: ${firstName}, lastName: ${lastName}, nickName: ${nickName}`);
-        console.log(password)
+    const onFinish = ({ email, password, firstName, lastName, nickName }) => {
         registerWithEmailAndPass(email, password, firstName, lastName, nickName)
         close()
     };
 
 
     return (
-        // <div className={styles.loginFormContainer}>
         <>
             <LoginHeader title="Sign up to TikTok" paragraph="Email and Password" />
             <Form form={form} name="register" onFinish={onFinish} >
-                <Form.Item name= "firstName" rules={[{required: true, message: 'Please enter your first name and/or last name'}]}>
-                <Input placeholder="Desired display name" />
+                <Form.Item name="firstName" rules={[{ required: true, message: 'Please enter your first name and/or last name' }]}>
+                    <Input placeholder="Desired display name" />
                 </Form.Item>
                 {/* <Form.Item name= "lastName">
                 <Input placeholder="Last name" rules={[{required: true, message: 'Please enter your last name'}]}/>
@@ -88,6 +68,6 @@ export default function RegistrationForm({ destroyModal }) {
                 </Form.Item>
             </Form>
         </>
-        // </div>
+
     );
 };

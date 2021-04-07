@@ -16,8 +16,8 @@ const UserVideoTab = ({userVideos, likedVideos}) => {
         <Tabs defaultActiveKey="Videos" onChange={callback} size="large" className={styles.tabWrapper}>
             <TabPane tab="Videos" key="Videos">
                 <div className={styles.videosCont}>
-                    {userVideos.map(video => (
-                       <Link to={`/viewVideo/${video.videoId}`}> <Video url={video.url} /></Link>
+                    {userVideos.map((video, i) => (
+                       <Link key={i} to={`/viewVideo/${video.videoId}`}> <Video url={video.url} /></Link>
                     ))}
                 </div>
             </TabPane>
@@ -25,8 +25,8 @@ const UserVideoTab = ({userVideos, likedVideos}) => {
             <TabPane tab="Liked" key="Liked">
                 <div className={styles.videosCont}>
                     {/* testing only four videos */}
-                    {likedVideos.map(video => (
-                       <Link to={`/viewVideo/${video.videoId}`}> <Video url={video.url} /></Link>
+                    {likedVideos.map((video,i) => (
+                       <Link key={i} to={`/viewVideo/${video.videoId}`}> <Video url={video.url} /></Link>
                     ))}
                 </div>
             </TabPane>

@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect, useHistory } from 'react-router-dom';
 import HeaderComp from "./HeaderComponents/HeaderComp";
 import "antd/dist/antd.css";
 import "./App.css";
@@ -23,15 +23,21 @@ function App() {
   const [currentUserId, setCurrentUserId] = useState("");
   const [filteredvideos, setFilteredVideos] = useState([]);//IT IS NOT USED AT THE MOMENT?!?
   const [searchValue, setSearchValue] = useState("");
+  const [currentAccount, setCurrentAccount] = useState([]);
+  const history = useHistory();
+
   const onNext = () => {
     setLoadedVideosCount(loadedVideosCount + 20);
   }
-  console.log('App js rerenders')
+  
   useEffect(() => {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
+        
         setCurrentUserId(user.uid);
         isUserLoggedIn(true);
+        
+        
       } else {
         isUserLoggedIn(false);
         setCurrentUserId("");
@@ -41,24 +47,44 @@ function App() {
   }, [currentUserId]);
 
   useEffect(() => {
+    DataBase.collection("users")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          if (doc.id === currentUserId) {
+            let res = { ...doc.data() }
+            setCurrentAccount([...res.following])            
+          }
+        });
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+  }, [currentUserId]);
+
+  useEffect(() => {
     const tempVideos = []
     // Asynch operation
-    DataBase.collection("videos").get().then((querySnapshot) => {
-      console.log('Shouts once!')
+    DataBase.collection("videos").get().then((querySnapshot) => {      
       querySnapshot.forEach((doc) => {
-        let video = { ...doc.data() }
-        video.videoId = doc.id;
-        tempVideos.push(video)
+        if (currentUserId) {
+          // console.log(currentAccount)
+          if (currentUserId !== doc.data().addBy && !currentAccount.includes(doc.data().addBy)) {
+            let video = { ...doc.data() }
+            video.videoId = doc.id;
+            tempVideos.push(video)
+          }
+        } else {
+          let video = { ...doc.data() }
+          video.videoId = doc.id;
+          tempVideos.push(video)
+        }
       });
       setVideos(tempVideos);
-      setFiltered(tempVideos);
-      console.log('request!')
+      setFiltered(tempVideos);     
     });
-  }, [])
-  const searchByName = (input) => {
-    const temp = videos.filter(video => video.addBy.toLowerCase().includes(input.toLowerCase()));
-    setFiltered(temp);
-  }
+  }, [currentUserId, currentAccount])  
+  //NOTIFICATION FUNCTION FOR SEARCH
   const openNotification = (message) => {
     const key = `open${Date.now()}`;
     const btn = (
@@ -76,6 +102,7 @@ function App() {
       key,
     });
   };
+  //VALIDATION FUNCTION FOR SEARCH
   const searchValidation = (arr, input) => {
     if (input) {
       if (input.length > 20) {
@@ -87,27 +114,18 @@ function App() {
           ||
           el.displayName.toLowerCase().includes(input.toLowerCase())
       })
-    }
-    console.log('Search Arr',arr)
+    }   
     return arr
   }
 
-
-  useEffect(() => {
-    console.log('use effect search videos')
-    let result = searchValidation(filtered, searchValue)
-    console.log(result)
+  //USEEFFECT HOOK FOR TRIGGERING SEARCH RESULTS DISPLAY
+  useEffect(() => {    
+    let result = searchValidation(filtered, searchValue)    
     setFilteredVideos([...result])
-  }, [searchValue, filtered])
-
-  console.log('FilteredVideos', filteredvideos)
-
-  // const filteredvideos = filtered.filter(video => video.caption.toLowerCase().includes(searchValue.toLowerCase()))
-
+  }, [searchValue, filtered])  
 
   const chunkedVideos = useMemo(() => {
     let chunkVideos = [];
-
     for (let i = 0; i < loadedVideosCount; i++) {
       chunkVideos.push(videos[i]);
     }
@@ -118,24 +136,22 @@ function App() {
 
   return (
     <Router>
-
       <HeaderComp isUserLoggedIn={USER_LOGGED_IN} onTitleInputChange={(value) => setSearchValue(value)} searchValue={searchValue} />
-
       <Switch>
         <Route path="/viewVideo/:videoId">
-          <ViewFullScreenVideo currentUserId={currentUserId} />
+          <ViewFullScreenVideo currentUserId={currentUserId} USER_LOGGED_IN={USER_LOGGED_IN} />
         </Route>
         <Route path="/upload">
           {USER_LOGGED_IN ? <Upload currentUserId={currentUserId} /> : <Redirect to="/" />}
         </Route>
         <Route path="/userprofile">
-          {USER_LOGGED_IN ? <UserPage selectedUserId={currentUserId} isUserLoggedIn={USER_LOGGED_IN} /> : <Redirect to="/" />}
+          {USER_LOGGED_IN ? <UserPage loggedInUserId={currentUserId} isUserLoggedIn={USER_LOGGED_IN} /> : <Redirect to="/" />}
         </Route>
         <Route path="/ForYouPage">
           <ShowForYouPage USER_LOGGED_IN={USER_LOGGED_IN} loggedInUserId={currentUserId} />
         </Route>
         <Route path="/FollowingPage">
-          <ShowFollowingPage USER_LOGGED_IN={USER_LOGGED_IN} currentUserUid={currentUserId} />
+          <ShowFollowingPage USER_LOGGED_IN={USER_LOGGED_IN} loggedInUserId={currentUserId} />
         </Route>
 
         <Route path="/user/:id">
@@ -155,18 +171,24 @@ function App() {
               <Layout style={{ padding: "0 24px 24px" }}>
                 {/* Кард контаинер */}
                 <Content className="site-layout-background contentContainer">
-                  {filteredvideos.map(({ url, numOfLikes, numOfComments, title, caption, videoId, photoUrl, displayName }, index) => {
+
+
+                  {filteredvideos.map(({ addBy, url, numOfLikes, numOfComments, title, caption, videoId, photoUrl, displayName  }, index) => {
+
                     return <Card
-                      USER_LOGGED_IN={USER_LOGGED_IN}
+                      numOfLikes = {0}
+                      currentUserId={currentUserId}
+                      USER_LOGGED_IN={USER_LOGGED_IN}                      
                       key={videoId}
                       url={url}
-                      likes={numOfLikes}
+                      // likes={numOfLikes}
                       comments={numOfComments}
                       title={title}
                       videoId={videoId}
                       caption={caption}
                       photoUrl={photoUrl}
-                      displayName={displayName} />;
+                      displayName={displayName}
+                      addBy={addBy} />;
                   })}
                 </Content>
               </Layout>

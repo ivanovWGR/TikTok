@@ -12,8 +12,8 @@ export default function CommentDiv ({photoUrl, comment, name, timeStamp} ) {
                 <img src={photoUrl} alt="avatar" className={viewPageStyles.avatar}></img>
                 </div>
             <div className={viewPageStyles.commentContent}>
-                <h3>{name}</h3>
-                <p>{comment}</p>
+                <h3 className={viewPageStyles.titleComent}>{name}</h3>
+                <p className={viewPageStyles.coment}>{comment}</p>
                 <span>{timeStamp}</span>
             </div>
             <div className={viewPageStyles.heart}>

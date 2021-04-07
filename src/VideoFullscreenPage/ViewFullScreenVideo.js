@@ -7,12 +7,14 @@ import { FaCommentDots, FaHeart, FaMusic, FaArrowRight, FaArrowLeft } from "reac
 import { GrClose } from 'react-icons/gr'
 import { DataBase } from "../firebase";
 import CommentDiv from './CommentDiv';
+import FollowButton from '../Components/FollowButton'
+import { notification, Button } from "antd";
 let nextVideoBtnPressed = false;
 
 let nextVideoIndex = 0;
 
 // TO DO VALIDATION UP TO 200 letters for comment, enter to triger uploading. Styling.
-export default function VideoFullScreen({ currentUserId }) {
+export default function VideoFullScreen({ currentUserId, USER_LOGGED_IN }) {
     const { videoId } = useParams();
     const [user, setUser] = useState();
     const [currentVideo, takeCurrentVideo] = useState({})
@@ -24,6 +26,7 @@ export default function VideoFullScreen({ currentUserId }) {
     const [comments, setComments] = useState([])
     const [isLoading, setIsLoading] = useState(false);
     const history = useHistory();
+    const [numOfLikes, setNumOfLikes] = useState(0)
     // console.log(videoId)
 
     useEffect(() => {
@@ -31,9 +34,10 @@ export default function VideoFullScreen({ currentUserId }) {
 
         DataBase.collection("videos").doc(videoId).get()
             .then((video) => {
-                console.log(video.data())
+                // console.log(video.data())
                 let src = video.data().url;
                 let temp = { ...video.data() }
+                setNumOfLikes(temp.likedBy.length)
                 setUploaderId(temp.addBy)
                 setVideoSrc(src)
                 takeCurrentVideo(temp)
@@ -93,9 +97,25 @@ export default function VideoFullScreen({ currentUserId }) {
                 setUser(res.data())
             })
     }, [currentUserId])
+    const openNotification = (ev) => {
+        ev.preventDefault()
+        const key = `open${Date.now()}`;
+        const btn = (
+            <Button type="primary" size="small" onClick={() => {
+                notification.close(key)
+            }}>
+                Confirm
+            </Button>
+        );
+        notification.open({
+            message: 'Search notification',
+            description: 'Please log in first.',
+            btn,
+            key,
+        });
+    };
 
-
-    const uploadComment = (ev) => {
+    const uploadComment = (ev) => {        
         ev.preventDefault()
         console.log("event :", ev)
         if (input.trim().length < 200) {
@@ -112,7 +132,7 @@ export default function VideoFullScreen({ currentUserId }) {
             }
             DataBase.collection("comments").doc().set(commentObj)
                 .then(() => {
-                    console.log("Document successfully written!");
+                    // console.log("Document successfully written!");
                     setInput("")
                 })
                 .catch((error) => {
@@ -124,8 +144,8 @@ export default function VideoFullScreen({ currentUserId }) {
 
             })
                 .then(() => {
-                    console.log('Comments length: ', comments.length)
-                    console.log("num of comments updated")
+                    // console.log('Comments length: ', comments.length)
+                    // console.log("num of comments updated")
                 })
 
         } else {
@@ -163,12 +183,10 @@ export default function VideoFullScreen({ currentUserId }) {
     const onErrorLoadingVideo = () => {
 
         if (nextVideoBtnPressed && ((nextVideoIndex + 2) < thisUserVideosIds.length)) {
-            nextVideoIndex += 1;
-            console.log('In IF')
+            nextVideoIndex += 1;            
             nextVideo();
         } else {
-            nextVideoIndex -= 1;
-            console.log('Else')
+            nextVideoIndex -= 1;            
             previousVideo();
         }
     }
@@ -189,19 +207,19 @@ export default function VideoFullScreen({ currentUserId }) {
                     <h1 className={viewPageStyles.uploaderInfo}>
                         <img src={currentVideo.photoUrl} alt="pic" className={viewPageStyles.uploaderPic} />
                         {currentVideo.displayName}</h1>
-                    <button className={`follow-button ${viewPageStyles.followBtn}`}>Follow</button>
+                    <FollowButton addBy={uploaderId} USER_LOGGED_IN={USER_LOGGED_IN} />
                 </div>
                 <div className={viewPageStyles.commentsWrapper}>
                     <div className={viewPageStyles.videoInfo}>
-                        <h1>{currentVideo.title}</h1>
+                        <h1 className={viewPageStyles.currentVideoTit}>{currentVideo.title}</h1>
                         <p className={viewPageStyles.caption}><FaMusic />{currentVideo.caption}</p>
                         <div className={viewPageStyles.iconsDiv}>
-                            <span><FaHeart className={viewPageStyles.icons} /></span><span>Num of likes</span>
+                            <span><FaHeart className={viewPageStyles.icons} /></span><span>{numOfLikes}</span>
                             <span><FaCommentDots className={viewPageStyles.icons} /></span><span>{numOfComments}</span>
                         </div>
 
                         <div className={viewPageStyles.adressDiv}>
-                            <p>{videoSrc}</p>
+                            <p>{videoSrc}</p>  
                         </div>
                     </div>
                     {comments.map((el, index) => {
@@ -219,11 +237,11 @@ export default function VideoFullScreen({ currentUserId }) {
                     <form className={viewPageStyles.form}>
                         <input placeholder="Add comment" value={input} className={viewPageStyles.postInput}
                             onInput={(ev) => {
-                                setInput(ev.target.value)                                
+                                setInput(ev.target.value)
                             }
                             }
                         ></input>
-                        <button type="submit" onClick={uploadComment}> Post</button>
+                        <button type="submit" onClick={USER_LOGGED_IN ? uploadComment : openNotification}> Post</button>
                     </form>
                 </div>
             </div>

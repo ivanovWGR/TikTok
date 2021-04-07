@@ -9,14 +9,10 @@ const defaultCheckedList = ['Comment', 'Duet/React', 'Stich'];
 
 
 function CheckboxComp() {
-
   const [checkedList, setCheckedList] = React.useState(defaultCheckedList);
   const onChange = list => {
     setCheckedList(list);
   };
-
-
-
   return (
     <>
       <CheckboxGroup options={plainOptions} value={checkedList} onChange={onChange} />

@@ -1,0 +1,36 @@
+.userPageBtn {
+    text-size-adjust: 100%;
+    border-radius   : 4px;
+    box-sizing      : border-box;
+    cursor          : pointer;
+    background-color: #fe2c55;
+    color           : #fff;
+    border          : none;
+    font-weight     : 700;
+    font-size       : 16px;
+    line-height     : 22px;
+    height          : 36px;
+    text-overflow   : ellipsis;
+    overflow        : hidden;
+    padding         : 1px 6px;
+    min-width       : 220px;
+    outline         : none;
+}
+
+.followingButton {
+    border          : 0.5px solid rgb(221, 196, 196);
+    border-radius   : 4px;
+    width           : 220px;
+    height          : 36px;
+    color           : black;
+    font-weight     : 600;
+    padding         : 1px 6px;
+    line-height     : 22px;
+    text-align      : center;
+    font-size       : 14px;
+    background-color: white;
+    cursor          : pointer;
+    font-weight     : 700;
+    font-size       : 16px;
+    outline         : none;
+}
