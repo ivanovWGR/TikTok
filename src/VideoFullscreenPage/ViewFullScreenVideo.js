@@ -34,7 +34,7 @@ export default function VideoFullScreen({ currentUserId, USER_LOGGED_IN }) {
 
         DataBase.collection("videos").doc(videoId).get()
             .then((video) => {
-                console.log(video.data())
+                // console.log(video.data())
                 let src = video.data().url;
                 let temp = { ...video.data() }
                 setNumOfLikes(temp.likedBy.length)

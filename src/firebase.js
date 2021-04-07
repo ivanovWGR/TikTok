@@ -1,14 +1,14 @@
 import firebase from 'firebase';
 
-//TikTok3 back up
-const firebaseConfig = {
-  apiKey: "AIzaSyDnmVrgRKxs61PmbkpHr3B76VnUT9wsWEU",
-  authDomain: "tiktok3-48a44.firebaseapp.com",
-  projectId: "tiktok3-48a44",
-  storageBucket: "tiktok3-48a44.appspot.com",
-  messagingSenderId: "663064326882",
-  appId: "1:663064326882:web:aa803a539044284051a4bb"
-};
+// //TikTok3 back up
+// const firebaseConfig = {
+//   apiKey: "AIzaSyDnmVrgRKxs61PmbkpHr3B76VnUT9wsWEU",
+//   authDomain: "tiktok3-48a44.firebaseapp.com",
+//   projectId: "tiktok3-48a44",
+//   storageBucket: "tiktok3-48a44.appspot.com",
+//   messagingSenderId: "663064326882",
+//   appId: "1:663064326882:web:aa803a539044284051a4bb"
+// };
 //ORIGINAL
 // const firebaseConfig = {
 //   apiKey: "AIzaSyBhmeauIX75GPOpZOry14DQNGPIKzVpRIY",
@@ -32,8 +32,19 @@ const firebaseConfig = {
 //   measurementId: "G-6CH7QF7EG1"
 // };
 
-
+//TIK_TOK presentation base
+const firebaseConfig = {
+  apiKey: "AIzaSyDvfKVsVx3drQ-mbofOOscjc7weEbc9Nzw",
+  authDomain: "tiktoklastbase.firebaseapp.com",
+  projectId: "tiktoklastbase",
+  storageBucket: "tiktoklastbase.appspot.com",
+  messagingSenderId: "764508715366",
+  appId: "1:764508715366:web:8506dcef2a4f8beb09f0a7",
+  measurementId: "G-3CDJN3M7D1"
+};
 firebase.initializeApp(firebaseConfig);
+
+
 const DataBase = firebase.firestore();
 
 

@@ -116,6 +116,9 @@ text-align: center;
 .bold {
   font-weight: 600;
 }
+.bold:hover{
+  text-decoration: underline;
+}
 
 .socials {
   margin-left: 80px;
