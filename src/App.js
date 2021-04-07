@@ -69,7 +69,7 @@ function App() {
       querySnapshot.forEach((doc) => {
         if (currentUserId) {
           // console.log(currentAccount)
-          if (currentUserId !== doc.data().addBy && !currentAccount.includes(doc.data().addBy)) {
+          if (currentUserId !== doc.data().addBy ) {
             let video = { ...doc.data() }
             video.videoId = doc.id;
             tempVideos.push(video)

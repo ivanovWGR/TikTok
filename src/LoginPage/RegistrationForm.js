@@ -42,7 +42,9 @@ export default function RegistrationForm({ destroyModal }) {
 
                 <Form.Item name="password" rules={[{ required: true, message: 'Please input your password!', },
                 ]} hasFeedback>
-                    <Input.Password placeholder="Password" />
+                    <Input.Password 
+                    placeholder="Password" 
+                    visibilityToggle= {true}/>
                 </Form.Item>
 
                 <Form.Item name="confirm" dependencies={['password']} hasFeedback rules={[{
@@ -59,7 +61,9 @@ export default function RegistrationForm({ destroyModal }) {
                 }),
                 ]}
                 >
-                    <Input.Password placeholder="Confirm Password" />
+                    <Input.Password 
+                    placeholder="Confirm Password" 
+                    visibilityToggle= {true}/>
                 </Form.Item>
                 <Form.Item >
                     <Button type="primary" htmlType="submit">
