@@ -161,6 +161,9 @@ button:hover {
   font-size: 34px;
   opacity  : 0.4;
 }
+.profilePic{
+  opacity: 1;
+}
 
 #tooltip {
   align-items  : center;
@@ -171,12 +174,15 @@ button:hover {
   border       : 1px solid black;
   opacity      : 0.9;
 }
-
+.headerAvatar{
+  width: 34px;
+  height: 34px;
+  border-radius: 25px;  
+}
 .navHoverMenu {
-
   position        : absolute;
   padding         : 10px;
-  top             : 52px;
+  top             : 57px;
   right           : 95px;
   width           : 223px;
   height          : 100px; //used to be 200px

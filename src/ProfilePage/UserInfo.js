@@ -5,18 +5,21 @@ import { UserOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
 import firebase, { DataBase } from '../firebase'
 import FollowButtonUserProfile from '../Components/followButtonUserProfile'
+import UpdateUserInfoComp from './UpdateUserInfo'
 
 
 
 const UserInfo = ({ selectedUserId, isUserLoggedIn, currentUserId }) => {
     const [userObj, setUserObj] = useState({})
+    const [newAvatarSrc, setNewAvatar] = useState('');
 
     useEffect(() => {
         let user = {}
         DataBase.collection('users').doc(selectedUserId).get()
             .then((res) => {
                 user = { ...res.data() }
-                setUserObj(user)                
+                setUserObj(user)
+                setNewAvatar(user.photoUrl)                
             })
             .catch((error) => {
                 console.log("Error getting document:", error);
@@ -27,13 +30,13 @@ const UserInfo = ({ selectedUserId, isUserLoggedIn, currentUserId }) => {
         <div className={styles.infoWrapper}>
             <div className={styles.userInfo}>
                 <div>
-                    <Avatar size={120} icon={<UserOutlined />} src={userObj.photoUrl} alt={userObj.nickName} />
+                    <Avatar size={120} icon={<UserOutlined />} src={newAvatarSrc} alt={userObj.nickName} />
                 </div>
                 <div className={styles.infoCont}>
                     <h2 className={styles.username}>{userObj.nickName}</h2>
                     <h1 className={styles.description}>{userObj.displayName}</h1>
                     <div>
-                        {currentUserId === selectedUserId ? null : <FollowButtonUserProfile selectedUserId={selectedUserId} isUserLoggedIn={isUserLoggedIn}
+                        {currentUserId === selectedUserId ? <UpdateUserInfoComp setNewAvatar = {setNewAvatar} currentUserId = {currentUserId}/> : <FollowButtonUserProfile selectedUserId={selectedUserId} isUserLoggedIn={isUserLoggedIn}
                             currentUserId={currentUserId} />}
                     </div>
                 </div>

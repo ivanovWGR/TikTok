@@ -7,6 +7,7 @@ import UserInfo from './UserInfo';
 import UserVideoTab from './UserVideoTab'
 import { Layout } from "antd";
 
+
 const { Content, Sider } = Layout;
 const UserPage = ({ selectedUserId, isUserLoggedIn, loggedInUserId }) => {
     const [userVideos, setUserVideos] = useState([]);

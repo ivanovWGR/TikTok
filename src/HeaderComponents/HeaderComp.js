@@ -11,7 +11,7 @@ import { debounce } from 'lodash';
 
 const { Search } = Input;
 
-export default function HeaderComp({ isUserLoggedIn, onTitleInputChange }) {
+export default function HeaderComp({currentUserId, isUserLoggedIn, onTitleInputChange }) {
 
 
     const deb = useCallback(
@@ -44,7 +44,7 @@ export default function HeaderComp({ isUserLoggedIn, onTitleInputChange }) {
                     />
                 </Space>
             </form>
-            {isUserLoggedIn ? <HeaderRightDivUserYes /> : <HeaderRightDivUserNot />}
+            {isUserLoggedIn ? <HeaderRightDivUserYes currentUserId ={currentUserId} /> : <HeaderRightDivUserNot />}
         </div>
 
 

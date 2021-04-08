@@ -29,21 +29,26 @@ function App() {
   const onNext = () => {
     setLoadedVideosCount(loadedVideosCount + 20);
   }
-  
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        
-        setCurrentUserId(user.uid);
-        isUserLoggedIn(true);
-        
-        
-      } else {
-        isUserLoggedIn(false);
-        setCurrentUserId("");
-      }
-    });
 
+  useEffect(() => {
+    let clear = true;
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (clear) {
+        if (user) {
+
+          setCurrentUserId(user.uid);
+          isUserLoggedIn(true);
+          console.log('User', user.uid)
+
+        } else {
+          isUserLoggedIn(false);
+          setCurrentUserId("");
+          console.log('no user')
+        }
+      }
+
+    });
+    return () => clear = false
   }, [currentUserId]);
 
   useEffect(() => {
@@ -53,7 +58,7 @@ function App() {
         querySnapshot.forEach((doc) => {
           if (doc.id === currentUserId) {
             let res = { ...doc.data() }
-            setCurrentAccount([...res.following])            
+            setCurrentAccount([...res.following])
           }
         });
       })
@@ -65,11 +70,11 @@ function App() {
   useEffect(() => {
     const tempVideos = []
     // Asynch operation
-    DataBase.collection("videos").get().then((querySnapshot) => {      
+    DataBase.collection("videos").get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         if (currentUserId) {
           // console.log(currentAccount)
-          if (currentUserId !== doc.data().addBy ) {
+          if (currentUserId !== doc.data().addBy) {
             let video = { ...doc.data() }
             video.videoId = doc.id;
             tempVideos.push(video)
@@ -81,9 +86,9 @@ function App() {
         }
       });
       setVideos(tempVideos);
-      setFiltered(tempVideos);     
+      setFiltered(tempVideos);
     });
-  }, [currentUserId, currentAccount])  
+  }, [currentUserId, currentAccount])
   //NOTIFICATION FUNCTION FOR SEARCH
   const openNotification = (message) => {
     const key = `open${Date.now()}`;
@@ -114,15 +119,15 @@ function App() {
           ||
           el.displayName.toLowerCase().includes(input.toLowerCase())
       })
-    }   
+    }
     return arr
   }
 
   //USEEFFECT HOOK FOR TRIGGERING SEARCH RESULTS DISPLAY
-  useEffect(() => {    
-    let result = searchValidation(filtered, searchValue)    
+  useEffect(() => {
+    let result = searchValidation(filtered, searchValue)
     setFilteredVideos([...result])
-  }, [searchValue, filtered])  
+  }, [searchValue, filtered])
 
   const chunkedVideos = useMemo(() => {
     let chunkVideos = [];
@@ -136,7 +141,7 @@ function App() {
 
   return (
     <Router>
-      <HeaderComp isUserLoggedIn={USER_LOGGED_IN} onTitleInputChange={(value) => setSearchValue(value)} searchValue={searchValue} />
+      <HeaderComp currentUserId ={currentUserId} isUserLoggedIn={USER_LOGGED_IN} onTitleInputChange={(value) => setSearchValue(value)} searchValue={searchValue} />
       <Switch>
         <Route path="/viewVideo/:videoId">
           <ViewFullScreenVideo currentUserId={currentUserId} USER_LOGGED_IN={USER_LOGGED_IN} />
@@ -173,12 +178,12 @@ function App() {
                 <Content className="site-layout-background contentContainer">
 
 
-                  {filteredvideos.map(({ addBy, url, numOfLikes, numOfComments, title, caption, videoId, photoUrl, displayName  }, index) => {
+                  {filteredvideos.map(({ addBy, url, numOfLikes, numOfComments, title, caption, videoId, photoUrl, displayName }, index) => {
 
                     return <Card
-                      numOfLikes = {0}
+                      numOfLikes={0}
                       currentUserId={currentUserId}
-                      USER_LOGGED_IN={USER_LOGGED_IN}                      
+                      USER_LOGGED_IN={USER_LOGGED_IN}
                       key={videoId}
                       url={url}
                       // likes={numOfLikes}

@@ -51,6 +51,7 @@ export default function VideoFullScreen({ currentUserId, USER_LOGGED_IN }) {
         const fetchedComments = []
         DataBase.collection('comments').where('forVideoId', '==', videoId).get()
             .then((querySnapshot) => {
+                console.log('querry ', querySnapshot)
                 querySnapshot.forEach((el) => {
                     fetchedComments.unshift(el.data())
                 })

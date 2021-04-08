@@ -26,7 +26,7 @@ const Card = ({ addBy, url, comments, title, caption, displayName, videoId, phot
                 })
         }
         return () => mounted = false;//changedMouted
-    }, [])
+    }, [currentUserId, USER_LOGGED_IN, videoId])
 
 
     const addToLiked = () => {

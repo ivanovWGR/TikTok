@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import firebase from '../firebase'
-import {Link, useHistory} from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import firebase, { DataBase } from '../firebase'
+import { Link, useHistory } from 'react-router-dom'
 
 import { RiUploadCloudLine, RiSettings5Line } from "react-icons/ri"
 import { BiMessageAltMinus, BiUser, BiHelpCircle } from "react-icons/bi"
@@ -9,12 +9,29 @@ import { FiLogIn } from "react-icons/fi"
 import { Tooltip } from "antd"
 import styles from './Header.module.scss'
 
-function HeaderRightDivUserYes() {
+
+function HeaderRightDivUserYes({ currentUserId }) {
     const [isShown, setIsShown] = useState(false);
+    const [user, setUser] = useState({})
     const history = useHistory()
+    // const toolTip = useRef(null)
+    useEffect(() => {
+        let clear = true;
+        DataBase.collection('users').doc(currentUserId).get()
+        .then((res) => {
+            if (clear) {
+                setUser({ ...res.data() })
+            }
+
+        })
+            .catch((err) => {
+                console.log(err)
+            })
+        return () => !clear
+    }, [user])
     const logOut = () => {
         firebase.auth().signOut().then(() => {
-            history.push('/');            
+            history.push('/');
         }).catch((error) => {
             console.log('logout err', error)
         });
@@ -26,7 +43,8 @@ function HeaderRightDivUserYes() {
                 <button className={styles.userLoggedInSideMenu} >
                     <Tooltip title="Upload video"
                         placement="bottom"
-                        id="tooltip">
+                        id="tooltip"
+                    >
                         <RiUploadCloudLine />
                     </Tooltip>
                 </button>
@@ -42,10 +60,12 @@ function HeaderRightDivUserYes() {
                 </Tooltip>
             </button>
 
-            <span className={styles.profileIconSpan} id={styles.profileIconSpan}
+            <span className={user.photoUrl ? styles.profilePic: styles.profileIconSpan} id={styles.profileIconSpan}
                 onMouseEnter={() => setIsShown(true)}
                 onMouseLeave={() => setIsShown(false)}
-            ><CgProfile /></span>
+            >{user.photoUrl ?
+                <img className={styles.headerAvatar} src={user.photoUrl} width={'100%'} alt='avatar' /> :
+                <CgProfile />}</span>
 
             {isShown && <div className={styles.navHoverMenu}
                 onMouseEnter={() => setIsShown(true)}
