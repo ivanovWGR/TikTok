@@ -38,12 +38,9 @@ function App() {
 
           setCurrentUserId(user.uid);
           isUserLoggedIn(true);
-          console.log('User', user.uid)
-
         } else {
           isUserLoggedIn(false);
           setCurrentUserId("");
-          console.log('no user')
         }
       }
 
@@ -141,7 +138,7 @@ function App() {
 
   return (
     <Router>
-      <HeaderComp currentUserId ={currentUserId} isUserLoggedIn={USER_LOGGED_IN} onTitleInputChange={(value) => setSearchValue(value)} searchValue={searchValue} />
+      <HeaderComp currentUserId ={currentUserId} USER_LOGGED_IN={USER_LOGGED_IN} onTitleInputChange={(value) => setSearchValue(value)} searchValue={searchValue} />
       <Switch>
         <Route path="/viewVideo/:videoId">
           <ViewFullScreenVideo currentUserId={currentUserId} USER_LOGGED_IN={USER_LOGGED_IN} />
@@ -150,7 +147,7 @@ function App() {
           {USER_LOGGED_IN ? <Upload currentUserId={currentUserId} /> : <Redirect to="/" />}
         </Route>
         <Route path="/userprofile">
-          {USER_LOGGED_IN ? <UserPage currentUserId={currentUserId} isUserLoggedIn={USER_LOGGED_IN} /> : <Redirect to="/" />}
+          {USER_LOGGED_IN ? <UserPage currentUserId={currentUserId} USER_LOGGED_IN={USER_LOGGED_IN} /> : <Redirect to="/" />}
         </Route>
         <Route path="/ForYouPage">
           <ShowForYouPage USER_LOGGED_IN={USER_LOGGED_IN} currentUserId={currentUserId} />
@@ -160,7 +157,7 @@ function App() {
         </Route>
 
         <Route path="/user/:id">
-          <SelectedUser isUserLoggedIn={USER_LOGGED_IN} currentUserId={currentUserId} />
+          <SelectedUser USER_LOGGED_IN={USER_LOGGED_IN} currentUserId={currentUserId} />
         </Route>
         <Route exact path="/">
           <Layout className="layout">
@@ -170,7 +167,7 @@ function App() {
                 className="site-layout-background siderConteiner siderPosition"
               >
                 <div className="siderWrapper">
-                  <ShowSidebar isUserLoggedIn={USER_LOGGED_IN} currentUserId={currentUserId} />
+                  <ShowSidebar USER_LOGGED_IN={USER_LOGGED_IN} currentUserId={currentUserId} />
                 </div>
               </Sider>
               <Layout style={{ padding: "0 24px 24px" }}>

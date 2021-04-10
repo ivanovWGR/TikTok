@@ -4,7 +4,7 @@ import SeeAllButton from "../seeAllButton/SeeAllButton";
 import SeeLessButton from "../seeLessButton/SeeLessButton";
 import UserItem from "../UserItem/UserItem";
 
-export default function YourTopAccounts({ isUserLoggedIn, currentUserId }) {
+export default function YourTopAccounts({ USER_LOGGED_IN, currentUserId }) {
   const [currentAccount, setCurrentAccount] = useState([]);
   const [yourTopAccounts, setYourTopAccounts] = useState([]);
 

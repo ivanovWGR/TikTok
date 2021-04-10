@@ -59,7 +59,7 @@ export default function ShowFollowingPage({ USER_LOGGED_IN, currentUserId }) {
             >
               <div className="siderWrapper">
                 <ShowSidebar
-                  isUserLoggedIn={USER_LOGGED_IN}
+                  USER_LOGGED_IN={USER_LOGGED_IN}
                   currentUserId={currentUserId}
                 />
               </div>
@@ -86,7 +86,7 @@ export default function ShowFollowingPage({ USER_LOGGED_IN, currentUserId }) {
             >
               <div className="siderWrapper">
                 <ShowSidebar
-                  isUserLoggedIn={USER_LOGGED_IN}
+                  USER_LOGGED_IN={USER_LOGGED_IN}
                   currentUserId={currentUserId}
                 />
               </div>

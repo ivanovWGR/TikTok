@@ -5,7 +5,7 @@ import firebase, { DataBase } from "../firebase";
 import LoginBtnsModal from '../LoginBtnsModal'
 
 
-export default function FollowButtonUserProfile ({ selectedUserId, isUserLoggedIn, currentUserId}) {
+export default function FollowButtonUserProfile ({ selectedUserId, USER_LOGGED_IN, currentUserId}) {
   const [currentAccount, setCurrentAccount] = useState([]);
   const [isModalShown, showModal] = useState(false)
   //BRING MODAL FUNCS
@@ -33,10 +33,10 @@ export default function FollowButtonUserProfile ({ selectedUserId, isUserLoggedI
       });
     }
     
-  }, [isUserLoggedIn]);
+  }, [USER_LOGGED_IN]);
 
   const toogleClick = () => {
-    if(isUserLoggedIn){
+    if(USER_LOGGED_IN){
       if (!currentAccount.includes(selectedUserId)) {
         DataBase.collection("users")
           .doc(currentUserId)
@@ -53,7 +53,7 @@ export default function FollowButtonUserProfile ({ selectedUserId, isUserLoggedI
       }
     }
   };
-  if (!isUserLoggedIn) {
+  if (!USER_LOGGED_IN) {
     return (
         <>
             <button className={styles.userPageBtn} onClick={bringModal} >
@@ -64,7 +64,7 @@ export default function FollowButtonUserProfile ({ selectedUserId, isUserLoggedI
     );
 }
 
-  if (!isUserLoggedIn || !currentAccount.includes(selectedUserId)) {
+  if (!USER_LOGGED_IN || !currentAccount.includes(selectedUserId)) {
       return (
         <Link to = {"/"}>
          <button className={styles.userPageBtn} onClick={toogleClick}>

@@ -61,7 +61,7 @@ export default function ShowForYouPage({ USER_LOGGED_IN, currentUserId }) {
                 className="site-layout-background siderConteiner siderPosition"
               >
                 <div className="siderWrapper">
-                  <ShowSidebar isUserLoggedIn={USER_LOGGED_IN} currentUserId={currentUserId}/>
+                  <ShowSidebar USER_LOGGED_IN={USER_LOGGED_IN} currentUserId={currentUserId}/>
                 </div>
               </Sider>
               <Layout style={{ padding: "0 24px 24px" }}>

@@ -9,7 +9,7 @@ import { Layout } from "antd";
 
 
 const { Content, Sider } = Layout;
-const UserPage = ({ selectedUserId, isUserLoggedIn, currentUserId }) => {
+const UserPage = ({ selectedUserId, USER_LOGGED_IN, currentUserId }) => {
     const [userVideos, setUserVideos] = useState([]);
     const [likedVideos, setLikedVideos] = useState([]);
     //ASYNC
@@ -56,12 +56,12 @@ const UserPage = ({ selectedUserId, isUserLoggedIn, currentUserId }) => {
                 <Layout>
                     <Sider width={250} className="site-layout-background ">
                         <div className="siderWrapper">
-                            <Sidebar isUserLoggedIn={isUserLoggedIn} currentUserId={currentUserId} />
+                            <Sidebar USER_LOGGED_IN={USER_LOGGED_IN} currentUserId={currentUserId} />
                         </div>
                     </Sider>
                     <Layout style={{ padding: "0 24px 24px" }}>
                         <Content className="site-layout-background userPageContent">
-                            <UserInfo isUserLoggedIn={isUserLoggedIn} selectedUserId={selectedUserId} currentUserId={currentUserId} />
+                            <UserInfo USER_LOGGED_IN={USER_LOGGED_IN} selectedUserId={selectedUserId} currentUserId={currentUserId} />
                             <UserVideoTab selectedUserId={selectedUserId} userVideos={userVideos} likedVideos={likedVideos} />
                         </Content>
                     </Layout>

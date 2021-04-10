@@ -4,7 +4,7 @@ import SeeAllButton from "../seeAllButton/SeeAllButton";
 import SeeLessButton from "../seeLessButton/SeeLessButton";
 import UserItem from "../UserItem/UserItem";
 
-export default function SuggestionAccounts({ isUserLoggedIn, currentUserId }) {
+export default function SuggestionAccounts({ USER_LOGGED_IN, currentUserId }) {
   const [currentAccount, setCurrentAccount] = useState([]);
   const [suggestedAccounts, SetSuggestedAccounts] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
@@ -54,7 +54,7 @@ export default function SuggestionAccounts({ isUserLoggedIn, currentUserId }) {
 
   const numOfFirstUsersShow = 5;
   let userOne = [];
-  if (!isUserLoggedIn) {
+  if (!USER_LOGGED_IN) {
     userOne.push(allUsers);
   }
 

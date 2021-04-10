@@ -9,7 +9,7 @@ import UpdateUserInfoComp from './UpdateUserInfo'
 
 
 
-const UserInfo = ({ selectedUserId, isUserLoggedIn, currentUserId }) => {
+const UserInfo = ({ selectedUserId, USER_LOGGED_IN, currentUserId }) => {
     const [userObj, setUserObj] = useState({})
     const [newAvatarSrc, setNewAvatar] = useState('');
 
@@ -36,7 +36,7 @@ const UserInfo = ({ selectedUserId, isUserLoggedIn, currentUserId }) => {
                     <h2 className={styles.username}>{userObj.nickName}</h2>
                     <h1 className={styles.description}>{userObj.displayName}</h1>
                     <div>
-                        {currentUserId === selectedUserId ? <UpdateUserInfoComp setNewAvatar = {setNewAvatar} currentUserId = {currentUserId}/> : <FollowButtonUserProfile selectedUserId={selectedUserId} isUserLoggedIn={isUserLoggedIn}
+                        {currentUserId === selectedUserId ? <UpdateUserInfoComp setNewAvatar = {setNewAvatar} currentUserId = {currentUserId}/> : <FollowButtonUserProfile selectedUserId={selectedUserId} USER_LOGGED_IN={USER_LOGGED_IN}
                             currentUserId={currentUserId} />}
                     </div>
                 </div>

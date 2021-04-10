@@ -14,7 +14,7 @@ import forYouActive from "../date/img/forYouActive.png";
 import forYouUnactive from "../date/img/forYouUnactive.png";
 import { useLocation } from "react-router-dom";
 
-export default function ShowSidebar({ isUserLoggedIn, currentUserId }) {
+export default function ShowSidebar({ USER_LOGGED_IN, currentUserId }) {
   const location = useLocation();
   return (
     <div id={styles.siderDiv}>
@@ -44,17 +44,17 @@ export default function ShowSidebar({ isUserLoggedIn, currentUserId }) {
             />
           )}
         </div>
-        <div>{!isUserLoggedIn && <SidebarLoginBtutton />}</div>
+        <div>{!USER_LOGGED_IN && <SidebarLoginBtutton />}</div>
       </div>
       <div className={styles.suggestedAccounts}>
         <SuggestionAccounts
-          isUserLoggedIn={isUserLoggedIn}
+          USER_LOGGED_IN={USER_LOGGED_IN}
           currentUserId={currentUserId}
         />
       </div>
       <div className={styles.yourTopAccounts}>
         <YourTopAccounts
-          isUserLoggedIn={isUserLoggedIn}
+          USER_LOGGED_IN={USER_LOGGED_IN}
           currentUserId={currentUserId}
         />
       </div>
