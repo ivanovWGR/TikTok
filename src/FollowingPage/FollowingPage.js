@@ -5,7 +5,7 @@ import { Layout } from "antd";
 import { DataBase } from "../firebase";
 const { Content, Sider } = Layout;
 
-export default function ShowFollowingPage({ USER_LOGGED_IN, loggedInUserId }) {
+export default function ShowFollowingPage({ USER_LOGGED_IN, currentUserId }) {
   const [currentAccount, setCurrentAccount] = useState([]);
   const [allVideos, setAllVideos] = useState([]);
   const [videos, setVideos] = useState([]);
@@ -15,7 +15,7 @@ export default function ShowFollowingPage({ USER_LOGGED_IN, loggedInUserId }) {
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          if (doc.id === loggedInUserId) {
+          if (doc.id === currentUserId) {
             let res = { ...doc.data() };
             setCurrentAccount([...res.following]);//NEED VALIDATION FOR LENGTH OR ELSE            
           }
@@ -24,7 +24,7 @@ export default function ShowFollowingPage({ USER_LOGGED_IN, loggedInUserId }) {
       .catch((error) => {
         console.log("Error getting document:", error);
       });
-  }, [loggedInUserId]);
+  }, [currentUserId]);
 
   useEffect(() => {
     const tempVideos = [];
@@ -37,7 +37,7 @@ export default function ShowFollowingPage({ USER_LOGGED_IN, loggedInUserId }) {
           chunkVideoObj.videoId = doc.id;
           if (
             currentAccount.includes(chunkVideoObj.addBy) &&
-            loggedInUserId !== chunkVideoObj.addBy
+            currentUserId !== chunkVideoObj.addBy
           ) {
             tempVideos.push(chunkVideoObj);
           }
@@ -47,7 +47,7 @@ export default function ShowFollowingPage({ USER_LOGGED_IN, loggedInUserId }) {
         setVideos(tempVideos);
         setAllVideos(videos);
       });
-  }, [loggedInUserId, currentAccount]);
+  }, [currentUserId, currentAccount]);
   if (videos.length < 1) {
     return (
       <div>
@@ -60,7 +60,7 @@ export default function ShowFollowingPage({ USER_LOGGED_IN, loggedInUserId }) {
               <div className="siderWrapper">
                 <ShowSidebar
                   isUserLoggedIn={USER_LOGGED_IN}
-                  loggedInUserId={loggedInUserId}
+                  currentUserId={currentUserId}
                 />
               </div>
             </Sider>
@@ -87,7 +87,7 @@ export default function ShowFollowingPage({ USER_LOGGED_IN, loggedInUserId }) {
               <div className="siderWrapper">
                 <ShowSidebar
                   isUserLoggedIn={USER_LOGGED_IN}
-                  loggedInUserId={loggedInUserId}
+                  currentUserId={currentUserId}
                 />
               </div>
             </Sider>
@@ -122,7 +122,7 @@ export default function ShowFollowingPage({ USER_LOGGED_IN, loggedInUserId }) {
                             photoUrl={photoUrl}
                             displayName={displayName}
                             addBy={addBy}
-                            currentUserId = {loggedInUserId}
+                            currentUserId = {currentUserId}
                           />
                         );
                       }
@@ -155,7 +155,7 @@ export default function ShowFollowingPage({ USER_LOGGED_IN, loggedInUserId }) {
                             photoUrl={photoUrl}
                             displayName={displayName}
                             addBy={addBy}
-                            currentUserId = {loggedInUserId}
+                            currentUserId = {currentUserId}
                           />
                         );
                       }

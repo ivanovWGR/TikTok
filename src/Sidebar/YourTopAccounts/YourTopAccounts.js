@@ -4,7 +4,7 @@ import SeeAllButton from "../seeAllButton/SeeAllButton";
 import SeeLessButton from "../seeLessButton/SeeLessButton";
 import UserItem from "../UserItem/UserItem";
 
-export default function YourTopAccounts({ isUserLoggedIn, loggedInUserId }) {
+export default function YourTopAccounts({ isUserLoggedIn, currentUserId }) {
   const [currentAccount, setCurrentAccount] = useState([]);
   const [yourTopAccounts, setYourTopAccounts] = useState([]);
 
@@ -13,7 +13,7 @@ export default function YourTopAccounts({ isUserLoggedIn, loggedInUserId }) {
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          if (doc.id === loggedInUserId) {
+          if (doc.id === currentUserId) {
             let res = { ...doc.data() };
             setCurrentAccount([...res.following]);
           }
@@ -22,7 +22,7 @@ export default function YourTopAccounts({ isUserLoggedIn, loggedInUserId }) {
       .catch((error) => {
         console.log("Error getting document:", error);
       });
-  }, [loggedInUserId]);
+  }, [currentUserId]);
 
   useEffect(() => {
     const topAccount = [];
@@ -41,7 +41,7 @@ export default function YourTopAccounts({ isUserLoggedIn, loggedInUserId }) {
       .catch((error) => {
         console.log("Error getting document:", error);
       });
-  }, [currentAccount, loggedInUserId]);
+  }, [currentAccount, currentUserId]);
 
   const [isShowAll, showAll] = useState(true);
   function showAllUsers() {
@@ -56,7 +56,7 @@ export default function YourTopAccounts({ isUserLoggedIn, loggedInUserId }) {
   } else {
     userOne = yourTopAccounts;
   }
-  if (!loggedInUserId || yourTopAccounts.length < 1) {
+  if (!currentUserId || yourTopAccounts.length < 1) {
     return (
       <div>
         <p>here you can see your following accounts</p>

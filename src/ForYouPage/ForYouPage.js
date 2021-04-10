@@ -5,7 +5,7 @@ import { Layout } from "antd";
 import { DataBase } from "../firebase";
 const { Content, Sider } = Layout;
 
-export default function ShowForYouPage({ USER_LOGGED_IN, loggedInUserId }) {
+export default function ShowForYouPage({ USER_LOGGED_IN, currentUserId }) {
   const [currentAccount, setCurrentAccount] = useState([]);
   const [allVideos, setAllVideos] = useState([]);
   const [videos, setVideos] = useState([]);
@@ -16,7 +16,7 @@ export default function ShowForYouPage({ USER_LOGGED_IN, loggedInUserId }) {
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          if (doc.id === loggedInUserId) {
+          if (doc.id === currentUserId) {
             let res = { ...doc.data() }
             setCurrentAccount([...res.following])
           }
@@ -25,7 +25,7 @@ export default function ShowForYouPage({ USER_LOGGED_IN, loggedInUserId }) {
       .catch((error) => {
         console.log("Error getting document:", error);
       });
-  }, [loggedInUserId]);
+  }, [currentUserId]);
 
 
 
@@ -40,7 +40,7 @@ export default function ShowForYouPage({ USER_LOGGED_IN, loggedInUserId }) {
         querySnapshot.forEach((doc) => {
           let chunkVideoObj = { ...doc.data() }
           chunkVideoObj.videoId = doc.id
-          if (!currentAccount.includes(chunkVideoObj.addBy) && loggedInUserId !== chunkVideoObj.addBy) {
+          if (!currentAccount.includes(chunkVideoObj.addBy) && currentUserId !== chunkVideoObj.addBy) {
             tempVideos.push(chunkVideoObj);
           }
           videos.push(chunkVideoObj)
@@ -49,7 +49,7 @@ export default function ShowForYouPage({ USER_LOGGED_IN, loggedInUserId }) {
         setAllVideos(videos)
       }});
       return() => mounted = false;//chnaged!!
-  }, [loggedInUserId, currentAccount]);
+  }, [currentUserId, currentAccount]);
 
 
     return (
@@ -61,7 +61,7 @@ export default function ShowForYouPage({ USER_LOGGED_IN, loggedInUserId }) {
                 className="site-layout-background siderConteiner siderPosition"
               >
                 <div className="siderWrapper">
-                  <ShowSidebar isUserLoggedIn={USER_LOGGED_IN} loggedInUserId={loggedInUserId}/>
+                  <ShowSidebar isUserLoggedIn={USER_LOGGED_IN} currentUserId={currentUserId}/>
                 </div>
               </Sider>
               <Layout style={{ padding: "0 24px 24px" }}>
@@ -78,7 +78,7 @@ export default function ShowForYouPage({ USER_LOGGED_IN, loggedInUserId }) {
                       caption={caption}
                       photoUrl= {photoUrl}
                       displayName = {displayName}
-                      currentUserId = {loggedInUserId}
+                      currentUserId = {currentUserId}
                       addBy = {addBy} />;
                   }): allVideos.map(({url, numOfLikes, numOfComments, title, caption, videoId, displayName, photoUrl, addBy }, index) => {
                     return <Card
@@ -92,7 +92,7 @@ export default function ShowForYouPage({ USER_LOGGED_IN, loggedInUserId }) {
                       caption={caption}
                       photoUrl= {photoUrl}
                       displayName = {displayName}
-                      currentUserId = {loggedInUserId}
+                      currentUserId = {currentUserId}
                       addBy = {addBy}/>;
                   })}
                 </Content>            

@@ -9,12 +9,12 @@ import { Layout } from "antd";
 
 
 const { Content, Sider } = Layout;
-const UserPage = ({ selectedUserId, isUserLoggedIn, loggedInUserId }) => {
+const UserPage = ({ selectedUserId, isUserLoggedIn, currentUserId }) => {
     const [userVideos, setUserVideos] = useState([]);
     const [likedVideos, setLikedVideos] = useState([]);
     //ASYNC
     if (!selectedUserId) {
-        selectedUserId = loggedInUserId;
+        selectedUserId = currentUserId;
     }
     useEffect(() => {
         const fetchedVideos = [];
@@ -56,12 +56,12 @@ const UserPage = ({ selectedUserId, isUserLoggedIn, loggedInUserId }) => {
                 <Layout>
                     <Sider width={250} className="site-layout-background ">
                         <div className="siderWrapper">
-                            <Sidebar isUserLoggedIn={isUserLoggedIn} loggedInUserId={loggedInUserId} />
+                            <Sidebar isUserLoggedIn={isUserLoggedIn} currentUserId={currentUserId} />
                         </div>
                     </Sider>
                     <Layout style={{ padding: "0 24px 24px" }}>
                         <Content className="site-layout-background userPageContent">
-                            <UserInfo isUserLoggedIn={isUserLoggedIn} selectedUserId={selectedUserId} currentUserId={loggedInUserId} />
+                            <UserInfo isUserLoggedIn={isUserLoggedIn} selectedUserId={selectedUserId} currentUserId={currentUserId} />
                             <UserVideoTab selectedUserId={selectedUserId} userVideos={userVideos} likedVideos={likedVideos} />
                         </Content>
                     </Layout>

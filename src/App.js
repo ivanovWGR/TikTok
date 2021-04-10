@@ -150,17 +150,17 @@ function App() {
           {USER_LOGGED_IN ? <Upload currentUserId={currentUserId} /> : <Redirect to="/" />}
         </Route>
         <Route path="/userprofile">
-          {USER_LOGGED_IN ? <UserPage loggedInUserId={currentUserId} isUserLoggedIn={USER_LOGGED_IN} /> : <Redirect to="/" />}
+          {USER_LOGGED_IN ? <UserPage currentUserId={currentUserId} isUserLoggedIn={USER_LOGGED_IN} /> : <Redirect to="/" />}
         </Route>
         <Route path="/ForYouPage">
-          <ShowForYouPage USER_LOGGED_IN={USER_LOGGED_IN} loggedInUserId={currentUserId} />
+          <ShowForYouPage USER_LOGGED_IN={USER_LOGGED_IN} currentUserId={currentUserId} />
         </Route>
         <Route path="/FollowingPage">
-          <ShowFollowingPage USER_LOGGED_IN={USER_LOGGED_IN} loggedInUserId={currentUserId} />
+          <ShowFollowingPage USER_LOGGED_IN={USER_LOGGED_IN} currentUserId={currentUserId} />
         </Route>
 
         <Route path="/user/:id">
-          <SelectedUser isUserLoggedIn={USER_LOGGED_IN} loggedInUserId={currentUserId} />
+          <SelectedUser isUserLoggedIn={USER_LOGGED_IN} currentUserId={currentUserId} />
         </Route>
         <Route exact path="/">
           <Layout className="layout">
@@ -170,7 +170,7 @@ function App() {
                 className="site-layout-background siderConteiner siderPosition"
               >
                 <div className="siderWrapper">
-                  <ShowSidebar isUserLoggedIn={USER_LOGGED_IN} loggedInUserId={currentUserId} />
+                  <ShowSidebar isUserLoggedIn={USER_LOGGED_IN} currentUserId={currentUserId} />
                 </div>
               </Sider>
               <Layout style={{ padding: "0 24px 24px" }}>

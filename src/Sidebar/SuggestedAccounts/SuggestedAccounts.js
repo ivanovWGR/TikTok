@@ -4,7 +4,7 @@ import SeeAllButton from "../seeAllButton/SeeAllButton";
 import SeeLessButton from "../seeLessButton/SeeLessButton";
 import UserItem from "../UserItem/UserItem";
 
-export default function SuggestionAccounts({ isUserLoggedIn, loggedInUserId }) {
+export default function SuggestionAccounts({ isUserLoggedIn, currentUserId }) {
   const [currentAccount, setCurrentAccount] = useState([]);
   const [suggestedAccounts, SetSuggestedAccounts] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
@@ -14,7 +14,7 @@ export default function SuggestionAccounts({ isUserLoggedIn, loggedInUserId }) {
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          if (doc.id === loggedInUserId) {
+          if (doc.id === currentUserId) {
             let res = { ...doc.data() };
             setCurrentAccount([...res.following]);
           }
@@ -23,7 +23,7 @@ export default function SuggestionAccounts({ isUserLoggedIn, loggedInUserId }) {
       .catch((error) => {
         console.log("Error getting document:", error);
       });
-  }, [loggedInUserId]);
+  }, [currentUserId]);
 
   useEffect(() => {
     const users = [];
@@ -34,7 +34,7 @@ export default function SuggestionAccounts({ isUserLoggedIn, loggedInUserId }) {
         querySnapshot.forEach((doc) => {
           let user = { ...doc.data() };
           user.id = doc.id;
-          if (!currentAccount.includes(doc.id) && doc.id !== loggedInUserId) {
+          if (!currentAccount.includes(doc.id) && doc.id !== currentUserId) {
             suggestedAcc.push(user);
           }
           users.push(user);
@@ -45,7 +45,7 @@ export default function SuggestionAccounts({ isUserLoggedIn, loggedInUserId }) {
       .catch((error) => {
         console.log("Error getting document:", error);
       });
-  }, [currentAccount, loggedInUserId]);
+  }, [currentAccount, currentUserId]);
 
   const [isShowAll, showAll] = useState(true);
   function showAllUsers() {
@@ -59,11 +59,11 @@ export default function SuggestionAccounts({ isUserLoggedIn, loggedInUserId }) {
   }
 
   if (isShowAll) {
-    loggedInUserId
+    currentUserId
       ? (userOne = suggestedAccounts.slice(0, numOfFirstUsersShow))
       : (userOne = allUsers.slice(0, numOfFirstUsersShow));
   } else {
-    loggedInUserId ? (userOne = suggestedAccounts) : (userOne = allUsers);
+    currentUserId ? (userOne = suggestedAccounts) : (userOne = allUsers);
   }
 
   return (
