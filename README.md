@@ -1,9 +1,8 @@
+## TikTok clone for IT Talents Season 12 final project
 
-##TikTok clone for IT Talents Season 12 final project
-
-##Overview
+## Overview
 - Single page application with React. Clone of the original (https://www.tiktok.com/)
-##Technologies and libraries
+## Technologies and libraries
 * ReactJS
 * React-router-dom
 * React Dropzone
