@@ -9,26 +9,31 @@ export default function YourTopAccounts({ USER_LOGGED_IN, currentUserId }) {
   const [yourTopAccounts, setYourTopAccounts] = useState([]);
 
   useEffect(() => {
+    let mounted = true;
     DataBase.collection("users")
       .get()
       .then((querySnapshot) => {
+        if(mounted){
         querySnapshot.forEach((doc) => {
           if (doc.id === currentUserId) {
             let res = { ...doc.data() };
             setCurrentAccount([...res.following]);
           }
         });
-      })
+      }})
       .catch((error) => {
         console.log("Error getting document:", error);
       });
+      return () => mounted = false;
   }, [currentUserId]);
 
   useEffect(() => {
     const topAccount = [];
+    let mounted = true;
     DataBase.collection("users")
       .get()
       .then((querySnapshot) => {
+        if(mounted){
         querySnapshot.forEach((doc) => {
           let user = { ...doc.data() };
           user.id = doc.id;
@@ -37,10 +42,11 @@ export default function YourTopAccounts({ USER_LOGGED_IN, currentUserId }) {
           }
         });
         setYourTopAccounts(topAccount);
-      })
+      }})
       .catch((error) => {
         console.log("Error getting document:", error);
       });
+      return ()=> mounted = false
   }, [currentAccount, currentUserId]);
 
   const [isShowAll, showAll] = useState(true);

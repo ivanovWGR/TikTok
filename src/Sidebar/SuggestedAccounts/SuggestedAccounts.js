@@ -10,41 +10,49 @@ export default function SuggestionAccounts({ USER_LOGGED_IN, currentUserId }) {
   const [allUsers, setAllUsers] = useState([]);
 
   useEffect(() => {
+    let mounted = true;
     DataBase.collection("users")
       .get()
       .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          if (doc.id === currentUserId) {
-            let res = { ...doc.data() };
-            setCurrentAccount([...res.following]);
-          }
-        });
+        if (mounted) {
+          querySnapshot.forEach((doc) => {
+            if (doc.id === currentUserId) {
+              let res = { ...doc.data() };
+              setCurrentAccount([...res.following]);
+            }
+          });
+        }
       })
       .catch((error) => {
         console.log("Error getting document:", error);
-      });
+      })
+    return () => mounted = false;
   }, [currentUserId]);
 
   useEffect(() => {
     const users = [];
     const suggestedAcc = [];
+    let mounted = true;
     DataBase.collection("users")
       .get()
       .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          let user = { ...doc.data() };
-          user.id = doc.id;
-          if (!currentAccount.includes(doc.id) && doc.id !== currentUserId) {
-            suggestedAcc.push(user);
-          }
-          users.push(user);
-        });
-        SetSuggestedAccounts(suggestedAcc);
-        setAllUsers(users);
+        if (mounted) {
+          querySnapshot.forEach((doc) => {
+            let user = { ...doc.data() };
+            user.id = doc.id;
+            if (!currentAccount.includes(doc.id) && doc.id !== currentUserId) {
+              suggestedAcc.push(user);
+            }
+            users.push(user);
+          });
+          SetSuggestedAccounts(suggestedAcc);
+          setAllUsers(users);
+        }
       })
       .catch((error) => {
         console.log("Error getting document:", error);
       });
+    return () => mounted = false;
   }, [currentAccount, currentUserId]);
 
   const [isShowAll, showAll] = useState(true);

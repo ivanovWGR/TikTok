@@ -109,7 +109,7 @@ function App() {
       if (input.length > 20) {
         return (openNotification('Inavalid Search value. Max 20 letters. Clear the input and try again'), arr)
       }
-      console.log(input)
+      
       return arr.filter((el) => {
         return el.caption.toLowerCase().includes(input.trim().toLowerCase())
           ||

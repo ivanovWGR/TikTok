@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { Modal } from 'antd'
-import LoginPage from "./LoginPage/LoginPage"
+import LoginPage from "../LoginPage/LoginPage"
 
 
 export default function LoginBtnsModal({isModalShown,closeModal, onCancel}) {
 
-    // const [isModalShown, showModal] = useState(false);   
+    
 
     return (
         <Modal

@@ -9,7 +9,7 @@ const { TabPane } = Tabs;
 const UserVideoTab = ({userVideos, likedVideos}) => {
 
     function callback(key) {
-        console.log(key);
+        // console.log(key);
     }
 
     return (

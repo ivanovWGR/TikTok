@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom"
 import { useEffect, useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
-import { Carousel } from 'antd';
+
 import viewPageStyles from "./ViewFullScreenVideo.module.scss"
 import { FaCommentDots, FaHeart, FaMusic, FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import { GrClose } from 'react-icons/gr'
@@ -27,14 +27,13 @@ export default function VideoFullScreen({ currentUserId, USER_LOGGED_IN }) {
     const [isLoading, setIsLoading] = useState(false);
     const history = useHistory();
     const [numOfLikes, setNumOfLikes] = useState(0)
-    // console.log(videoId)
+    
 
     useEffect(() => {
         setIsLoading(true);
 
         DataBase.collection("videos").doc(videoId).get()
-            .then((video) => {
-                // console.log(video.data())
+            .then((video) => {                
                 let src = video.data().url;
                 let temp = { ...video.data() }
                 setNumOfLikes(temp.likedBy.length)
@@ -50,8 +49,7 @@ export default function VideoFullScreen({ currentUserId, USER_LOGGED_IN }) {
 
         const fetchedComments = []
         DataBase.collection('comments').where('forVideoId', '==', videoId).get()
-            .then((querySnapshot) => {
-                console.log('querry ', querySnapshot)
+            .then((querySnapshot) => {                
                 querySnapshot.forEach((el) => {
                     fetchedComments.unshift(el.data())
                 })
@@ -66,9 +64,7 @@ export default function VideoFullScreen({ currentUserId, USER_LOGGED_IN }) {
         nextVideoIndex = 0;
         DataBase.collection('videos').where('addBy', '==', uploaderId).get()
             .then((querySnapshot) => {
-                querySnapshot.forEach((userVideo) => {
-                    // let video = { ...userVideo.data() }
-                    // video.videoId = userVideo.id
+                querySnapshot.forEach((userVideo) => {                    
                     if (userVideo.id !== videoId) {
                         allVideosOfThisUser.push(userVideo.id)
                     }
@@ -82,9 +78,10 @@ export default function VideoFullScreen({ currentUserId, USER_LOGGED_IN }) {
         return DataBase.collection('videos').doc(videoId).update({
             numOfComments: comments.length
         })
-            .then(() => {
-                // console.log('Comments length: ', comments.length)
-                // console.log("num of comments updated")
+            .then(() => {                
+            })
+            .catch((err)=>{
+                console.log(err)
             })
     }, [comments, videoId])
 

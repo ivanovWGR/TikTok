@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./FollowButton.module.scss";
 import firebase, { DataBase } from "../firebase";
-import LoginBtnsModal from '../LoginBtnsModal'
+import LoginBtnsModal from './LoginBtnsModal'
 
 
 export default function FollowButton({ addBy, USER_LOGGED_IN, currentUserId }) {

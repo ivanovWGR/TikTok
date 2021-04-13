@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import LoginPage from "../LoginPage/LoginPage"
 import styles from './Header.module.scss'
-import LoginBtnsModal from '../LoginBtnsModal'
+import LoginBtnsModal from '../Components/LoginBtnsModal'
 
 
 function HeaderRightDivUserNot() {

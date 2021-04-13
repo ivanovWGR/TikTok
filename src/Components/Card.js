@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FaCommentDots, FaShare, FaHeart, FaBuromobelexperte } from "react-icons/fa";
+import { FaCommentDots, FaShare, FaHeart} from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import FollowButton from './FollowButton'
 import { DataBase } from '../firebase'
@@ -54,8 +54,7 @@ const Card = ({ addBy, url, comments, title, caption, displayName, videoId, phot
                             .catch((err) => {
                                 console.log(err)
                             })
-                    } else {
-                        console.log('exit')
+                    } else {                        
                         let index = currentLikedByArr.indexOf(currentUserId)
                         currentLikedByArr.splice(index, 1);
 
@@ -67,10 +66,10 @@ const Card = ({ addBy, url, comments, title, caption, displayName, videoId, phot
                                 setVideoLikedByArr([...currentLikedByArr])
                                 setLikes(likes - 1)
                                 setIsVideoLiked(false)
-                                // setButtonClicked(!buttonClicked);
+                                
                             })
                             .catch((err) => {
-                                // console.log(err)
+                                console.log(err)
                             })
                     }
                 }

@@ -3,7 +3,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import firebase from '../firebase'
 import LoginHeader from "./commonComponents/LoginHeader"
 import styles from "./Login.module.css"
-import { useHistory } from 'react-router-dom'
+
 
 export default function LoginForm({ destroyModal }) {
     const close = destroyModal;
@@ -58,7 +58,7 @@ export default function LoginForm({ destroyModal }) {
                         {
                             required: true,
                             message: 'Please input your Password!',
-                            
+
                         },
                     ]}
                 >
@@ -66,14 +66,9 @@ export default function LoginForm({ destroyModal }) {
                         prefix={<LockOutlined className="site-form-item-icon" />}
                         type="password"
                         placeholder="Password"
-                        visibilityToggle= {true}
+                        visibilityToggle={true}
                     />
                 </Form.Item>
-                {/* <Form.Item>
-                    <a className={`login-form-forgot ${styles.forgotPass}`} href="">
-                        Forgot password?
-        </a>
-                </Form.Item> */}
 
                 <Form.Item>
                     <Button type="primary" htmlType="submit" className={`login-form-button ${styles.loginFormBtn}`}>

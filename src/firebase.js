@@ -12,7 +12,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const DataBase = firebase.firestore();
-git push
+
 export default firebase;
 export { DataBase };
 export const storage = firebase.storage();

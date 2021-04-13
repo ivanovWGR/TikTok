@@ -35,7 +35,7 @@ function UploadForm() {
     // take current user
 
     const currentUser = firebase.auth().currentUser.uid;
-    console.log(currentUser)
+    
     useEffect(() => {
         DataBase.collection("users")
         .get()
@@ -115,7 +115,7 @@ function UploadForm() {
                 openNotification(error)
             },
             () => {
-                console.log(user)
+                
                 uploadTask.snapshot.ref.getDownloadURL()
                
                     .then(downloadUrl => {
