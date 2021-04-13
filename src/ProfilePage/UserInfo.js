@@ -45,7 +45,7 @@ const UserInfo = ({ selectedUserId, isUserLoggedIn, currentUserId }) => {
                 <div className={styles.firstHeader}>
                     <div className={styles.numberCont}>
                         <strong>
-                            120
+                            2
                         </strong>
                         <span className={styles.spanInfo}>
                             Following
@@ -53,7 +53,7 @@ const UserInfo = ({ selectedUserId, isUserLoggedIn, currentUserId }) => {
                     </div>
                     <div className={styles.numberCont}>
                         <strong>
-                            820
+                            0
                         </strong>
                         <span className={styles.spanInfo}>
                             Followers
@@ -61,7 +61,7 @@ const UserInfo = ({ selectedUserId, isUserLoggedIn, currentUserId }) => {
                     </div>
                     <div className={styles.numberCont}>
                         <strong>
-                            200
+                            0
                             </strong>
                         <span className={styles.spanInfo}>
                             Likes

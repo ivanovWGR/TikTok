@@ -38,20 +38,20 @@ function UploadForm() {
     console.log(currentUser)
     useEffect(() => {
         DataBase.collection("users")
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            if (doc.id === currentUser) {
-              let res = doc.data()
-              setUser(res)
-              console.log("current account", res)
-            }
-          });
-        })
-        .catch((error) => {
-          console.log("Error getting document:", error);
-        });
-    },[currentUser]);
+            .get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    if (doc.id === currentUser) {
+                        let res = doc.data()
+                        setUser(res)
+                        console.log("current account", res)
+                    }
+                });
+            })
+            .catch((error) => {
+                console.log("Error getting document:", error);
+            });
+    }, [currentUser]);
 
     const openNotification = (message) => {
         const key = `open${Date.now()}`;
@@ -117,7 +117,7 @@ function UploadForm() {
             () => {
                 console.log(user)
                 uploadTask.snapshot.ref.getDownloadURL()
-               
+
                     .then(downloadUrl => {
                         setVideoUrl(downloadUrl)
                         DataBase.collection('videos').doc().set({
@@ -129,8 +129,8 @@ function UploadForm() {
                             likedBy: [],
                             numOfComments: 0,
                             numOfLikes: 0,
-                            displayName:user.displayName,
-                            photoUrl:user.photoUrl
+                            displayName: user.displayName,
+                            photoUrl: user.photoUrl
                         })
                     })
                     .then(() => {
