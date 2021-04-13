@@ -18,7 +18,9 @@ export default function ShowForYouPage({ USER_LOGGED_IN, currentUserId }) {
         querySnapshot.forEach((doc) => {
           if (doc.id === currentUserId) {
             let res = { ...doc.data() }
-            setCurrentAccount([...res.following])
+            if ([...res.following].length > 0){
+              setCurrentAccount([...res.following]);
+            }
           }
         });
       })

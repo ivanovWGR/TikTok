@@ -8,10 +8,10 @@ import SidebarFooter from "./SidebarFooter/sidebarFooter";
 import styles from "./Sidebar.module.scss";
 import SuggestionAccounts from "./SuggestedAccounts/SuggestedAccounts";
 import YourTopAccounts from "./YourTopAccounts/YourTopAccounts";
-import followUnactive from "../date/img/followUnactive.png";
-import followActive from "../date/img/followActive.png";
-import forYouActive from "../date/img/forYouActive.png";
-import forYouUnactive from "../date/img/forYouUnactive.png";
+import followUnactive from "../assets/img/followUnactive.png";
+import followActive from "../assets/img/followActive.png";
+import forYouActive from "../assets/img/forYouActive.png";
+import forYouUnactive from "../assets/img/forYouUnactive.png";
 import { useLocation } from "react-router-dom";
 
 export default function ShowSidebar({ USER_LOGGED_IN, currentUserId }) {

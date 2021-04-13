@@ -17,7 +17,9 @@ export default function ShowFollowingPage({ USER_LOGGED_IN, currentUserId }) {
         querySnapshot.forEach((doc) => {
           if (doc.id === currentUserId) {
             let res = { ...doc.data() };
-            setCurrentAccount([...res.following]);//NEED VALIDATION FOR LENGTH OR ELSE            
+            if ([...res.following].length > 0){
+              setCurrentAccount([...res.following]);
+            }
           }
         });
       })
