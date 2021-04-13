@@ -70,7 +70,6 @@ function App() {
     DataBase.collection("videos").get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         if (currentUserId) {
-          // console.log(currentAccount)
           if (currentUserId !== doc.data().addBy) {
             let video = { ...doc.data() }
             video.videoId = doc.id;
