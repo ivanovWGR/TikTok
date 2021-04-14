@@ -8,7 +8,7 @@ export default function YourTopAccounts({ USER_LOGGED_IN, currentUserId }) {
   const [currentAccount, setCurrentAccount] = useState([]);
   const [yourTopAccounts, setYourTopAccounts] = useState([]);
 
-  useEffect(() => {
+  useEffect(() => {    
     let mounted = true;
     DataBase.collection("users")
       .get()
@@ -27,7 +27,7 @@ export default function YourTopAccounts({ USER_LOGGED_IN, currentUserId }) {
       return () => mounted = false;
   }, [currentUserId]);
 
-  useEffect(() => {
+  useEffect(() => {    
     const topAccount = [];
     let mounted = true;
     DataBase.collection("users")

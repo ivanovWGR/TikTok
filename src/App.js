@@ -30,7 +30,7 @@ function App() {
     setLoadedVideosCount(loadedVideosCount + 20);
   }
 
-  useEffect(() => {
+  useEffect(() => {    
     let clear = true;
     firebase.auth().onAuthStateChanged(function (user) {
       if (clear) {

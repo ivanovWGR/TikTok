@@ -13,7 +13,7 @@ const UserInfo = ({ selectedUserId, USER_LOGGED_IN, currentUserId }) => {
     const [userObj, setUserObj] = useState({})
     const [newAvatarSrc, setNewAvatar] = useState('');
 
-    useEffect(() => {
+    useEffect(() => {        
         let user = {}
         DataBase.collection('users').doc(selectedUserId).get()
             .then((res) => {

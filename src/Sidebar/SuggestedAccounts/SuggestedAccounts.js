@@ -9,7 +9,7 @@ export default function SuggestionAccounts({ USER_LOGGED_IN, currentUserId }) {
   const [suggestedAccounts, SetSuggestedAccounts] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
 
-  useEffect(() => {
+  useEffect(() => {    
     let mounted = true;
     DataBase.collection("users")
       .get()
@@ -29,7 +29,7 @@ export default function SuggestionAccounts({ USER_LOGGED_IN, currentUserId }) {
     return () => mounted = false;
   }, [currentUserId]);
 
-  useEffect(() => {
+  useEffect(() => {    
     const users = [];
     const suggestedAcc = [];
     let mounted = true;

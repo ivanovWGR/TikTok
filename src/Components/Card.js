@@ -10,7 +10,7 @@ const Card = ({ addBy, url, comments, title, caption, displayName, videoId, phot
     const [likes, setLikes] = useState(0);
 
 
-    useEffect(() => {
+    useEffect(() => {        
         let mounted = true;
         if (!USER_LOGGED_IN && !currentUserId) {
             setIsVideoLiked(false)
@@ -31,7 +31,7 @@ const Card = ({ addBy, url, comments, title, caption, displayName, videoId, phot
 
     const addToLiked = () => {
         if (!USER_LOGGED_IN) return
-
+                
         let currentLikedByArr = [];
         DataBase.collection('videos').doc(videoId).get()
             .then((video) => {

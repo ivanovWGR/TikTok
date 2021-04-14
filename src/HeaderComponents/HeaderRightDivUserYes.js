@@ -15,7 +15,7 @@ function HeaderRightDivUserYes({ currentUserId }) {
     const [user, setUser] = useState({})
     const history = useHistory()
     // const toolTip = useRef(null)
-    useEffect(() => {
+    useEffect(() => {        
         let clear = true;
         DataBase.collection('users').doc(currentUserId).get()
         .then((res) => {
@@ -28,7 +28,7 @@ function HeaderRightDivUserYes({ currentUserId }) {
                 console.log(err)
             })
         return () => clear = false
-    }, [user, currentUserId])
+    }, [currentUserId])
     const logOut = () => {
         firebase.auth().signOut().then(() => {
             history.push('/');

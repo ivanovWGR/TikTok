@@ -12,6 +12,7 @@ export default function ShowForYouPage({ USER_LOGGED_IN, currentUserId }) {
 
 
   useEffect(() => {
+    console.log('foryou')
     DataBase.collection("users")
       .get()
       .then((querySnapshot) => {
@@ -31,7 +32,7 @@ export default function ShowForYouPage({ USER_LOGGED_IN, currentUserId }) {
 
 
 
-  useEffect(() => {
+  useEffect(() => {    
     let mounted = true;
     const tempVideos = [];
     const videos = [];

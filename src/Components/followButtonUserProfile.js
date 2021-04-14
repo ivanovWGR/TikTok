@@ -16,7 +16,7 @@ export default function FollowButtonUserProfile ({ selectedUserId, USER_LOGGED_I
         showModal(false)
     }  
 
-  useEffect(() => {
+  useEffect(() => {    
     if(currentUserId){
       DataBase.collection("users")
       .get()

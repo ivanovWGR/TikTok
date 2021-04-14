@@ -16,7 +16,7 @@ export default function FollowButton({ addBy, USER_LOGGED_IN, currentUserId }) {
     }
 
 
-    useEffect(() => {
+    useEffect(() => {        
         let mounted = true;
         if (currentUserId) {
             DataBase.collection("users")

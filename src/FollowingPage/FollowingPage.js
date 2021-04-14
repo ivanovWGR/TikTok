@@ -11,6 +11,7 @@ export default function ShowFollowingPage({ USER_LOGGED_IN, currentUserId }) {
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
+    console.log('Page')
     let mounted = true;
     DataBase.collection("users")
       .get()
@@ -33,6 +34,7 @@ export default function ShowFollowingPage({ USER_LOGGED_IN, currentUserId }) {
   }, [currentUserId]);
 
   useEffect(() => {
+    console.log('Page')
     const tempVideos = [];
     const videos = [];
     let mounted = true;
