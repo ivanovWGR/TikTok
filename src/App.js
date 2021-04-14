@@ -24,13 +24,14 @@ function App() {
   const [filteredvideos, setFilteredVideos] = useState([]);//IT IS NOT USED AT THE MOMENT?!?
   const [searchValue, setSearchValue] = useState("");
   const [currentAccount, setCurrentAccount] = useState([]);
+  const [profilePicChanged, setNewProfilePic] = useState(false)
   const history = useHistory();
 
   const onNext = () => {
     setLoadedVideosCount(loadedVideosCount + 20);
   }
 
-  useEffect(() => {    
+  useEffect(() => {
     let clear = true;
     firebase.auth().onAuthStateChanged(function (user) {
       if (clear) {
@@ -109,7 +110,7 @@ function App() {
       if (input.length > 20) {
         return (openNotification('Inavalid Search value. Max 20 letters. Clear the input and try again'), arr)
       }
-      
+
       return arr.filter((el) => {
         return el.caption.toLowerCase().includes(input.trim().toLowerCase())
           ||
@@ -137,7 +138,7 @@ function App() {
 
   return (
     <Router>
-      <HeaderComp currentUserId ={currentUserId} USER_LOGGED_IN={USER_LOGGED_IN} onTitleInputChange={(value) => setSearchValue(value)} searchValue={searchValue} />
+      <HeaderComp profilePicChanged={profilePicChanged} currentUserId={currentUserId} USER_LOGGED_IN={USER_LOGGED_IN} onTitleInputChange={(value) => setSearchValue(value)} searchValue={searchValue} />
       <Switch>
         <Route path="/viewVideo/:videoId">
           <ViewFullScreenVideo currentUserId={currentUserId} USER_LOGGED_IN={USER_LOGGED_IN} />
@@ -146,7 +147,11 @@ function App() {
           {USER_LOGGED_IN ? <Upload currentUserId={currentUserId} /> : <Redirect to="/" />}
         </Route>
         <Route path="/userprofile">
-          {USER_LOGGED_IN ? <UserPage currentUserId={currentUserId} USER_LOGGED_IN={USER_LOGGED_IN} /> : <Redirect to="/" />}
+          {USER_LOGGED_IN ? <UserPage
+            setNewProfilePic={setNewProfilePic}
+            profilePicChanged ={profilePicChanged}
+            currentUserId={currentUserId}
+            USER_LOGGED_IN={USER_LOGGED_IN} /> : <Redirect to="/" />}
         </Route>
         <Route path="/ForYouPage">
           <ShowForYouPage USER_LOGGED_IN={USER_LOGGED_IN} currentUserId={currentUserId} />

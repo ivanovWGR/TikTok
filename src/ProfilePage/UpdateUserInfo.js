@@ -1,16 +1,15 @@
-import { Form, Input, Select, Button } from 'antd'
-import Dropzone from 'react-dropzone'
-import React, { useCallback, useState } from 'react'
-import { storage, DataBase } from '../firebase'
-import { useDropzone } from 'react-dropzone'
+import { Form, Input, Select, Button } from 'antd';
+import Dropzone from 'react-dropzone';
+import React, { useCallback, useState } from 'react';
+import { storage, DataBase } from '../firebase';
+import styles from './EditProfile.module.scss';
 
 const { TextArea } = Input;
 
 
-export default function UpdateUserInfoComp({setNewAvatar, currentUserId }) {
+export default function UpdateUserInfoComp({ setNewAvatar, currentUserId }) {
     const [file, setFile] = useState(null);
-    const [inputNickname, setNickname] = useState('')
-    // const [imageUrl, setImageUrl] = useState('');
+    const [editProfile, setEditProfile] = useState(false);
 
     const onDrop = (acceptedFiles) => {
 
@@ -18,7 +17,6 @@ export default function UpdateUserInfoComp({setNewAvatar, currentUserId }) {
             alert('wrong file type or size, choose')
         } else {
             setFile(acceptedFiles[0]);
-            console.log(acceptedFiles[0])
         }
     }
     const onSubmit = (ev) => {
@@ -29,8 +27,6 @@ export default function UpdateUserInfoComp({setNewAvatar, currentUserId }) {
         uploadTask.on(
             'state_changed',
             (snapshot) => {
-                // Observe state change events such as progress, pause, and resume
-                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
                 let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                 console.log('Upload is ' + progress + '% done');
 
@@ -49,7 +45,6 @@ export default function UpdateUserInfoComp({setNewAvatar, currentUserId }) {
                                 console.log("Document successfully updated!");
                             })
                             .catch((error) => {
-                                // The document probably doesn't exist.
                                 console.error("Error updating document: ", error);
                             });
                     })
@@ -58,39 +53,52 @@ export default function UpdateUserInfoComp({setNewAvatar, currentUserId }) {
                     })
                     .catch(err => console.log(err.message));
             })
+        setEditProfile(false);
+
+    }
+
+    const showEditProfile = (ev) => {
+        ev.preventDefault();
+        setEditProfile(!editProfile)
     }
 
 
 
-
     return (
-        <form onSubmit={onSubmit}>
-            <Dropzone onDrop={onDrop}
-                accept="image/*"
-                multiple={false}
-                maxFiles={1}
-                maxSize={155000}>
+        <div>
+            {editProfile ?
+                <form onSubmit={onSubmit}>
+                    <Dropzone
+                        onDrop={onDrop}
+                        accept="image/*"
+                        multiple={false}
+                        maxFiles={1}
+                        maxSize={255000}>
 
-                {({ getRootProps, getInputProps, isDragActive, isDragReject }) => (
-                    <section>
-                        <div {...getRootProps()} style={{ border: '1px solid black' }}>
-                            <input {...getInputProps()} placeholder='picture' style={{ border: '1px solid red' }} />
-                            
-                        </div>
+                        {({ getRootProps, getInputProps, isDragActive, isDragReject }) => (
+                            <div className={styles.dropzoneProfile}>
 
-                        {isDragReject && 'elate poveche'}
-                    </section>
+                                <section>
+                                    <div {...getRootProps()} className={styles.inputContainer}>
+                                        <input {...getInputProps()} placeholder='picture' style={{ border: '1px solid red' }} className={styles.inputProfile} />
 
-                )
-                }
-            </Dropzone>
-            <input name='nickname' placeholder="You can add nickname here" value={inputNickname} onChange={(ev) => {
-                console.log(ev.target.value)
-                setNickname(ev.target.value)
-            }} />
+                                    </div>
 
-            <button type='submit' onClick={onSubmit} >Click</button>
-        </form>
+                                    {isDragReject && 'elate poveche'}
+                                </section>
+                            </div>
+
+                        )
+                        }
+                    </Dropzone>
+
+                    <button className={styles.updateBtn} type='submit' onClick={onSubmit}>Update</button>
+                </form>
+                :
+                <a href="javascript:void(0)" className={styles.showEditProfile} onClick={showEditProfile}>(change avatar)</a>
+
+            }
+        </div>
     )
 }
 

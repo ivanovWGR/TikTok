@@ -10,7 +10,7 @@ import { Tooltip } from "antd"
 import styles from './Header.module.scss'
 
 
-function HeaderRightDivUserYes({ currentUserId }) {
+function HeaderRightDivUserYes({profilePicChanged, currentUserId }) {
     const [isShown, setIsShown] = useState(false);
     const [user, setUser] = useState({})
     const history = useHistory()
@@ -28,7 +28,7 @@ function HeaderRightDivUserYes({ currentUserId }) {
                 console.log(err)
             })
         return () => clear = false
-    }, [currentUserId])
+    }, [profilePicChanged, currentUserId])
     const logOut = () => {
         firebase.auth().signOut().then(() => {
             history.push('/');

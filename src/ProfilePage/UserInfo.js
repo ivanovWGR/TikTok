@@ -9,10 +9,10 @@ import UpdateUserInfoComp from './UpdateUserInfo'
 
 
 
-const UserInfo = ({ selectedUserId, USER_LOGGED_IN, currentUserId }) => {
+const UserInfo = ({setNewProfilePic, profilePicChanged, selectedUserId, USER_LOGGED_IN, currentUserId }) => {
     const [userObj, setUserObj] = useState({})
     const [newAvatarSrc, setNewAvatar] = useState('');
-
+    
     useEffect(() => {        
         let user = {}
         DataBase.collection('users').doc(selectedUserId).get()
@@ -20,11 +20,12 @@ const UserInfo = ({ selectedUserId, USER_LOGGED_IN, currentUserId }) => {
                 user = { ...res.data() }
                 setUserObj(user)
                 setNewAvatar(user.photoUrl)                
+                setNewProfilePic(!profilePicChanged)
             })
             .catch((error) => {
                 console.log("Error getting document:", error);
             });
-    }, [selectedUserId]);
+    }, [newAvatarSrc, selectedUserId]);
 
     return (
         <div className={styles.infoWrapper}>
@@ -36,7 +37,7 @@ const UserInfo = ({ selectedUserId, USER_LOGGED_IN, currentUserId }) => {
                     <h2 className={styles.username}>{userObj.nickName}</h2>
                     <h1 className={styles.description}>{userObj.displayName}</h1>
                     <div>
-                        {currentUserId === selectedUserId ? <UpdateUserInfoComp setNewAvatar = {setNewAvatar} currentUserId = {currentUserId}/> : 
+                        {currentUserId === selectedUserId ? <UpdateUserInfoComp  setNewAvatar = {setNewAvatar} currentUserId = {currentUserId}/> : 
                         <FollowButtonUserProfile selectedUserId={selectedUserId} USER_LOGGED_IN={USER_LOGGED_IN} currentUserId={currentUserId} />}
                     </div>
                 </div>

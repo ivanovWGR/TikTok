@@ -1,0 +1,44 @@
+.inputContainer {
+    width : 200px;
+    border: none !important;
+
+    .inputProfile {
+        border  : none !important;
+        width   : 200px;
+        outline : none;        overflow: hidden;       
+        
+    }
+    
+}
+
+.showEditProfile {
+    background-color: transparent;
+    margin          : 0;
+    padding         : 0;
+    border          : 0;
+    box-sizing      : border-box;
+    text-align      : left;
+    font-size       : 11px;
+    line-height     : 14px;
+    color           : #00635d;
+    text-decoration : none;
+    margin-bottom   : 3px;
+    margin-left     : 3px;
+    position        : relative;
+    left            : -4px;
+}
+
+.updateBtn {
+    border          : 1px solid #fe2c55;
+    margin-top      : 8px;
+    border-radius   : 4px;
+    width           : 90px;
+    height          : 30px;
+    color           : #fe2c55;
+    font-weight     : 600;
+    padding         : 2px 0 3px;
+    text-align      : center;
+    font-size       : 14px;
+    background-color: white;
+    outline         : none;
+}
