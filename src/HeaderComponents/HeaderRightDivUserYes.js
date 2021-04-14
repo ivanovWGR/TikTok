@@ -28,7 +28,7 @@ function HeaderRightDivUserYes({ currentUserId }) {
                 console.log(err)
             })
         return () => !clear
-    }, [user])
+    }, [currentUserId])
     const logOut = () => {
         firebase.auth().signOut().then(() => {
             history.push('/');

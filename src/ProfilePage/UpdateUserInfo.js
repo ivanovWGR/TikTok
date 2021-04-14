@@ -1,15 +1,17 @@
-import { Form, Input, Select, Button } from 'antd'
-import Dropzone from 'react-dropzone'
-import React, { useCallback, useState } from 'react'
-import { storage, DataBase } from '../firebase'
-import { useDropzone } from 'react-dropzone'
+import { Form, Input, Select, Button } from 'antd';
+import Dropzone from 'react-dropzone';
+import React, { useCallback, useState } from 'react';
+import { storage, DataBase } from '../firebase';
+import { useDropzone } from 'react-dropzone';
+import styles from './EditProfile.module.scss';
 
 const { TextArea } = Input;
 
 
 export default function UpdateUserInfoComp({setNewAvatar, currentUserId }) {
     const [file, setFile] = useState(null);
-    const [inputNickname, setNickname] = useState('')
+    const [inputNickname, setNickname] = useState('');
+    const [editProfile,setEditProfile] = useState(false);
     // const [imageUrl, setImageUrl] = useState('');
 
     const onDrop = (acceptedFiles) => {
@@ -58,39 +60,52 @@ export default function UpdateUserInfoComp({setNewAvatar, currentUserId }) {
                     })
                     .catch(err => console.log(err.message));
             })
+            setEditProfile(false);
+
+    }
+      
+    const showEditProfile = (ev) => {
+          ev.preventDefault();
+          setEditProfile(!editProfile)
     }
 
 
 
-
     return (
-        <form onSubmit={onSubmit}>
-            <Dropzone onDrop={onDrop}
-                accept="image/*"
-                multiple={false}
-                maxFiles={1}
-                maxSize={155000}>
+        <div>
+            {editProfile?
+             <form onSubmit={onSubmit}>
+             <Dropzone 
+                 onDrop={onDrop}
+                 accept="image/*"
+                 multiple={false}
+                 maxFiles={1}
+                 maxSize={255000}>
+ 
+                 {({ getRootProps, getInputProps, isDragActive, isDragReject }) => (
+                     <div className={styles.dropzoneProfile}>
+ 
+                     <section>
+                         <div {...getRootProps()}  className={styles.inputContainer}>
+                             <input {...getInputProps()} placeholder='picture' style={{ border: '1px solid red' }} className={styles.inputProfile} />
+                             
+                         </div>
+ 
+                         {isDragReject && 'elate poveche'}
+                     </section>
+                     </div>
+ 
+                 )
+                 }
+             </Dropzone>
 
-                {({ getRootProps, getInputProps, isDragActive, isDragReject }) => (
-                    <section>
-                        <div {...getRootProps()} style={{ border: '1px solid black' }}>
-                            <input {...getInputProps()} placeholder='picture' style={{ border: '1px solid red' }} />
-                            
-                        </div>
+             <button type='submit' onClick={onSubmit}>Update</button>
+         </form> 
+         :
+         <a className={styles.showEditProfile} onClick={showEditProfile}>(change avatar)</a>
 
-                        {isDragReject && 'elate poveche'}
-                    </section>
-
-                )
-                }
-            </Dropzone>
-            <input name='nickname' placeholder="You can add nickname here" value={inputNickname} onChange={(ev) => {
-                console.log(ev.target.value)
-                setNickname(ev.target.value)
-            }} />
-
-            <button type='submit' onClick={onSubmit} >Click</button>
-        </form>
+            }  
+        </div>
     )
 }
 
